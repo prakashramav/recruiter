@@ -1,4 +1,5 @@
 const { stat } = require("fs");
+require("dotenv").config();
 const Applicant = require("../models/applicantModel");
 const Application = require('../models/applicationModel');
 const Job = require("../models/jobsModel");
@@ -37,7 +38,7 @@ const applicantLogin = async (req, res) => {
         if (!isMatch) {
             return res.status(400).json({ msg: "Invalid credentials" });
         }
-        const token = jwt.sign({ id: applicant._id }, process.env.JWT_SECRET, {
+        const token = jwt.sign({ id: applicant._id }, process.env.Applicant_JWT_Secret, {
             expiresIn: "1d"
         });
         res.status(200).json({ token });

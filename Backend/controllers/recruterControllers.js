@@ -1,4 +1,5 @@
 const Recruiter = require("../models/recruiterModel");
+require("dotenv").config();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
@@ -47,7 +48,7 @@ const recruiterLogin = async (req, res) => {
         if(!isMatch){
             return res.status(400).json({ msg: "Password Not Valid" });
         }
-        const token = jwt.sign({ id: recruiter._id }, process.env.JWT_SECRET, {
+        const token = jwt.sign({ id: recruiter._id }, process.env.Recruiter_JWT_Secret, {
             expiresIn: "1d"
         });
         res.status(200).json({ token });

@@ -7,6 +7,8 @@ const Interview = require('../models/interviewModel');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
+require('dotenv').config();
+
 // -------------------- Auth --------------------
 
 // Register Admin
@@ -43,7 +45,7 @@ const loginAdmin = async (req, res) => {
     const isMatch = await bcrypt.compare(password, admin.password);
     if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
 
-    const token = jwt.sign({ id: admin._id, role: 'admin', email: admin.email }, process.env.JWT_SECRET, { expiresIn: '1d' });
+    const token = jwt.sign({ id: admin._id, role: 'admin', email: admin.email }, process.env.Admin_JWT_Secret, { expiresIn: '1d' });
 
     res.json({ message: 'Login successful', token });
   } catch (err) {
