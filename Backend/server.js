@@ -25,6 +25,9 @@ app.use('/api/recruiters', recruiterRoutes);
 app.use('/api/ats', atsRouter);
 app.use('/api/interviews', interviewRoutes);
 
+app.get('/', (req, res) => {
+  res.send('Recruitment Backend is running');
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
