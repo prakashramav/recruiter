@@ -48,9 +48,22 @@
 
 /* Mobile Responsive */
 @media (max-width: 600px) {
-
+  .login-type-container {
+    margin-top: 100px;
+    gap: 15px;
+  }
+  .indise-login-type-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 400px;
+    margin-top: 0px;
+  }
   .role-btn {
-    width: 90%;        
-    height: 120px;
+    width: 200px;        
+    height: 130px;
+    flex-shrink: 0;
   }
 }
