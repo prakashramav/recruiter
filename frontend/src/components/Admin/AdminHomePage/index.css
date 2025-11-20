@@ -1,0 +1,22 @@
+.admin-home-page-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.admin-role-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.adm-role-btn{         
+    height: 45px;
+    width: 82px;
+    border-radius: 5px;
+    background-color: lightblue;
+    border-width: 0px;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 10px;
+    cursor: pointer;
+}

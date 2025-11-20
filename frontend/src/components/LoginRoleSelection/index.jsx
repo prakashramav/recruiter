@@ -10,19 +10,19 @@ const LoginRoleSelection = () => {
       <h1 className="role-title">Select Login Type</h1>
       <div className="indise-login-type-container">
         <div>
-          <button onClick={() => navigate("/login/recruiter")} className="role-btn">
+          <button onClick={() => navigate("/recruiter")} className="role-btn">
             Recruiter
           </button>
         </div>
 
         <div>
-          <button className="role-btn" onClick={() => navigate("/login/applicant")}>
+          <button className="role-btn" onClick={() => navigate("/applicant")}>
             Applicant
           </button>
         </div>
 
         <div>
-          <button className="role-btn" onClick={() => navigate("/login/admin")}>
+          <button className="role-btn" onClick={() => navigate("/admin")}>
             Admin
           </button>
         </div>
