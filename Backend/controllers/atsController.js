@@ -8,10 +8,10 @@ const openai = new OpenAI({ apiKey: process.env.OPENAI_KEY });
 
 const uploadResumeAndScore = async (req, res) => {
   try {
-    const userId = req.user.id;       // from JWT middleware
-    const filePath = req.file.path;   // PDF file path
+    const userId = req.user.id;       
+    const filePath = req.file.path;   
 
-    // STEP 1: Extract PDF text
+    
     const pdfData = await pdfParse(fs.readFileSync(filePath));
     const resumeText = pdfData.text;
 

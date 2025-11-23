@@ -13,6 +13,11 @@ import RecruiterSignupPage from './components/Recruiter/RecruiterSignupPage'
 import AdminHomePage from './components/Admin/AdminHomePage';
 import ApplicantHomePage from './components/Applicant/ApplicantHomePage';
 import RecruiterHomePage from './components/Recruiter/RecruiterHomePage';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js'; 
+
+
 const App = () => {
   return (
     <>
