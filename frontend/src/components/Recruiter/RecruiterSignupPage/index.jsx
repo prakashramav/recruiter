@@ -25,7 +25,7 @@ const RecruiterSignupPage = () => {
 
   const jwtToken = Cookies.get("recruiter_jwt_token");
   if(jwtToken) {
-    return <Navigate to='/recruiter/' replace/>
+    return <Navigate to='/recruiter' replace/>
   }
 
   const onSuccessFullRegister = () => {

@@ -22,7 +22,7 @@ const RecruiterLoginPage = () => {
   }
   const onSuccesLogin = (jwtToken) => {
     Cookies.set("recruiter_jwt_token", jwtToken, {expires: 3})
-    navigate('/recruiter/', {replace:true});
+    navigate('/recruiter', {replace:true});
     setLoading(false);
   }
 
