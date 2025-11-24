@@ -1,9 +1,16 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate , Navigate} from "react-router-dom";
+import Cookies from 'js-cookie'
 import "./index.css";
 
 
 const RecruiterHomePage = () => {
     const navigate = useNavigate();
+    
+    const jwtToken = Cookies.get("recruiter_jwt_token");
+      if(!jwtToken) {
+        return <Navigate to='/recruiter/login' replace/>
+      }
+
     return (
         <div className="recruiter-home-container">
             <h1>Welcome to Recruiter Home Page</h1>
