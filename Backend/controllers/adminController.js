@@ -9,7 +9,7 @@ const jwt = require('jsonwebtoken');
 
 require('dotenv').config();
 
-// -------------------- Auth --------------------
+
 
 // Register Admin
 const registerAdmin = async (req, res) => {
@@ -24,8 +24,8 @@ const registerAdmin = async (req, res) => {
     const admin = new Admin({ name, email, password: hashed });
     await admin.save();
 
-    const result = admin.toObject();
-    delete result.password;
+    // const result = admin.toObject();
+    // delete result.password;
 
     res.status(201).json({ message: 'Admin registered', admin: result });
   } catch (err) {

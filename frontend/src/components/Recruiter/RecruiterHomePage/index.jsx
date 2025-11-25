@@ -11,12 +11,18 @@ const RecruiterHomePage = () => {
         return <Navigate to='/recruiter/login' replace/>
       }
 
+      const recruiterLogout = () => {
+        Cookies.remove("recruiter_jwt_token")
+        navigate('/recruiter/login')
+      }
+
     return (
         <div className="recruiter-home-container">
             <h1>Welcome to Recruiter Home Page</h1>
             <div className="recruiter-role-btn">
                 <button onClick={() => {navigate('/recruiter/signup')}} className="rec-role-btn">Signup</button>
                 <button onClick={() => {navigate('/recruiter/login')}} className="rec-role-btn">Login</button>
+                <button onClick={recruiterLogout} className="rec-role-btn">Logout</button>
             </div>
         </div>
     )
