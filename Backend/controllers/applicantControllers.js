@@ -23,7 +23,7 @@ const applicantRegister = async (req, res) => {
         res.status(201).json({ msg: "Applicant registered successfully" });
     } catch (err) {
         console.error(err);
-        res.status(500).json({ msg: "Server error" });
+        res.status(500).json({ msg: err.message });
     }
 };
 
