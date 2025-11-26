@@ -19,19 +19,19 @@ const AdminLoginPage = () => {
     return <Navigate to="/admin" />
   }
 
-  const onAdminSignupSuccess = (jwtToken) => {
+  const onAdminLoginSuccess = (jwtToken) => {
     Cookies.set("recruiter_admin_jwtToken", jwtToken, {expires : 3})
     navigate('/admin')
     setIsLoading(false);
   }
 
-  const onAdminSignupFailure = (data_msg) => {
+  const onAdminLoginFailure = (data_msg) => {
     setDataMsg(data_msg);
     setDataError(true);
     setIsLoading(false)
   }
 
-  const onSubmitAdminSignUp = async (e) => {
+  const onSubmitAdminLogin = async (e) => {
     e.preventDefault();
     setIsLoading(true);
 
@@ -46,7 +46,7 @@ const AdminLoginPage = () => {
     if(email === "" || password === ""){
       return;
     }
-    const userDetails = {name, email, password};
+    const userDetails = {email, password};
     const url = "https://recruiter-7jmo.onrender.com/api/admins/login"
     const option = {
       method : "POST",
@@ -60,15 +60,15 @@ const AdminLoginPage = () => {
     const data = await response.json();
     console.log(data);
     if(response.ok === true){
-      onAdminSignupSuccess(data.token);
+      onAdminLoginSuccess(data.token);
     }
     else{
-      onAdminSignupFailure(data.message);
+      onAdminLoginFailure(data.message);
     }
   }
 
   return (
-    <form className='admin-singup-page-container' onSubmit={onSubmitAdminSignUp}>
+    <form className='admin-singup-page-container' onSubmit={onSubmitAdminLogin}>
       <div className='admin-mini-signup-page-container'>
         <h1>Admin Login Page</h1>
         <div className='input-handler-container'>

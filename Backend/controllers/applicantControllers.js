@@ -14,7 +14,7 @@ const applicantRegister = async (req, res) => {
             return res.status(400).json({ msg: "Applicant already exists" });
         }
         const hashedPassword = await bcrypt.hash(password, 10);
-        const newApplicant = await Applicant.create({
+        const newApplicant = await Applicant({
             name,
             email,
             password: hashedPassword
