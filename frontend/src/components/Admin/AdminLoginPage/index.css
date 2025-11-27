@@ -5,4 +5,78 @@
     justify-content: center;
     height: 100vh;
     background-color: #f5f5f5;
+    
+}
+
+.input-handler-container{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+.admin-mini-signup-page-container{
+    border: 2px solid #000;
+    padding: 55px;
+    border-radius: 10px;
+    height: auto;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.admin-signup-button{
+    margin-top: 10px;
+    padding: 4px;
+    background-color: #00ffc8;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    height: 40px;
+    height: 40px;
+    width: 100%;
+}
+
+button:hover{
+    background-color: #00ffcc;
+
+}
+
+.input-field{
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.label{
+    font-weight: 400;
+}
+.error-message{
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.button-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.admin-sign-link-to-login{
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+}
+.admin-signup-page-button-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.data-error-msg{
+    text-align: center;
 }
