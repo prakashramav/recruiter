@@ -72,7 +72,7 @@ const RecruiterLoginPage = () => {
       onSuccesLogin(data.token);
       console.log(data.token);
     }else{
-      onFailureOfLogin(data.message);
+      onFailureOfLogin(data.msg);
     }
 
   }
@@ -96,9 +96,6 @@ const RecruiterLoginPage = () => {
           </div>
           <div className='error-message-container'>
             {data && <span className='error-message'>{errorMsg}</span>}
-          </div>
-          <div >
-            {data && <p className='error-message'>{errorMsg}</p>}
           </div>
           <div className='signup-link-container'>
             <p>I don't have an Account? <Link to="/recruiter/signup">singup</Link></p>
