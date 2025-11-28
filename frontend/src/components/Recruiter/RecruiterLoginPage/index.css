@@ -71,3 +71,6 @@ button:hover{
     margin-top: 15px;
     font-size: 14px;
 }
+.error-message-container{
+    text-align: center;
+}
