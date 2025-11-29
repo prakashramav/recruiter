@@ -70,7 +70,7 @@ const ApplicantLoginPage = () => {
   return (
     <form className='applicant-login-page-container' onSubmit={onSubmitApplicantSignUp}>
       <div className='applicant-mini-login-page-container'>
-        <h1>Applicant  Login Page</h1>
+        <h1 className='applicant-login-heading'>Applicant  Login Page</h1>
         <div className='input-handler-container'>
           <label htmlFor='email'>Email</label>
           <input className='input-field' placeholder='Enter Your Email' id='email' type='email' onChange={(e) => {setMail(e.target.value),setMailError(false)}}/>
@@ -88,7 +88,7 @@ const ApplicantLoginPage = () => {
           {dataError && <p className='error-message'>{dataMsg}</p>}
         </div>
         <div className='applicant-login-link-to-login'>
-          <p>Don't have an Account? <Link to="/applicant/signup">signup</Link></p>
+          <p>Don't have an Account? <Link to="/applicant/signup">Signup</Link></p>
         </div>
       </div>
     </form>

@@ -1,4 +1,4 @@
-import {Route, Routes } from 'react-router-dom';
+import {Route, Routes, Navigate } from 'react-router-dom';
 import React, {Suspense, lazy} from 'react';
 
 // import LoginRoleSelection from './components/LoginRoleSelection';
@@ -16,6 +16,7 @@ const RecruiterSignupPage = lazy(() => import('./components/Recruiter/RecruiterS
 const AdminHomePage = lazy(() => import ('./components/Admin/AdminHomePage'));
 const ApplicantHomePage = lazy(() => import ('./components/Applicant/ApplicantHomePage'));
 const RecruiterHomePage = lazy(() => import ('./components/Recruiter/RecruiterHomePage'));
+const NotFound = lazy(() => import ('./components/NotFound/Index'));
 
 import { ThreeDots } from 'react-loader-spinner';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -47,6 +48,10 @@ const App = () => {
             <Route path="/admin" element={<AdminHomePage/>} />
             <Route path='/admin/login' element={<AdminLoginPage/>} />
             <Route path='/admin/signup' element={<AdminSignupPage/>} />
+
+            <Route path="/notfound" element={<NotFound /> } />
+
+            <Route path="*" element={<Navigate to="/notfound" replace />} />
 
         </Routes>
       </Suspense>

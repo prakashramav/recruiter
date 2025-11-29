@@ -3,11 +3,12 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: #F0F2F5;
     height: 100vh;
 }
 
 .admin-mini-signup-page-container{
-    border: 2px solid #000;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
     padding: 55px;
     border-radius: 10px;
     height: auto;
@@ -90,4 +91,14 @@
 
 .data-error-msg{
     text-align: center;
+}
+
+@media (max-width: 600px){
+    .admin-mini-signup-page-container{
+        width: 90%;
+        padding: 20px;
+    }
+    .admin-signup-heading{
+        text-align: center;
+    }
 }

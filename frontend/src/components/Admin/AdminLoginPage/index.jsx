@@ -70,7 +70,7 @@ const AdminLoginPage = () => {
   return (
     <form className='admin-login-page-container' onSubmit={onSubmitAdminLogin}>
       <div className='admin-mini-signup-page-container'>
-        <h1>Admin Login Page</h1>
+        <h1 className='admin-login-heading'>Admin Login Page</h1>
         <div className='input-handler-container'>
           <label htmlFor='email' className='label'>Email</label>
           <input className='input-field' placeholder='Enter Your Email' id='email' type='email' onChange={(e) => {setMail(e.target.value),setMailError(false)}}/>
@@ -88,7 +88,7 @@ const AdminLoginPage = () => {
           {dataError && <p className='error-message'>{dataMsg}</p>}
         </div>
         <div className='admin-sign-link-to-login'>
-          <p>Don't have an Account? <Link to="/admin/signup">signup</Link></p>
+          <p>Don't have an Account? <Link to="/admin/signup">Signup</Link></p>
         </div>
       </div>
     </form>

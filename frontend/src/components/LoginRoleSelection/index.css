@@ -3,10 +3,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 180px;
-  gap: 20px;
+  /* background-color: #F0F2F5; */
+  background-color: #F7F7F7;
+  height: 100vh;
 }
-
 
 .indise-login-type-container {
   display: flex;
@@ -49,8 +49,8 @@
 /* Mobile Responsive */
 @media (max-width: 600px) {
   .login-type-container {
-    margin-top: 100px;
-    gap: 15px;
+    display: flex;
+    flex-direction: column;
   }
   .indise-login-type-container{
     display: flex;
