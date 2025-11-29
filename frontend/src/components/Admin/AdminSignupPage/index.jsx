@@ -75,7 +75,7 @@ const AdminSignupPage = () => {
   return (
     <form className='admin-singup-page-container' onSubmit={onSubmitAdminSignUp}>
       <div className='admin-mini-signup-page-container'>
-        <h1>Admin Signup Page</h1>
+        <h1 className='admin-signup-heading'>Admin Signup Page</h1>
         <div className='input-handler-container'>
           <label htmlFor='name' className='label'>Name</label>
           <input className='input-field' placeholder='Enter Your Name' id='name' type='text' onChange={(e) => {setName(e.target.value),setNameError(false)}}/>
@@ -92,7 +92,7 @@ const AdminSignupPage = () => {
           {passwordError && <span className='admin-error-msg'>*Required Field</span>}
         </div>
         <div className='admin-signup-page-button-container'>
-          {isLoading ? (<ThreeDots height={60} width={60} ariaLabel="tail-spin-loading" radius="1" visible={true}/>):(<button className='admin-signup-button' type='submit'>signup</button>)}
+          {isLoading ? (<ThreeDots height={60} width={60} ariaLabel="tail-spin-loading" radius="1" visible={true}/>):(<button className='admin-signup-button' type='submit'>Signup</button>)}
         </div>
         <div className='data-error-msg'>
           {dataError && <p className='error-msg'>{dataMsg}</p>}
