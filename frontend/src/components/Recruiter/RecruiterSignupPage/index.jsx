@@ -95,7 +95,7 @@ const RecruiterSignupPage = () => {
   return (
     <form className='recruiter-singup-container' onSubmit={onSubmitSignup}>
       <div className='recruiter-signup-mini-container'>
-        <h1>Recruiter Signup Page</h1>
+        <h1 className='recruiter-login-heading'>Recruiter Signup Page</h1>
         <div className='input-handler-container'>
           <label htmlFor='name'>Name</label>
           <input type='text' placeholder='Enter Your Name' id='name' className='input-field' onChange={(e) => {setName(e.target.value),setNameError(false)}}/>
