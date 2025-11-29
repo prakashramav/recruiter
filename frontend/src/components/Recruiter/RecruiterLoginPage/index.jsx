@@ -80,7 +80,7 @@ const RecruiterLoginPage = () => {
   return (
     <form className='recruiter-login-page-container' onSubmit={loginPageSubmit}>
         <div className='recruiter-mini-container'>
-            <h1>Recruiter Login Page</h1>
+            <h1 className='recruiter-login-heading'>Recruiter Login Page</h1>
           <div className='input-handler-container'>
             <label htmlFor="email" className='label'>Email</label>
             <input type="email" placeholder='Enter your Email' id='email' className='input-field' onChange={(e)=>{setEmail(e.target.value),setEmailError(false)}}/>
