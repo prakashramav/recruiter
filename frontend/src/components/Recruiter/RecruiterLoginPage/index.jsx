@@ -16,12 +16,12 @@ const RecruiterLoginPage = () => {
 
   const navigate = useNavigate();
 
-  const jwtToken = Cookies.get("recruiter_jwt_token");
+  const jwtToken = Cookies.get("talintify_recruiter_jwt_token");
   if(jwtToken) {
     return <Navigate to='/recruiter' replace/>
   }
   const onSuccesLogin = (jwtToken) => {
-    Cookies.set("recruiter_jwt_token", jwtToken, {expires: 3})
+    Cookies.set("talintify_recruiter_jwt_token", jwtToken, {expires: 3})
     navigate('/recruiter', {replace:true});
     setLoading(false);
   }

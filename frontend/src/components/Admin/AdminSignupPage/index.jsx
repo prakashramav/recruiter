@@ -17,7 +17,7 @@ const AdminSignupPage = () => {
   const [dataError, setDataError] = useState(false);
   const navigate = useNavigate()
 
-  const jwtToken = Cookies.get("recruiter_admin_jwtToken")
+  const jwtToken = Cookies.get("talentify_admin_jwtToken")
   if(jwtToken){
     return <Navigate to="/admin" />
   }

@@ -1,0 +1,39 @@
+.recruiter-header-page-container{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background-color: #b6b6b6;
+    color: white;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+.recruiter-navbar-heading-container{
+    cursor: pointer;
+}
+.recruiter-header-heading{
+    font-size: 28px;
+    font-weight: bold;
+    color: tomato;
+}
+
+.recruiter-header-page-progile-logout-container{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.recruiter-profile-icon-container{
+    cursor: pointer;
+}
+.recruiter-logout-btn{
+    padding: 6px;
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: 400;
+    cursor: pointer;
+}

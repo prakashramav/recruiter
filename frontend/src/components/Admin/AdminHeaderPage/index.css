@@ -1,0 +1,41 @@
+.admin-navbar-page-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background-color: #b6b6b6;
+    color: white;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.admin-navbar-page-heading{
+    font-size: 28px;
+    font-weight: bold;
+    color: tomato;
+}
+.admin-navbar-heading-container{
+    cursor: pointer;
+}
+.admin-profile-icon-container{
+    cursor: pointer;
+}
+
+.admin-logout-btn{
+    margin-left: 10px;
+    padding: 6px;
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: 400;
+    cursor: pointer;
+}
+.profile-logout-container{
+    display: flex;
+    align-items: center;
+}

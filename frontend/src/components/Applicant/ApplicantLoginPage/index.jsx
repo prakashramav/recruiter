@@ -14,13 +14,13 @@ const ApplicantLoginPage = () => {
   const [dataError, setDataError] = useState(false);
   const navigate = useNavigate()
 
-  const jwtToken = Cookies.get("recruiter_applicant_jwtToken")
+  const jwtToken = Cookies.get("talentify_applicant_jwtToken")
   if(jwtToken){
     return <Navigate to="/applicant" />
   }
 
   const onApplicantLoginSuccess = (jwtToken) => {
-    Cookies.set("recruiter_applicant_jwtToken", jwtToken, {expires : 3})
+    Cookies.set("talentify_applicant_jwtToken", jwtToken, {expires : 3})
     navigate('/applicant')
     setIsLoading(false);
   }

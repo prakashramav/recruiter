@@ -14,13 +14,13 @@ const AdminLoginPage = () => {
   const [dataError, setDataError] = useState(false);
   const navigate = useNavigate()
 
-  const jwtToken = Cookies.get("recruiter_admin_jwtToken")
+  const jwtToken = Cookies.get("talentify_admin_jwtToken")
   if(jwtToken){
     return <Navigate to="/admin" />
   }
 
   const onAdminLoginSuccess = (jwtToken) => {
-    Cookies.set("recruiter_admin_jwtToken", jwtToken, {expires : 3})
+    Cookies.set("talentify_admin_jwtToken", jwtToken, {expires : 3})
     navigate('/admin')
     setIsLoading(false);
   }

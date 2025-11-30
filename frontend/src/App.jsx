@@ -18,6 +18,14 @@ const ApplicantHomePage = lazy(() => import ('./components/Applicant/ApplicantHo
 const RecruiterHomePage = lazy(() => import ('./components/Recruiter/RecruiterHomePage'));
 const NotFound = lazy(() => import ('./components/NotFound/Index'));
 
+const AdminProtectedRoute = lazy(() => import ('./components/Admin/AdminProtectedRoute'));
+const ApplicantProtectedRoute = lazy(() => import ('./components/Applicant/ApplicantProtectedRoute'));
+const RecruiterProtectedRoute = lazy(() => import ('./components/Recruiter/RecruiterProtectedRoute'));
+
+const AdminProfilePage = lazy(() => import ('./components/Admin/AdminProfilePage'));
+const ApplicantProfilePage = lazy(() => import ('./components/Applicant/ApplicantProfilePage'));
+const RecruiterProfilePage = lazy(() => import ('./components/Recruiter/RecruiterProfilePage'));
+
 import { ThreeDots } from 'react-loader-spinner';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'; 
@@ -33,21 +41,23 @@ const App = () => {
 
 
           {/*Recruiter Routes*/}
-            <Route path="/recruiter" element={<RecruiterHomePage/>} />
             <Route path='/recruiter/login' element={<RecruiterLoginPage/>} />
             <Route path='/recruiter/signup' element={<RecruiterSignupPage/>} />
-
+            <Route path="/recruiter" element={<RecruiterProtectedRoute><RecruiterHomePage/> </RecruiterProtectedRoute> } />
+            <Route path="/recruiter/profile" element={ <RecruiterProtectedRoute> <RecruiterProfilePage/> </RecruiterProtectedRoute>} />
 
           {/*Applicant Routes*/}
-            <Route path="/applicant" element={<ApplicantHomePage/>} />
+            
             <Route path='/applicant/login' element={<ApplicantLoginPage/>} />
             <Route path='/applicant/signup' element={<ApplicantSignupPage/>} />
-
+            <Route path="/applicant" element={ <ApplicantProtectedRoute> <ApplicantHomePage/> </ApplicantProtectedRoute>} />
+            <Route path="/applicant/profile" element={ <ApplicantProtectedRoute> <ApplicantProfilePage/> </ApplicantProtectedRoute>} />
 
           {/*Admin Routes*/}
-            <Route path="/admin" element={<AdminHomePage/>} />
             <Route path='/admin/login' element={<AdminLoginPage/>} />
             <Route path='/admin/signup' element={<AdminSignupPage/>} />
+            <Route path="/admin" element={ <AdminProtectedRoute> <AdminHomePage/> </AdminProtectedRoute>} />
+            <Route path="/admin/profile" element={ <AdminProtectedRoute> <AdminProfilePage/> </AdminProtectedRoute>} />
 
             <Route path="/notfound" element={<NotFound /> } />
 

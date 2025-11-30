@@ -16,7 +16,7 @@ const ApplicantSignupPage = () => {
   const [dataError, setDataError] = useState(false);
   const navigate = useNavigate()
 
-  const jwtToken = Cookies.get("recruiter_applicant_jwtToken")
+  const jwtToken = Cookies.get("talentify_applicant_jwtToken")
   if(jwtToken){
     return <Navigate to="/applicant" />
   }
