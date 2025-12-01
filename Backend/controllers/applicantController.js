@@ -23,7 +23,13 @@ exports.applicantRegister = async (req, res) => {
     const applicant = new Applicant({ name, email, password: hashed });
     await applicant.save();
 
-    res.status(201).json({ msg: "Applicant registered successfully" });
+    const token = jwt.sign(
+      { id: admin._id, role: "applicant" }, // payload
+      process.env.JWT_SECRET,          // secret
+      { expiresIn: "7d" }              // token expiry
+    );
+
+    res.status(201).json({ msg: "Applicant registered successfully",result: applicant, token: token });
   } catch (err) {
     res.status(500).json({ msg: err.message });
   }

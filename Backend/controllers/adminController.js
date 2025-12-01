@@ -27,7 +27,14 @@ exports.registerAdmin = async (req, res) => {
     const result = admin.toObject();
     delete result.password;
 
-    res.status(201).json({ message: "Admin registered", admin: result });
+    const token = jwt.sign(
+
+      { id: admin._id, role: "admin" }, // payload
+      process.env.JWT_SECRET,          // secret
+      { expiresIn: "7d" }              // token expiry
+    );
+
+    res.status(201).json({ message: "Admin registered", admin: result, token: token });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

@@ -31,7 +31,13 @@ exports.recruiterRegister = async (req, res) => {
     const result = recruiter.toObject();
     delete result.password;
 
-    res.status(201).json({ message: "Recruiter registered", recruiter: result });
+    const token = jwt.sign(
+      { id: admin._id, role: "recruiter" }, // payload
+      process.env.JWT_SECRET,           // secret
+      { expiresIn: "7d" }              // token expiry
+    );
+
+    res.status(201).json({ message: "Recruiter registered", recruiter: result, token: token});
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
