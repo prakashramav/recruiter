@@ -31,11 +31,11 @@ router.get("/profile", auth, requireRole("recruiter"), getMyProfile);
 
 router.post("/jobs", auth, requireRole("recruiter"), createJob);
 router.get("/jobs", auth, requireRole("recruiter"), listMyJobs);
-router.get("/jobs/:jobId", auth, requireRole("recruiter"), getJobById);
 router.put("/jobs/:jobId", auth, requireRole("recruiter"), updateJob);
 router.delete("/jobs/:jobId", auth, requireRole("recruiter"), deleteJob);
 
 router.get("/jobs/:jobId/applicants", auth, requireRole("recruiter"), getApplicantsForJob);
+router.get("/jobs/:jobId", auth, requireRole("recruiter"), getJobById);
 router.put("/applications/:applicationId/status", auth, requireRole("recruiter"), updateApplicationStatus);
 
 module.exports = router;

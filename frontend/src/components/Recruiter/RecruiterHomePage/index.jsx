@@ -62,7 +62,7 @@ const RecruiterHomePage = () => {
                 ) : (jobs && jobs.length > 0 ? (
                   <ul className="recruiter-jobs-list">
                     {jobs.map((job) => (
-                      <li key={job._id} className="recruiter-job-item">
+                      <li key={job._id} className="recruiter-job-item" onClick={() => navigate(`/recruiter/jobs/${job._id}`)}>
                         <div className="job-list-page-container">
                           <h3 className="job-title">{job.title}</h3>
                           <BsThreeDotsVertical />
