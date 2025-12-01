@@ -57,17 +57,14 @@ const RecruiterCreateJobPage = () => {
 
     try {
       const token = Cookies.get("talintify_recruiter_jwt_token");
-
+      console.log("Token:", token);
       const body = {
         title: formData.title,
         company: formData.company,
         location: formData.location,
         jobType: formData.jobType,
         category: formData.category,
-        salaryRange: {
-          min: Number(formData.minSalary),
-          max: Number(formData.maxSalary),
-        },
+        salaryRange: formData.stipend,
         experienceRequired: Number(formData.experienceRequired),
         skillsRequired: formData.skillsRequired.split(",").map((s) => s.trim()),
         description: formData.description,

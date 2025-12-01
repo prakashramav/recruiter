@@ -4,7 +4,7 @@ const createJob = async (req, res) => {
     try{
         const recruiterId = req.user.id;
         const {title, company, location, jobType, category, stipend, experienceRequired, skillsRequired, description} = req.body;
-        if(!title || !company || !experienceRequired || !skillsRequired || !description || !category || !jobType || !location || !salaryRange){
+        if(!title || !company || !experienceRequired || !skillsRequired || !description || !category || !jobType || !location || !stipend){
             return res.status(400).json({ message: 'Please provide all required fields' });
         }
 
