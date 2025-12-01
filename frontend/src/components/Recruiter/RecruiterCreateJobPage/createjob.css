@@ -1,0 +1,68 @@
+/* Outer Layout */
+.createjob-container {
+  display: flex;
+  margin-top: 80px; /* header offset */
+}
+
+/* Content Area (Desktop/Tablet) */
+.createjob-content {
+  margin-left: 240px; /* sidebar width */
+  padding: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Form */
+.createjob-form {
+  width: 100%;
+  max-width: 550px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.createjob-form input,
+.createjob-form select,
+.createjob-form textarea {
+  padding: 12px;
+  border: 1px solid gray;
+  border-radius: 8px;
+  width: 100%;
+}
+
+.salary-row {
+  display: flex;
+  gap: 10px;
+}
+
+/* Submit Button */
+.job-submit-btn {
+  padding: 12px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* ========================
+   MOBILE RESPONSIVE
+=========================*/
+@media (max-width: 600px) {
+  .createjob-container {
+    flex-direction: column;
+  }
+
+  /* Content should cover full width */
+  .createjob-content {
+    margin-left: 0;
+    margin-bottom: 80px; /* bottom navbar spacing */
+    margin-top: 0px; /* avoid header overlap */
+  }
+
+  .salary-row {
+    flex-direction: column;
+  }
+}

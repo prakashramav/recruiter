@@ -1,24 +1,51 @@
-.recruiter-home-container{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh ;
+/* ===========================
+   FIX POST JOB BUTTON (DESKTOP)
+=========================== */
+.recruiter-post-job-fixed-btn {
+  position: fixed;
+  top: 100px;        /* below header */
+  right: 30px;
+  padding: 12px 20px;
+  background-color: #0073b1;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  z-index: 2000;     /* keep above sidebar */
 }
 
-.recruiter-role-btn{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+/* DASHBOARD CONTENT – ALL DEVICES */
+.recruiter-dashboard-page-container {
+  margin-left: 240px;      /* Sidebar offset */
+  padding: 20px;
+  width: calc(100% - 240px);
+  margin-top: 100px;       /* FIX: Push heading below header + Post Job button */
 }
-.rec-role-btn{         
-    height: 45px;
-    width: 82px;
-    border-radius: 5px;
-    background-color: lightcoral;
-    border-width: 0px;
-    font-size: 14px;
-    font-weight: 600;
-    margin: 10px;
-    cursor: pointer;
+
+/* ===========================
+   MOBILE: POST JOB BUTTON TOP
+=========================== */
+@media (max-width: 600px) {
+
+  /* Push button below header */
+  .recruiter-post-job-fixed-btn {
+    position: fixed;
+    top: 90px;
+    right: 50%;
+    transform: translateX(50%);
+    width: 90%;
+    text-align: center;
+    padding: 12px 0;
+    border-radius: 6px;
+  }
+
+  /* Column layout for mobile */
+  .recruiter-home-container {
+    flex-direction: column;
+    margin-top: 150px; /* Add space so button doesn't overlap content */
+  }
+
+  .recruiter-dashboard-page-container {
+    margin-top: 20px; 
+    margin-bottom: 90px; /* avoid bottom navbar overlap */
+  }
 }
