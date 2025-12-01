@@ -142,6 +142,9 @@
     border-radius: 4px;
     cursor: pointer;
 }
+.button-update:hover{
+    background-color: #52c756;
+}
 .button-delete{
     background-color: #f44336;
     color: white;
@@ -149,6 +152,9 @@
     padding: 8px 16px;
     border-radius: 4px;
     cursor: pointer;
+}
+.button-delete:hover{
+    background-color: #b82f26;
 }
 .update-delete-buttons{
     margin-top: 20px;

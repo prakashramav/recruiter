@@ -5,7 +5,7 @@ const navItems = [
   { label: "Dashboard", path: "/recruiter" },
   { label: "Post Job", path: "/recruiter/create-jobs" },
   { label: "Applicants", path: "/recruiter/applicants" },
-  { label: "Interviews", path: "/recruiter/profile" },
+  { label: "Interviews", path: "/recruiter/interview" },
 ];
 
 const RecruiterNavbarPage = () => {

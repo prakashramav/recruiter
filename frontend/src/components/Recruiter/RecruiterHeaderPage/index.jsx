@@ -18,7 +18,9 @@ const RecruiterHeaderPage = () => {
       </h1>
 
       <div className="header-actions">
-        <CgProfile size={35} className="profile-icon" onClick={() => navigate("/recruiter/profile")} />
+          <div className="profile-icon-container">
+            <CgProfile size={35} className="profile-icon" onClick={() => navigate("/recruiter/profile")} />
+          </div>
         <button className="logout-btn" onClick={logout}>Logout</button>
       </div>
     </header>

@@ -146,102 +146,107 @@ const RecruiterUpdateJob = () => {
                 <h2 className="updatejob-heading">Update Job</h2>
                 <button className="go-back-btn" onClick={() => navigate(-1)}>Goback</button>
             </div>
-        {loading ? (<div className="update-job-loader-container">
-        <ThreeDots color="blue" height={40} width={40} />
-      </div>) : (<form className="updatejob-form" onSubmit={handleSubmit}>
-            <input
-              name="title"
-              value={formData.title}
-              onChange={handleChange}
-              placeholder="Job Title *"
-              required
-            />
-
-            <input
-              name="company"
-              value={formData.company}
-              onChange={handleChange}
-              placeholder="Company *"
-              required
-            />
-
-            <input
-              name="location"
-              value={formData.location}
-              onChange={handleChange}
-              placeholder="Location *"
-              required
-            />
-
-            <select
-              name="jobType"
-              value={formData.jobType}
-              onChange={handleChange}
-              required
-            >
-              <option>Select Job Type</option>
-              <option>Full-Time</option>
-              <option>Part-Time</option>
-              <option>Internship</option>
-              <option>Freelance</option>
-            </select>
-
-            <select
-              name="category"
-              value={formData.category}
-              onChange={handleChange}
-              required
-            >
-              <option value="">Select Category</option>
-              {categories.map((cat) => (
-                <option key={cat}>{cat}</option>
-              ))}
-            </select>
-
-            <input
-              type="number"
-              name="stipend"
-              value={formData.stipend}
-              onChange={handleChange}
-              placeholder="Stipend *"
-              required
-            />
-
-            <input
-              type="number"
-              name="experienceRequired"
-              value={formData.experienceRequired}
-              onChange={handleChange}
-              placeholder="Experience Required (Years) *"
-              required
-            />
-
-            <input
-              name="skillsRequired"
-              value={formData.skillsRequired}
-              onChange={handleChange}
-              placeholder="Skills (comma separated) *"
-              required
-            />
-
-            <textarea
-              name="description"
-              value={formData.description}
-              onChange={handleChange}
-              placeholder="Job Description *"
-              required
-            />
-
-            <div className="loading-and-button-container">
-              {isUpdating ? (
-                <ThreeDots color="blue" height={40} width={50} />
-              ) : (
-                <button className="job-submit-btn" type="submit">
-                  Update Job
-                </button>
-              )}
+        {loading ? (
+            <div className="update-job-loader-container">
+                <ThreeDots color="blue" height={40} width={40} />
             </div>
-          </form>)}
+            ) : (
+                <form className="updatejob-form" onSubmit={handleSubmit}>
+                    <input
+                    name="title"
+                    value={formData.title}
+                    onChange={handleChange}
+                    placeholder="Job Title *"
+                    required
+                    />
+
+                    <input
+                    name="company"
+                    value={formData.company}
+                    onChange={handleChange}
+                    placeholder="Company *"
+                    required
+                    />
+
+                    <input
+                    name="location"
+                    value={formData.location}
+                    onChange={handleChange}
+                    placeholder="Location *"
+                    required
+                    />
+
+                    <select
+                    name="jobType"
+                    value={formData.jobType}
+                    onChange={handleChange}
+                    required
+                    >
+                    <option>Select Job Type</option>
+                    <option>Full-Time</option>
+                    <option>Part-Time</option>
+                    <option>Internship</option>
+                    <option>Freelance</option>
+                    </select>
+
+                    <select
+                    name="category"
+                    value={formData.category}
+                    onChange={handleChange}
+                    required
+                    >
+                    <option value="">Select Category</option>
+                    {categories.map((cat) => (
+                        <option key={cat}>{cat}</option>
+                    ))}
+                    </select>
+
+                    <input
+                    type="number"
+                    name="stipend"
+                    value={formData.stipend}
+                    onChange={handleChange}
+                    placeholder="Stipend *"
+                    required
+                    />
+
+                    <input
+                    type="number"
+                    name="experienceRequired"
+                    value={formData.experienceRequired}
+                    onChange={handleChange}
+                    placeholder="Experience Required (Years) *"
+                    required
+                    />
+
+                    <input
+                    name="skillsRequired"
+                    value={formData.skillsRequired}
+                    onChange={handleChange}
+                    placeholder="Skills (comma separated) *"
+                    required
+                    />
+
+                    <textarea
+                    name="description"
+                    value={formData.description}
+                    onChange={handleChange}
+                    placeholder="Job Description *"
+                    required
+                    />
+
+                    <div className="loading-and-button-container">
+                    {isUpdating ? (
+                        <ThreeDots color="blue" height={40} width={50} />
+                    ) : (
+                        <button className="job-submit-btn" type="submit">
+                        Update Job
+                        </button>
+                    )}
+                    </div>
+                </form>
+            )
+        }
         </div>
       </div>
     </div>

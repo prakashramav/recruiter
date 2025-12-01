@@ -1,7 +1,35 @@
-.recruiter-profile-page-container{
+/* Default: Laptop + Desktop */
+.recruiter-profile-page-container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+}
+
+.recruiter-profile-content-container {
+    flex: 1;
+    padding: 40px;
+    margin-left: 260px;  /* Sidebar width (Navbar) */
+    margin-top: 80px;    /* Topbar height */
+}
+
+/* ---------- TABLET (768px – 1024px) ---------- */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .recruiter-profile-content-container {
+        margin-left: 200px;     /* Smaller sidebar */
+        margin-top: 70px;
+        padding: 30px;
+        text-align: center;
+    }
+}
+
+/* ---------- MOBILE (max-width: 767px) ---------- */
+@media (max-width: 767px) {
+    .recruiter-profile-page-container {
+        flex-direction: column; /* Navbar moves to bottom */
+    }
+
+    .recruiter-profile-content-container {
+        margin: 80px 15px 0 15px; /* Margin from top only */
+        padding: 20px;
+        text-align: center;
+        margin-left: 20%;          /* Remove sidebar gap */
+    }
 }

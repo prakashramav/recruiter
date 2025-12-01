@@ -11,7 +11,9 @@
   width: 100%;
   z-index: 2000;
 }
-
+.profile-icon-container{
+  cursor: pointer;
+}
 .header-title {
   font-size: 28px;
   font-weight: bold;
@@ -32,4 +34,7 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
+}
+.logout-btn:hover{
+  background-color: #fb1616;
 }

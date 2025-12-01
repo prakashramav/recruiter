@@ -4,7 +4,7 @@ import './index.css';
 
 const RecruiterApplicantPageForm = () => {
     return (
-        <div>
+        <>
             <RecruiterHeaderPage />
             <div className='recruiter-applicant-page-container'>
                 <RecruiterNavbarPage />
@@ -12,7 +12,7 @@ const RecruiterApplicantPageForm = () => {
                     <h1>Welcome to Recruiter Applicants Page</h1>
                 </div>
             </div>
-        </div>
+        </>
     )
 }
 

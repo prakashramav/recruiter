@@ -1,9 +1,9 @@
 /* Default: Laptop + Desktop */
-.recruiter-applicant-page-container {
+.recruiter-interview-page-container {
     display: flex;
 }
 
-.recruiter-applicant-content-container {
+.recruiter-interview-content-contaier {
     flex: 1;
     padding: 40px;
     margin-left: 260px;  /* Sidebar width (Navbar) */
@@ -12,7 +12,7 @@
 
 /* ---------- TABLET (768px – 1024px) ---------- */
 @media (min-width: 768px) and (max-width: 1024px) {
-    .recruiter-applicant-content-container {
+    .recruiter-interview-content-contaier {
         margin-left: 200px;     /* Smaller sidebar */
         margin-top: 70px;
         padding: 30px;
@@ -22,14 +22,14 @@
 
 /* ---------- MOBILE (max-width: 767px) ---------- */
 @media (max-width: 767px) {
-    .recruiter-applicant-page-container {
+    .recruiter-interview-page-container {
         flex-direction: column; /* Navbar moves to bottom */
     }
 
-    .recruiter-applicant-content-container {
+    .recruiter-interview-content-contaier {
         margin: 80px 15px 0 15px; /* Margin from top only */
         padding: 20px;
         text-align: center;
-        margin-left: 27%;          /* Remove sidebar gap */
+        margin-left: 20%;          /* Remove sidebar gap */
     }
 }

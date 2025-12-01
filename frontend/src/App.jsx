@@ -34,7 +34,7 @@ const RecruiterCreateJobPage = lazy(() => import('./components/Recruiter/Recruit
 const RecruiterJobId = lazy(() => import('./components/Recruiter/RecruiterJobId'));
 
 const RecruiterUpdateJob = lazy(() => import('./components/Recruiter/RecruiterUpdateJob'));
-
+const RecruiterInterviewSchedule = lazy(() => import('./components/Recruiter/RecruiterInterviewSchedule'))
 import { ThreeDots } from 'react-loader-spinner';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'; 
@@ -58,6 +58,7 @@ const App = () => {
             <Route path='/recruiter/applicants' element={ <RecruiterProtectedRoute> <RecruiterApplicantPage/> </RecruiterProtectedRoute>} />
             <Route path='/recruiter/jobs/:jobId' element={ <RecruiterProtectedRoute> <RecruiterJobId/> </RecruiterProtectedRoute>} />
             <Route path='/recruiter/updateJob/:jobId' element={ <RecruiterProtectedRoute> <RecruiterUpdateJob/> </RecruiterProtectedRoute>} />
+            <Route path='/recruiter/interview' element={<RecruiterProtectedRoute><RecruiterInterviewSchedule /></RecruiterProtectedRoute>} />
 
           {/*Applicant Routes*/}
             
