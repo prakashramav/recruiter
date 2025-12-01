@@ -59,6 +59,20 @@
   align-items: center;
   justify-content: center;
 }
+
+.dots-page-container{
+    cursor: pointer;
+}
+
+.posted-time-container{
+    margin-top: 8px;
+    font-size: 14px;
+    color: #666;
+    display: flex;
+    gap: 5px;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
 /* ===========================
    MOBILE: POST JOB BUTTON TOP
 =========================== */

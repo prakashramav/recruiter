@@ -37,6 +37,21 @@ const RecruiterHomePage = () => {
      }
       fetchData();
   },[]);
+    const timeAgo = (timestamp) => {
+      const now = new Date();
+      const past = new Date(timestamp);
+      const diffMs = now - past;
+
+      const diffSec = Math.floor(diffMs / 1000);
+      const diffMin = Math.floor(diffSec / 60);
+      const diffHr = Math.floor(diffMin / 60);
+      const diffDay = Math.floor(diffHr / 24);
+
+      if (diffSec < 60) return `${diffSec} seconds ago`;
+      if (diffMin < 60) return `${diffMin} minutes ago`;
+      if (diffHr < 24) return `${diffHr} hours ago`;
+      return `${diffDay} days ago`;
+  }
 
   return (
     <>
@@ -65,7 +80,9 @@ const RecruiterHomePage = () => {
                       <li key={job._id} className="recruiter-job-item" onClick={() => navigate(`/recruiter/jobs/${job._id}`)}>
                         <div className="job-list-page-container">
                           <h3 className="job-title">{job.title}</h3>
-                          <BsThreeDotsVertical />
+                          <div className="dots-page-container">
+                            <BsThreeDotsVertical />
+                          </div>
                         </div>
                         <div className="comapny-type-container">
                           <p> <FaBuilding />{job.company}</p>
@@ -77,6 +94,9 @@ const RecruiterHomePage = () => {
                         </div>
                         <div>
                           <p>Experience: {job.experienceRequired} years</p>
+                        </div>
+                        <div className="posted-time-container">
+                          <span>Posted: {timeAgo(job.createdAt)}</span>
                         </div>
                       </li>
                     ))}

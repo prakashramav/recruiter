@@ -113,21 +113,27 @@ exports.updateJob = async (req, res) => {
 };
 
 // Delete Job
+// Permanently delete a job
 exports.deleteJob = async (req, res) => {
   try {
     const { jobId } = req.params;
 
+    // Find job
     const job = await Job.findById(jobId);
     if (!job) return res.status(404).json({ message: "Job not found" });
 
-    if (job.createdBy.toString() !== req.user.id)
-      return res.status(403).json({ message: "Forbidden" });
+    // Permission check
+    if (job.createdBy.toString() !== req.user.id) {
+      return res.status(403).json({ message: "Forbidden: Not your job" });
+    }
 
-    job.isActive = false;
-    await job.save();
+    // DELETE PERMANENTLY
+    await Job.findByIdAndDelete(jobId);
 
-    res.json({ message: "Job deactivated" });
+    res.json({ message: "Job deleted successfully" });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
   }
 };
+
