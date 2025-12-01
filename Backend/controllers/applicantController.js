@@ -24,7 +24,7 @@ exports.applicantRegister = async (req, res) => {
     await applicant.save();
 
     const token = jwt.sign(
-      { id: admin._id, role: "applicant" }, // payload
+      { id: applicant._id, role: "applicant" }, // payload
       process.env.JWT_SECRET,          // secret
       { expiresIn: "7d" }              // token expiry
     );

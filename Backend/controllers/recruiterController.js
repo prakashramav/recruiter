@@ -32,7 +32,7 @@ exports.recruiterRegister = async (req, res) => {
     delete result.password;
 
     const token = jwt.sign(
-      { id: admin._id, role: "recruiter" }, // payload
+      { id: recruiter._id, role: "recruiter" }, // payload
       process.env.JWT_SECRET,           // secret
       { expiresIn: "7d" }              // token expiry
     );
