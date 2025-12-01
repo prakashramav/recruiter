@@ -24,6 +24,40 @@
 
 .jobs-list-created-page-container{
     margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+}
+.recruiter-jobs-list{
+  list-style-type: none;
+  padding: 0;
+  width: 100%;
+}
+.recruiter-job-item{
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  transition: box-shadow 0.3s ease;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+.comapny-type-container{
+  display: flex;
+  gap: 20px;
+}
+.job-list-page-container{
+  display: flex;
+  justify-content: space-between;
+}
+
+.no-jobs-posted-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 /* ===========================
    MOBILE: POST JOB BUTTON TOP
@@ -54,4 +88,13 @@
     text-align: center;
     /* avoid bottom navbar overlap */
   }
+  .recruiter-job-item{
+    text-align: left;
+  }
+}
+
+.job-title{
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
 }

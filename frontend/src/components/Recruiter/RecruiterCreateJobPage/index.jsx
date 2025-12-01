@@ -68,7 +68,7 @@ const RecruiterCreateJobPage = () => {
         location: formData.location,
         jobType: formData.jobType,
         category: formData.category,
-        salaryRange: formData.stipend,
+        stipend: formData.stipend,
         experienceRequired: Number(formData.experienceRequired),
         skillsRequired: formData.skillsRequired.split(",").map((s) => s.trim()),
         description: formData.description,
@@ -204,10 +204,11 @@ const RecruiterCreateJobPage = () => {
               placeholder="Job Description *"
               required
             />
-
-            { isLoading ? (<ThreeDots color="blue" height={30} width={30}/>) : (<button className="job-submit-btn" type="submit">
-              Post Job
-            </button>)}
+            <div className="loading-and-button-container">
+              { isLoading ? (<ThreeDots color="blue" height={30} width={30} className="loader"/>) : (<button className="job-submit-btn" type="submit">
+                Post Job
+              </button>)}
+            </div>
           </form>
         </div>
       </div>

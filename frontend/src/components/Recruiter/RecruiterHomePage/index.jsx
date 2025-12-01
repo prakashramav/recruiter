@@ -1,12 +1,19 @@
 import {useNavigate } from "react-router-dom";
 import RecruiterHeaderPage from '../RecruiterHeaderPage';
 import RecruiterNavbarPage from "../RecruiterNavbarPage";
-import "./index.css";
+import "./home.css";
 import Cookies from "js-cookie";
 import { useEffect } from "react";
 import axios from "axios";
 import { useState } from "react";
 import { ThreeDots } from "react-loader-spinner";
+import { FaRupeeSign } from "react-icons/fa";
+import { FaBriefcase } from "react-icons/fa";
+import { FaMapMarkerAlt } from "react-icons/fa";
+import { FaBuilding } from "react-icons/fa";
+import { BsThreeDotsVertical } from "react-icons/bs";
+
+
 
 const RecruiterHomePage = () => {
   const navigate = useNavigate();
@@ -48,28 +55,36 @@ const RecruiterHomePage = () => {
 
         <div className="recruiter-dashboard-page-container">
           <div className="recruiter-front-page-container">
-            <h4>Recruiter Dashboard</h4>
+            <h4>Your Job-list</h4>
             <div className="jobs-list-created-page-container">
                 {isLoading ? (
-                  <ThreeDots color="blue" height={30} width={30} />
+                  <div className="job-list-loader-container"> <ThreeDots color="blue" height={40} width={40} /> </div>
                 ) : (jobs && jobs.length > 0 ? (
                   <ul className="recruiter-jobs-list">
                     {jobs.map((job) => (
                       <li key={job._id} className="recruiter-job-item">
-                        <h3>{job.title}</h3>
-                        <p><strong>Company:</strong> {job.company}</p>
-                        <p><strong>Location:</strong> {job.location}</p>
-                        <p><strong>Type:</strong> {job.jobType}</p>
-                        <p><strong>Category:</strong> {job.category}</p>
-                        <p><strong>Stipend:</strong> {job.stipend}</p>
-                        <p><strong>Experience Required:</strong> {job.experienceRequired} years</p>
-                        <p><strong>Skills Required:</strong> {job.skillsRequired.join(", ")}</p>
-                        <p><strong>Description:</strong> {job.description}</p>
+                        <div className="job-list-page-container">
+                          <h3 className="job-title">{job.title}</h3>
+                          <BsThreeDotsVertical />
+                        </div>
+                        <div className="comapny-type-container">
+                          <p> <FaBuilding />{job.company}</p>
+                          <p><FaMapMarkerAlt />  {job.location}</p>
+                        </div>
+                        <div className="comapny-type-container">
+                          <p><FaBriefcase/> {job.jobType}</p>
+                          <p><FaRupeeSign/> {job.stipend}</p>
+                        </div>
+                        <div>
+                          <p>Experience: {job.experienceRequired} years</p>
+                        </div>
                       </li>
                     ))}
                   </ul>
                 ) : (
-                  <p>No jobs posted yet.</p>
+                  <div className="no-jobs-posted-container">
+                    <h4>No jobs posted yet.</h4>
+                  </div>
                 ))}
               </div>
           </div>

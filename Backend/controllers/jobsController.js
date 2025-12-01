@@ -65,6 +65,32 @@ exports.listMyJobs = async (req, res) => {
   }
 };
 
+// Get a single job by ID (Recruiter Only)
+exports.getJobById = async (req, res) => {
+  try {
+    const recruiterId = req.user.id;
+    const { jobId } = req.params;
+
+    // Find job
+    const job = await Job.findById(jobId);
+
+    if (!job) {
+      return res.status(404).json({ message: "Job not found" });
+    }
+
+    // Check if this recruiter created the job
+    if (job.createdBy.toString() !== recruiterId) {
+      return res.status(403).json({ message: "Forbidden: Not your job" });
+    }
+
+    res.json({ success: true, job });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+
 // Update Job
 exports.updateJob = async (req, res) => {
   try {
