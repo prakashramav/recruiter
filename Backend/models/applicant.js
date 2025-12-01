@@ -1,0 +1,41 @@
+const mongoose = require("mongoose");
+
+const ApplicantSchema = new mongoose.Schema(
+  {
+    name: { type: String, required: true },
+
+    email: { type: String, required: true, unique: true },
+
+    password: { type: String, required: true },
+
+    interests: {
+      type: [String],
+      default: []
+    },
+
+    skills: [String],
+
+    resumeUrl: String,
+    atsScore: Number,
+    atsSummary: String,
+
+    experience: { type: Number, default: 0 },
+
+    phone: String,
+    githubUrl: String,
+    linkedinUrl: String,
+    portfolioUrl: String,
+
+    appliedJobs: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Job"
+      }
+    ],
+
+    isProfileComplete: { type: Boolean, default: false }
+  },
+  { timestamps: true }
+);
+
+module.exports = mongoose.model("Applicant", ApplicantSchema);

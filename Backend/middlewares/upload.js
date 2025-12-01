@@ -17,4 +17,4 @@ const fileFilter = (req, file, cb) => {
 
 const upload = multer({ storage, fileFilter });
 
-module.exports = upload;   // 🔥 THIS IS THE FIX
+module.exports = upload;

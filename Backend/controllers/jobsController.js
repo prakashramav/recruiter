@@ -1,97 +1,106 @@
-const Job = require('../models/jobsModel');
+const Job = require("../models/Job");
 
-const createJob = async (req, res) => {
-    try{
-        const recruiterId = req.user.id;
-        const {title, company, location, jobType, category, stipend, experienceRequired, skillsRequired, description} = req.body;
-        if(!title || !company || !experienceRequired || !skillsRequired || !description || !category || !jobType || !location || !stipend){
-            return res.status(400).json({ message: 'Please provide all required fields' });
-        }
-
-        const job = new Job({
-            title,
-            company,
-            location,
-            jobType : jobType || "Full-Time",
-            category,
-            stipend,
-            experienceRequired,
-            skillsRequired,
-            description,
-            createdBy: recruiterId,
-            isActive: true
-        });
-
-        await job.save();
-        res.status(201).json({ message: 'Job created successfully', job });
-    }catch(err){
-        console.error(err);
-        res.status(500).json({ message: 'Server error' });
-    }
-};
-
-const listMyJobs = async (req, res) => {
+// Create Job
+exports.createJob = async (req, res) => {
   try {
     const recruiterId = req.user.id;
-    const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 10;
-    const query = { createdBy: recruiterId };
-    if (req.query.isActive) query.isActive = req.query.isActive === 'true';
 
-    const jobs = await Job.find(query)
-      .skip((page - 1) * limit)
-      .limit(limit)
-      .sort({ createdAt: -1 });
+    const {
+      title,
+      company,
+      location,
+      jobType,
+      category,
+      stipend,
+      experienceRequired,
+      skillsRequired,
+      description,
+    } = req.body;
 
-    const total = await Job.countDocuments(query);
+    if (
+      !title ||
+      !company ||
+      !location ||
+      !jobType ||
+      !category ||
+      !experienceRequired ||
+      !skillsRequired ||
+      !description
+    ) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
 
-    res.json({ data: jobs, meta: { total, page, limit } });
+    const job = await Job.create({
+      title,
+      company,
+      location,
+      jobType,
+      category,
+      stipend,
+      experienceRequired,
+      skillsRequired,
+      description,
+      createdBy: recruiterId,
+    });
+
+    res.status(201).json({ message: "Job created", job });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ message: err.message });
   }
 };
 
-const updateJob = async (req, res) => {
+// List Recruiter's Jobs
+exports.listMyJobs = async (req, res) => {
   try {
     const recruiterId = req.user.id;
-    const jobId = req.params.jobId;
-    const job = await Job.findById(jobId);
-    if (!job) return res.status(404).json({ message: 'Job not found' });
 
-    // owner check
-    if (job.createdBy.toString() !== recruiterId && req.user.role !== 'admin') {
-      return res.status(403).json({ message: 'Forbidden' });
-    }
+    const jobs = await Job.find({ createdBy: recruiterId }).sort({
+      createdAt: -1,
+    });
+
+    res.json(jobs);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+// Update Job
+exports.updateJob = async (req, res) => {
+  try {
+    const { jobId } = req.params;
+
+    const job = await Job.findById(jobId);
+    if (!job) return res.status(404).json({ message: "Job not found" });
+
+    if (job.createdBy.toString() !== req.user.id)
+      return res.status(403).json({ message: "Forbidden" });
 
     Object.assign(job, req.body);
+
     await job.save();
-    res.json({ message: 'Job updated', job });
+
+    res.json({ message: "Job updated", job });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ message: err.message });
   }
 };
 
-const deleteJob = async (req, res) => {
+// Delete Job
+exports.deleteJob = async (req, res) => {
   try {
-    const recruiterId = req.user.id;
-    const jobId = req.params.jobId;
-    const job = await Job.findById(jobId);
-    if (!job) return res.status(404).json({ message: 'Job not found' });
+    const { jobId } = req.params;
 
-    if (job.createdBy.toString() !== recruiterId && req.user.role !== 'admin') {
-      return res.status(403).json({ message: 'Forbidden' });
-    }
+    const job = await Job.findById(jobId);
+    if (!job) return res.status(404).json({ message: "Job not found" });
+
+    if (job.createdBy.toString() !== req.user.id)
+      return res.status(403).json({ message: "Forbidden" });
 
     job.isActive = false;
     await job.save();
-    res.json({ message: 'Job deactivated' });
+
+    res.json({ message: "Job deactivated" });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ message: err.message });
   }
 };
-
-
-module.exports = { createJob, listMyJobs, updateJob, deleteJob };

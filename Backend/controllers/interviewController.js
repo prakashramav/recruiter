@@ -1,25 +1,28 @@
-const Interview = require('../models/interviewModel');
-const Application = require('../models/applicationModel');
-const Job = require('../models/jobsModel');
+const Interview = require("../models/Interview");
+const Application = require("../models/Application");
+const Job = require("../models/Job");
 
-// Schedule interview (Recruiter)
-const scheduleInterview = async (req, res) => {
+// Schedule Interview
+exports.scheduleInterview = async (req, res) => {
   try {
     const recruiterId = req.user.id;
-    const { applicantId, jobId, interviewDate, mode, location, message } = req.body;
+    const { applicantId, jobId, interviewDate, mode, location, message } =
+      req.body;
 
-    // Check if job exists and belongs to recruiter
     const job = await Job.findById(jobId);
-    if (!job) return res.status(404).json({ message: 'Job not found' });
-    if (job.createdBy.toString() !== recruiterId) {
-      return res.status(403).json({ message: 'Forbidden: Not your job' });
-    }
+    if (!job)
+      return res.status(404).json({ message: "Job not found" });
 
-    // Check if applicant applied to this job
-    const application = await Application.findOne({ jobId, applicantId });
-    if (!application) return res.status(400).json({ message: 'Applicant did not apply for this job' });
+    if (job.createdBy.toString() !== recruiterId)
+      return res.status(403).json({ message: "Forbidden" });
 
-    // Create interview
+    const applied = await Application.findOne({ applicantId, jobId });
+    if (!applied)
+      return res.status(400).json({ message: "Applicant didn't apply" });
+
+    applied.status = "interview-scheduled";
+    await applied.save();
+
     const interview = await Interview.create({
       jobId,
       applicantId,
@@ -27,49 +30,41 @@ const scheduleInterview = async (req, res) => {
       interviewDate,
       mode,
       location,
-      message
+      message,
     });
 
-    // Optionally update application status
-    application.status = 'Interview Scheduled';
-    await application.save();
-
-    res.status(201).json({ message: 'Interview scheduled', interview });
+    res.status(201).json({ message: "Interview scheduled", interview });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ message: err.message });
   }
 };
 
-// Applicant: view scheduled interviews
-const getMyInterviews = async (req, res) => {
+// Applicant - View My Interviews
+exports.getMyInterviews = async (req, res) => {
   try {
-    const applicantId = req.user.id;
-    const interviews = await Interview.find({ applicantId })
-      .populate('jobId', 'title company')
-      .populate('recruiterId', 'name email');
+    const interviews = await Interview.find({ applicantId: req.user.id })
+      .populate("jobId", "title company")
+      .populate("recruiterId", "name email");
 
-    res.json({ success: true, interviews });
+    res.json(interviews);
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ message: err.message });
   }
 };
 
-// Recruiter: view interviews for their jobs
-const getInterviewsForJob = async (req, res) => {
+// Recruiter - View Interviews for a Job
+exports.getInterviewsForJob = async (req, res) => {
   try {
     const recruiterId = req.user.id;
-    const jobId = req.params.jobId;
+    const { jobId } = req.params;
 
-    const interviews = await Interview.find({ recruiterId, jobId })
-      .populate('applicantId', 'name email atsScore');
+    const interviews = await Interview.find({ recruiterId, jobId }).populate(
+      "applicantId",
+      "name email atsScore"
+    );
 
-    res.json({ success: true, interviews });
+    res.json(interviews);
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ message: err.message });
   }
 };
-
-module.exports = { scheduleInterview, getMyInterviews, getInterviewsForJob };
