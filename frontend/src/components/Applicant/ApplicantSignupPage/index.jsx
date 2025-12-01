@@ -21,8 +21,9 @@ const ApplicantSignupPage = () => {
     return <Navigate to="/applicant" />
   }
   
-  const onApplicantSignupSuccess = () => {
-    navigate('/applicant/login')
+  const onApplicantSignupSuccess = (jwtToken) => {
+    Cookies.set("talentify_applicant_jwtToken", jwtToken, {expires : 3})
+    navigate('/applicant')
     setIsLoading(false);
   }
 
@@ -64,7 +65,7 @@ const ApplicantSignupPage = () => {
     const data = await response.json();
     console.log(data);
     if(response.ok === true){
-      onApplicantSignupSuccess();
+      onApplicantSignupSuccess(jwtToken);
     }
     else{
       onApplicantSignupFailure(data.msg);

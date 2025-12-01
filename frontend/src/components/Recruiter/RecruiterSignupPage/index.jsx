@@ -28,8 +28,10 @@ const RecruiterSignupPage = () => {
     return <Navigate to='/recruiter' replace/>
   }
 
-  const onSuccessFullRegister = () => {
+  const onSuccessFullRegister = (jwtToken) => {
     // navigate('/recruiter/login',{replace:true});
+    Cookies.set("talintify_recruiter_jwt_token", jwtToken, {expires: 3})
+    navigate('/recruiter', {replace:true});
     setIsLoading(false)
   }
 
@@ -37,8 +39,6 @@ const RecruiterSignupPage = () => {
     setIsLoading(false);
     setDataMsgError(true);
     setDataError(data_message);
-
-
   }
 
   const onSubmitSignup = async (e) => {
@@ -81,11 +81,10 @@ const RecruiterSignupPage = () => {
       body : JSON.stringify(userDetails)
     }
     const response = await fetch(url, option);
-    console.log(response)
     const data = await response.json();
     console.log(data);
     if(response.ok === true){
-      onSuccessFullRegister();
+      onSuccessFullRegister(data.token);
     }else{
       onFailureRegister(data.message)
     }

@@ -22,10 +22,15 @@ const AdminSignupPage = () => {
     return <Navigate to="/admin" />
   }
   
-  const onAdminSignupSuccess = () => {
-    navigate('/admin/login')
+  const onAdminSignupSuccess = (jwtToken) => {
+    Cookies.set("talentify_admin_jwtToken", jwtToken, {expires : 3})
+    navigate('/admin')
     setIsLoading(false);
+    setName('');
+    setMail('');
+    setPassword('');
   }
+
 
   const onAdminSignupFailure = (data_msg) => {
     setDataMsg(data_msg);
@@ -65,7 +70,7 @@ const AdminSignupPage = () => {
     const data = await response.json();
     console.log(data);
     if(response.ok === true){
-      onAdminSignupSuccess();
+      onAdminSignupSuccess(data.token);
     }
     else{
       onAdminSignupFailure(data.message);
