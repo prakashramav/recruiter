@@ -34,7 +34,7 @@ exports.registerAdmin = async (req, res) => {
       { expiresIn: "7d" }              // token expiry
     );
 
-    res.status(201).json({ message: "Admin registered", admin: result, token: token });
+    res.status(201).json({ message: "Admin registered", result: admin, token: token });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

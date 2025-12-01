@@ -29,7 +29,7 @@ const RecruiterSignupPage = () => {
   }
 
   const onSuccessFullRegister = () => {
-    navigate('/recruiter/login',{replace:true});
+    // navigate('/recruiter/login',{replace:true});
     setIsLoading(false)
   }
 

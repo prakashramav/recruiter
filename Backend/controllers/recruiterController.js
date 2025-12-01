@@ -37,7 +37,7 @@ exports.recruiterRegister = async (req, res) => {
       { expiresIn: "7d" }              // token expiry
     );
 
-    res.status(201).json({ message: "Recruiter registered", recruiter: result, token: token});
+    res.status(201).json({ message: "Recruiter registered", result : recruiter, token: token});
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
