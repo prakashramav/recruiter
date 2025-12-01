@@ -21,6 +21,10 @@
   margin-top: 100px;       /* FIX: Push heading below header + Post Job button */
 }
 
+
+.jobs-list-created-page-container{
+    margin-top: 30px;
+}
 /* ===========================
    MOBILE: POST JOB BUTTON TOP
 =========================== */
@@ -45,7 +49,9 @@
   }
 
   .recruiter-dashboard-page-container {
-    margin-top: 20px; 
-    margin-bottom: 90px; /* avoid bottom navbar overlap */
+    margin-left: 0;
+    width: 100%;
+    text-align: center;
+    /* avoid bottom navbar overlap */
   }
 }

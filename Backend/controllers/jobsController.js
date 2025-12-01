@@ -23,6 +23,7 @@ exports.createJob = async (req, res) => {
       !location ||
       !jobType ||
       !category ||
+      !stipend ||
       !experienceRequired ||
       !skillsRequired ||
       !description

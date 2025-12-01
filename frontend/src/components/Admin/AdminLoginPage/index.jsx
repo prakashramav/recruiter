@@ -47,7 +47,7 @@ const AdminLoginPage = () => {
       return;
     }
     const userDetails = {email, password};
-    const url = "https://recruiter-7jmo.onrender.com/api/admins/login"
+    const url = "https://recruiter-1-gjf3.onrender.com/api/admins/login"
     const option = {
       method : "POST",
       headers : {

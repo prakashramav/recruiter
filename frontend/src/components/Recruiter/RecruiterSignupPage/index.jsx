@@ -71,7 +71,7 @@ const RecruiterSignupPage = () => {
     if(!name || !email || !password || !companyName || !companyWebsite || !designation){
       return;
     }
-    const url = "https://recruiter-7jmo.onrender.com/api/recruiters/register"
+    const url = "https://recruiter-1-gjf3.onrender.com/api/recruiters/register"
     const userDetails = {name, email,password, companyName,companyWebsite,designation};
     const option = {
       method:"POST",

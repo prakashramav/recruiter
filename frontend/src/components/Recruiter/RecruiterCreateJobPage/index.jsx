@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
 import RecruiterHeaderPage from "../RecruiterHeaderPage";
 import RecruiterNavbarPage from "../RecruiterNavbarPage";
+import { ThreeDots } from "react-loader-spinner";
 import "./createjob.css";
 
 
@@ -33,6 +35,8 @@ const categories = [
 
 
 const RecruiterCreateJobPage = () => {
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     title: "",
     company: "",
@@ -54,7 +58,7 @@ const RecruiterCreateJobPage = () => {
 
   const submitJob = async (e) => {
     e.preventDefault();
-
+    setIsLoading(true);
     try {
       const token = Cookies.get("talintify_recruiter_jwt_token");
       console.log("Token:", token);
@@ -71,7 +75,7 @@ const RecruiterCreateJobPage = () => {
       };
 
       const response = await axios.post(
-        "https://recruiter-7jmo.onrender.com/api/recruiters/jobs",
+        "https://recruiter-1-gjf3.onrender.com/api/recruiters/jobs",
         body,
         {
           headers: {
@@ -80,8 +84,11 @@ const RecruiterCreateJobPage = () => {
         }
       );
       console.log(response);
+      console.log(response.data);
 
       alert("Job Created Successfully!");
+      navigate('/recruiter',{replace:true});
+      setIsLoading(false);
       setFormData({
         title: "",
         company: "",
@@ -198,9 +205,9 @@ const RecruiterCreateJobPage = () => {
               required
             />
 
-            <button className="job-submit-btn" type="submit">
+            { isLoading ? (<ThreeDots color="blue" height={30} width={30}/>) : (<button className="job-submit-btn" type="submit">
               Post Job
-            </button>
+            </button>)}
           </form>
         </div>
       </div>

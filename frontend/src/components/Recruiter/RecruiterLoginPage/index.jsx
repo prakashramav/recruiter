@@ -53,7 +53,7 @@ const RecruiterLoginPage = () => {
      return 
     }
     
-    const apiUrl = 'https://recruiter-7jmo.onrender.com/api/recruiters/login'
+    const apiUrl = 'https://recruiter-1-gjf3.onrender.com/api/recruiters/login'
 
     const userDetails = {email, password};
 
