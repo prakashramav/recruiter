@@ -85,6 +85,27 @@ exports.getMyProfile = async (req, res) => {
   }
 };
 
+exports.updateRecruiterProfile = async (req, res) => {
+  try {
+    const updated = await Recruiter.findByIdAndUpdate(
+      req.user.id,
+      {
+        name: req.body.name,
+        email: req.body.email,
+        companyName: req.body.companyName,
+        companyWebsite: req.body.companyWebsite,
+        designation: req.body.designation
+      },
+      { new: true }
+    );
+
+    res.json({ message: "Profile updated successfully", updated });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+
 exports.deleteRecruiterProfile = async (req, res) => {
   try {
     const recruiterId = req.user.id;

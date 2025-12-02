@@ -24,6 +24,30 @@
   border: 1px solid #e5e5e5;
 }
 
+.update-delete-profile-container{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+
+.update-profile-btn{
+    height: 40px;
+    border-radius: 6px;
+    border-width: 0px;
+    width: 120px;
+    background-color: rgb(5, 196, 133);
+    color: #ffffff;
+}
+.delete-profile-btn{
+    height: 40px;
+    border-radius: 6px;
+    border-width: 0px;
+    width: 120px;
+    background-color: rgb(196, 37, 5);
+    color: #ffffff;
+}
 /* Header */
 .profilePage-container h1 {
   text-align: center;

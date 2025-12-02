@@ -1,0 +1,91 @@
+/* ✨ Default: Laptop & Desktop */
+.recruiter-update-profile-container {
+    margin-left: 260px;          /* Sidebar width */
+    margin-top: 90px;            /* Header height */
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* TOP */
+    align-items: center;         /* CENTER horizontally */
+    text-align: center;
+}
+
+/* 📱 Mobile (0–767px) */
+@media (max-width: 767px) {
+    .recruiter-update-profile-container {
+        margin-left: 0;
+        margin-top: 120px;
+        padding: 20px;
+
+        align-items: center;
+    }
+
+    .update-profile-form {
+        width: 90%;
+    }
+}
+
+/* 📱📲 Tablet (768–1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .recruiter-update-profile-container {
+        margin-left: 200px;
+        margin-top: 85px;
+        padding: 20px;
+    }
+
+    .update-profile-form {
+        width: 70%;
+    }
+}
+
+/* 💻 Laptop Medium (1025–1440px) */
+@media (min-width: 1025px) and (max-width: 1440px) {
+    .update-profile-form {
+        width: 60%;
+    }
+}
+
+/* 🖥️ Large Desktop (1441px+) */
+@media (min-width: 1441px) {
+    .update-profile-form {
+        width: 45%;
+    }
+}
+
+/* ✨ Form Styling */
+.update-profile-form {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.update-profile-form input {
+    padding: 12px;
+    border: 1px solid #bfbfbf;
+    border-radius: 6px;
+    font-size: 15px;
+    width: 100%;
+}
+
+.update-btn {
+    padding: 12px;
+    background-color: #1f85ff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.update-btn:hover {
+    background-color: #0066dd;
+}
+
+.update-loader-container{
+    display: flex;
+    justify-content: center;
+}
