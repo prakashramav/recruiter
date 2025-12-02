@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 import RecruiterHeaderPage from "../RecruiterHeaderPage";
 import RecruiterNavbarPage from "../RecruiterNavbarPage";
 import { ThreeDots } from "react-loader-spinner";
 import "./index.css";
 
 const RecruiterUpdateProfile = () => {
+    const navigate = useNavigate();
   const [profile, setProfile] = useState({
     name: "",
     email: "",
@@ -16,6 +18,7 @@ const RecruiterUpdateProfile = () => {
   });
 
   const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -28,6 +31,7 @@ const RecruiterUpdateProfile = () => {
           }
         );
         setProfile(response.data);
+        setIsLoading(false);
       } catch (error) {
         console.log(error);
       }
@@ -54,6 +58,7 @@ const RecruiterUpdateProfile = () => {
       );
 
       alert("Profile updated successfully!");
+      navigate('/recruiter/profile')
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -72,7 +77,8 @@ const RecruiterUpdateProfile = () => {
         <div className="recruiter-update-profile-container">
           <h2>Update Your Profile</h2>
 
-          <form className="update-profile-form" onSubmit={updateProfile}>
+          
+          {isLoading ? (<ThreeDots color="blue" />) :(<form className="update-profile-form" onSubmit={updateProfile}>
             <input
               type="text"
               name="name"
@@ -127,7 +133,7 @@ const RecruiterUpdateProfile = () => {
                 Update Profile
               </button>
             )}
-          </form>
+          </form>)}
         </div>
       </div>
     </div>
