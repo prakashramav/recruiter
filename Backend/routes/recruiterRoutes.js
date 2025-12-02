@@ -4,7 +4,9 @@ const router = express.Router();
 const {
   recruiterRegister,
   recruiterLogin,
-  getMyProfile
+  getMyProfile,
+  updateRecruiterProfile,
+  deleteRecruiterProfile
 } = require("../controllers/recruiterController");
 
 const {
@@ -33,7 +35,8 @@ router.post("/jobs", auth, requireRole("recruiter"), createJob);
 router.get("/jobs", auth, requireRole("recruiter"), listMyJobs);
 router.put("/jobs/:jobId", auth, requireRole("recruiter"), updateJob);
 router.delete("/jobs/:jobId", auth, requireRole("recruiter"), deleteJob);
-
+router.put("/update-profile",auth,requireRole("recruiter"),updateRecruiterProfile);
+router.delete("/delete-profile",auth,requireRole("recruiter"),deleteRecruiterProfile);
 router.get("/jobs/:jobId/applicants", auth, requireRole("recruiter"), getApplicantsForJob);
 router.get("/jobs/:jobId", auth, requireRole("recruiter"), getJobById);
 router.put("/applications/:applicationId/status", auth, requireRole("recruiter"), updateApplicationStatus);

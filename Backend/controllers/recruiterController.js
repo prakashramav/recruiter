@@ -1,6 +1,10 @@
 const Recruiter = require("../models/Recruiter");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const Job = require("../models/jobsModel");
+const Application = require("../models/applicationModel");
+const Interview = require("../models/interviewModel");
+
 
 // Register Recruiter
 exports.recruiterRegister = async (req, res) => {
@@ -80,3 +84,31 @@ exports.getMyProfile = async (req, res) => {
     res.status(500).json({ msg: "Server error" });
   }
 };
+
+exports.deleteRecruiterProfile = async (req, res) => {
+  try {
+    const recruiterId = req.user.id;
+
+    // Step 1: Delete all jobs created by recruiter
+    const jobs = await Job.find({ createdBy: recruiterId });
+
+    for (let job of jobs) {
+      await Application.deleteMany({ jobId: job._id });
+      await Interview.deleteMany({ jobId: job._id });
+    }
+
+    await Job.deleteMany({ createdBy: recruiterId });
+
+    // Step 2: Delete interviews created directly
+    await Interview.deleteMany({ recruiterId });
+
+    // Step 3: Delete recruiter account
+    await Recruiter.findByIdAndDelete(recruiterId);
+
+    res.json({ message: "Recruiter account deleted successfully" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+

@@ -96,6 +96,7 @@ const RecruiterHomePage = () => {
                           <p>Experience: {job.experienceRequired} years</p>
                         </div>
                         <div className="posted-time-container">
+
                           <span>Posted: {timeAgo(job.createdAt)}</span>
                         </div>
                       </li>

@@ -1,35 +1,80 @@
-/* Default: Laptop + Desktop */
+/* ---------------- DEFAULT: LAPTOP + DESKTOP ---------------- */
 .recruiter-profile-page-container {
-    display: flex;
+  display: flex;
+  width: 100%;
 }
 
 .recruiter-profile-content-container {
-    flex: 1;
-    padding: 40px;
-    margin-left: 260px;  /* Sidebar width (Navbar) */
-    margin-top: 80px;    /* Topbar height */
+  flex: 1;
+  padding: 40px;
+  margin-left: 260px;   /* sidebar width */
+  margin-top: 80px;     /* topbar height */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 
-/* ---------- TABLET (768px – 1024px) ---------- */
+.profilePage-container {
+  width: 100%;
+  max-width: 600px;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e5e5e5;
+}
+
+/* Header */
+.profilePage-container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Text styling */
+.profilePage-container p {
+  font-size: 18px;
+  margin: 10px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* ---------------- TABLET (768px – 1024px) ---------------- */
 @media (min-width: 768px) and (max-width: 1024px) {
-    .recruiter-profile-content-container {
-        margin-left: 200px;     /* Smaller sidebar */
-        margin-top: 70px;
-        padding: 30px;
-        text-align: center;
-    }
+  .recruiter-profile-content-container {
+    margin-left: 200px;
+    margin-top: 70px;
+    padding: 25px;
+    justify-content: center;
+  }
+
+  .profilePage-container {
+    max-width: 500px;
+  }
 }
 
-/* ---------- MOBILE (max-width: 767px) ---------- */
+/* ---------------- MOBILE (max-width: 767px) ---------------- */
 @media (max-width: 767px) {
-    .recruiter-profile-page-container {
-        flex-direction: column; /* Navbar moves to bottom */
-    }
+  .recruiter-profile-page-container {
+    flex-direction: column;
+  }
 
-    .recruiter-profile-content-container {
-        margin: 80px 15px 0 15px; /* Margin from top only */
-        padding: 20px;
-        text-align: center;
-        margin-left: 20%;          /* Remove sidebar gap */
-    }
+  .recruiter-profile-content-container {
+    margin: 90px 15px 0 15px;
+    padding: 15px;
+    margin-left: 0;   /* remove sidebar gap */
+    justify-content: center;
+  }
+
+  .profilePage-container {
+    width: 100%;
+    padding: 20px;
+    border-radius: 10px;
+  }
+
+  .profilePage-container p {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    font-size: 16px;
+  }
 }
