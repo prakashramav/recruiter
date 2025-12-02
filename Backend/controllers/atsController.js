@@ -1,6 +1,6 @@
 const fs = require("fs");
 const pdfParse = require("pdf-parse");
-const Applicant = require("../models/Applicant");
+const Applicant = require("../models/applicant");
 const OpenAI = require("openai");
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
