@@ -47,7 +47,7 @@ import './App.css'
 const App = () => {
   return (
     <>
-      <Suspense fallback={<div className='lazy-loading-page'><ThreeDots color='green'/></div>}>
+      <Suspense fallback={<div className='lazy-loading-page'><ThreeDots color='blue'/></div>}>
         <Routes>
           <Route path="/" element={<LoginRoleSelection />} />
 
