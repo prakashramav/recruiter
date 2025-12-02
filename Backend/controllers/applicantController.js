@@ -1,4 +1,4 @@
-const Applicant = require("../models/Applicant");
+const Applicant = require("../models/applicant");
 const Job = require("../models/Job");
 const Application = require("../models/Application");
 const bcrypt = require("bcryptjs");
