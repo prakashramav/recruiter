@@ -17,15 +17,20 @@ const AdminSignupPage = () => {
   const [dataError, setDataError] = useState(false);
   const navigate = useNavigate()
 
-  const jwtToken = Cookies.get("recruiter_admin_jwtToken")
+  const jwtToken = Cookies.get("talentify_admin_jwtToken")
   if(jwtToken){
     return <Navigate to="/admin" />
   }
   
-  const onAdminSignupSuccess = () => {
-    navigate('/admin/login')
+  const onAdminSignupSuccess = (jwtToken) => {
+    Cookies.set("talentify_admin_jwtToken", jwtToken, {expires : 3})
+    navigate('/admin')
     setIsLoading(false);
+    setName('');
+    setMail('');
+    setPassword('');
   }
+
 
   const onAdminSignupFailure = (data_msg) => {
     setDataMsg(data_msg);
@@ -52,7 +57,7 @@ const AdminSignupPage = () => {
       return;
     }
     const userDetails = {name, email, password};
-    const url = "https://recruiter-7jmo.onrender.com/api/admins/register"
+    const url = "https://recruiter-1-gjf3.onrender.com/api/admins/register"
     const option = {
       method : "POST",
       headers : {
@@ -65,7 +70,7 @@ const AdminSignupPage = () => {
     const data = await response.json();
     console.log(data);
     if(response.ok === true){
-      onAdminSignupSuccess();
+      onAdminSignupSuccess(data.token);
     }
     else{
       onAdminSignupFailure(data.message);
@@ -75,7 +80,7 @@ const AdminSignupPage = () => {
   return (
     <form className='admin-singup-page-container' onSubmit={onSubmitAdminSignUp}>
       <div className='admin-mini-signup-page-container'>
-        <h1>Admin Signup Page</h1>
+        <h1 className='admin-signup-heading'>Admin Signup Page</h1>
         <div className='input-handler-container'>
           <label htmlFor='name' className='label'>Name</label>
           <input className='input-field' placeholder='Enter Your Name' id='name' type='text' onChange={(e) => {setName(e.target.value),setNameError(false)}}/>
@@ -92,7 +97,7 @@ const AdminSignupPage = () => {
           {passwordError && <span className='admin-error-msg'>*Required Field</span>}
         </div>
         <div className='admin-signup-page-button-container'>
-          {isLoading ? (<ThreeDots height={60} width={60} ariaLabel="tail-spin-loading" radius="1" visible={true}/>):(<button className='admin-signup-button' type='submit'>signup</button>)}
+          {isLoading ? (<ThreeDots height={60} width={60} ariaLabel="tail-spin-loading" radius="1" visible={true}/>):(<button className='admin-signup-button' type='submit'>Signup</button>)}
         </div>
         <div className='data-error-msg'>
           {dataError && <p className='error-msg'>{dataMsg}</p>}

@@ -14,13 +14,13 @@ const ApplicantLoginPage = () => {
   const [dataError, setDataError] = useState(false);
   const navigate = useNavigate()
 
-  const jwtToken = Cookies.get("recruiter_applicant_jwtToken")
+  const jwtToken = Cookies.get("talentify_applicant_jwtToken")
   if(jwtToken){
     return <Navigate to="/applicant" />
   }
 
   const onApplicantLoginSuccess = (jwtToken) => {
-    Cookies.set("recruiter_applicant_jwtToken", jwtToken, {expires : 3})
+    Cookies.set("talentify_applicant_jwtToken", jwtToken, {expires : 3})
     navigate('/applicant')
     setIsLoading(false);
   }
@@ -47,7 +47,7 @@ const ApplicantLoginPage = () => {
       return;
     }
     const userDetails = {email, password};
-    const url = "https://recruiter-7jmo.onrender.com/api/applicants/login"
+    const url = "https://recruiter-1-gjf3.onrender.com/api/applicants/login"
     const option = {
       method : "POST",
       headers : {
@@ -68,27 +68,27 @@ const ApplicantLoginPage = () => {
   }
 
   return (
-    <form className='admin-singup-page-container' onSubmit={onSubmitApplicantSignUp}>
-      <div className='admin-mini-signup-page-container'>
-        <h1>Applicant  Login Page</h1>
+    <form className='applicant-login-page-container' onSubmit={onSubmitApplicantSignUp}>
+      <div className='applicant-mini-login-page-container'>
+        <h1 className='applicant-login-heading'>Applicant  Login Page</h1>
         <div className='input-handler-container'>
           <label htmlFor='email'>Email</label>
           <input className='input-field' placeholder='Enter Your Email' id='email' type='email' onChange={(e) => {setMail(e.target.value),setMailError(false)}}/>
-          {mailError && <span className='admin-error-msg'>*Required Field</span>}
+          {mailError && <span className='error-message'>*Required Field</span>}
         </div>
         <div className='input-handler-container'>
           <label htmlFor='password'>Password</label>
           <input className='input-field' placeholder='Enter Your Password' id='password' type='password' onChange={(e) => {setPassword(e.target.value),setPasswordError(false)}}/>
-          {passwordError && <span className='admin-error-msg'>*Required Field</span>}
+          {passwordError && <span className='error-message'>*Required Field</span>}
         </div>
-        <div className='admin-signup-page-button-container'>
-          {isLoading ? (<ThreeDots height={60} width={60} ariaLabel="tail-spin-loading" radius="1" visible={true}/>):(<button className='admin-signup-button' type='submit'>Login</button>)}
+        <div className='applicant-login-page-button-container'>
+          {isLoading ? (<ThreeDots height={60} width={60} ariaLabel="tail-spin-loading" radius="1" visible={true}/>):(<button className='applicant-login-button' type='submit'>Login</button>)}
         </div>
         <div className='data-error-msg'>
-          {dataError && <p className='error-msg'>{dataMsg}</p>}
+          {dataError && <p className='error-message'>{dataMsg}</p>}
         </div>
-        <div className='admin-sign-link-to-login'>
-          <p>Don't have an Account? <Link to="/applicant/signup">signup</Link></p>
+        <div className='applicant-login-link-to-login'>
+          <p>Don't have an Account? <Link to="/applicant/signup">Signup</Link></p>
         </div>
       </div>
     </form>

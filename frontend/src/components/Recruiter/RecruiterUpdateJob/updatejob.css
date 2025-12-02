@@ -1,0 +1,155 @@
+/* ===========================
+   MAIN LAYOUT WRAPPER
+=========================== */
+.updatejob-container {
+  display: flex;
+}
+
+/* MAIN CONTENT */
+.updatejob-content {
+  margin-left: 20%;
+  margin-top: 6%;
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.updatejob-heading {
+  margin-bottom: 20px;
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* ===========================
+   FORM STYLES
+=========================== */
+.updatejob-form {
+  width: 60%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.updatejob-form input,
+.updatejob-form select,
+.updatejob-form textarea {
+  margin-bottom: 15px;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+}
+
+.updatejob-form textarea {
+  height: 120px;
+  resize: none;
+}
+
+/* SUBMIT BUTTON */
+.job-submit-btn {
+  padding: 12px;
+  background: #007bff;
+  border: none;
+  color: white;
+  font-size: 17px;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 100%;
+}
+.job-submit-btn{
+  width: 100%;
+}
+.job-submit-btn:hover {
+  background: #002df8;
+}
+.go-back-btn{
+  background-color: orangered;
+  height: 40px;
+  width: 120px;
+  border-radius: 8px;
+  border-width: 0px;
+  color: #fff;
+
+}
+.loading-and-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.heading-goback-container{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+}
+
+/* Loader container */
+.update-job-loader-container {
+  margin-top: 20%;
+  display: flex;
+  justify-content: center;
+}
+
+/* ===========================
+   RESPONSIVE DESIGN
+=========================== */
+
+/* Tablets (768px–1024px) */
+@media (max-width: 1024px) {
+  .updatejob-content {
+    margin-left: 28%;
+    margin-top: 10%;
+  }
+
+  .updatejob-form {
+    width: 80%;
+  }
+}
+
+/* Mobile (≤600px) */
+@media (max-width: 600px) {
+  .updatejob-content {
+    margin-left: 0%;
+    margin-top: 18%;
+    padding: 15px;
+  }
+
+  .updatejob-form {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .updatejob-heading {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+}
+
+/* Small Mobile (≤400px) */
+@media (max-width: 400px) {
+  .updatejob-content {
+    margin-top: 20%;
+  }
+
+  .updatejob-heading {
+    font-size: 22px;
+  }
+
+  .updatejob-form {
+    width: 100%;
+    margin-bottom: 50px;
+  }
+}
+
+/* Large Laptop / Desktop (≥1440px) */
+@media (min-width: 1440px) {
+  .updatejob-content {
+    margin-left: 18%;
+  }
+
+  .updatejob-form {
+    width: 50%;
+  }
+}

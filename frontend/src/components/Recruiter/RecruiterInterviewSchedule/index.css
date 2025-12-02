@@ -1,0 +1,35 @@
+/* Default: Laptop + Desktop */
+.recruiter-interview-page-container {
+    display: flex;
+}
+
+.recruiter-interview-content-contaier {
+    flex: 1;
+    padding: 40px;
+    margin-left: 260px;  /* Sidebar width (Navbar) */
+    margin-top: 80px;    /* Topbar height */
+}
+
+/* ---------- TABLET (768px – 1024px) ---------- */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .recruiter-interview-content-contaier {
+        margin-left: 200px;     /* Smaller sidebar */
+        margin-top: 70px;
+        padding: 30px;
+        text-align: center;
+    }
+}
+
+/* ---------- MOBILE (max-width: 767px) ---------- */
+@media (max-width: 767px) {
+    .recruiter-interview-page-container {
+        flex-direction: column; /* Navbar moves to bottom */
+    }
+
+    .recruiter-interview-content-contaier {
+        margin: 80px 15px 0 15px; /* Margin from top only */
+        padding: 20px;
+        text-align: center;
+        margin-left: 20%;          /* Remove sidebar gap */
+    }
+}

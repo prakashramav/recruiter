@@ -14,13 +14,13 @@ const AdminLoginPage = () => {
   const [dataError, setDataError] = useState(false);
   const navigate = useNavigate()
 
-  const jwtToken = Cookies.get("recruiter_admin_jwtToken")
+  const jwtToken = Cookies.get("talentify_admin_jwtToken")
   if(jwtToken){
     return <Navigate to="/admin" />
   }
 
   const onAdminLoginSuccess = (jwtToken) => {
-    Cookies.set("recruiter_admin_jwtToken", jwtToken, {expires : 3})
+    Cookies.set("talentify_admin_jwtToken", jwtToken, {expires : 3})
     navigate('/admin')
     setIsLoading(false);
   }
@@ -47,7 +47,7 @@ const AdminLoginPage = () => {
       return;
     }
     const userDetails = {email, password};
-    const url = "https://recruiter-7jmo.onrender.com/api/admins/login"
+    const url = "https://recruiter-1-gjf3.onrender.com/api/admins/login"
     const option = {
       method : "POST",
       headers : {
@@ -68,27 +68,27 @@ const AdminLoginPage = () => {
   }
 
   return (
-    <form className='admin-singup-page-container' onSubmit={onSubmitAdminLogin}>
+    <form className='admin-login-page-container' onSubmit={onSubmitAdminLogin}>
       <div className='admin-mini-signup-page-container'>
-        <h1>Admin Login Page</h1>
+        <h1 className='admin-login-heading'>Admin Login Page</h1>
         <div className='input-handler-container'>
-          <label htmlFor='email'>Email</label>
+          <label htmlFor='email' className='label'>Email</label>
           <input className='input-field' placeholder='Enter Your Email' id='email' type='email' onChange={(e) => {setMail(e.target.value),setMailError(false)}}/>
-          {mailError && <span className='admin-error-msg'>*Required Field</span>}
+          {mailError && <span className='error-message'>*Required Field</span>}
         </div>
         <div className='input-handler-container'>
-          <label htmlFor='password'>Password</label>
+          <label htmlFor='password' className='label'>Password</label>
           <input className='input-field' placeholder='Enter Your Password' id='password' type='password' onChange={(e) => {setPassword(e.target.value),setPasswordError(false)}}/>
-          {passwordError && <span className='admin-error-msg'>*Required Field</span>}
+          {passwordError && <span className='error-message'>*Required Field</span>}
         </div>
         <div className='admin-signup-page-button-container'>
           {isLoading ? (<ThreeDots height={60} width={60} ariaLabel="tail-spin-loading" radius="1" visible={true}/>):(<button className='admin-signup-button' type='submit'>Login</button>)}
         </div>
         <div className='data-error-msg'>
-          {dataError && <p className='error-msg'>{dataMsg}</p>}
+          {dataError && <p className='error-message'>{dataMsg}</p>}
         </div>
         <div className='admin-sign-link-to-login'>
-          <p>Don't have an Account? <Link to="/admin/signup">signup</Link></p>
+          <p>Don't have an Account? <Link to="/admin/signup">Signup</Link></p>
         </div>
       </div>
     </form>

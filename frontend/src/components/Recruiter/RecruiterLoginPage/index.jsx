@@ -16,12 +16,12 @@ const RecruiterLoginPage = () => {
 
   const navigate = useNavigate();
 
-  const jwtToken = Cookies.get("recruiter_jwt_token");
+  const jwtToken = Cookies.get("talintify_recruiter_jwt_token");
   if(jwtToken) {
     return <Navigate to='/recruiter' replace/>
   }
   const onSuccesLogin = (jwtToken) => {
-    Cookies.set("recruiter_jwt_token", jwtToken, {expires: 3})
+    Cookies.set("talintify_recruiter_jwt_token", jwtToken, {expires: 3})
     navigate('/recruiter', {replace:true});
     setLoading(false);
   }
@@ -53,7 +53,7 @@ const RecruiterLoginPage = () => {
      return 
     }
     
-    const apiUrl = 'https://recruiter-7jmo.onrender.com/api/recruiters/login'
+    const apiUrl = 'https://recruiter-1-gjf3.onrender.com/api/recruiters/login'
 
     const userDetails = {email, password};
 
@@ -72,7 +72,7 @@ const RecruiterLoginPage = () => {
       onSuccesLogin(data.token);
       console.log(data.token);
     }else{
-      onFailureOfLogin(data.message);
+      onFailureOfLogin(data.msg);
     }
 
   }
@@ -80,7 +80,7 @@ const RecruiterLoginPage = () => {
   return (
     <form className='recruiter-login-page-container' onSubmit={loginPageSubmit}>
         <div className='recruiter-mini-container'>
-            <h1>Recruiter Login Page</h1>
+            <h1 className='recruiter-login-heading'>Recruiter Login Page</h1>
           <div className='input-handler-container'>
             <label htmlFor="email" className='label'>Email</label>
             <input type="email" placeholder='Enter your Email' id='email' className='input-field' onChange={(e)=>{setEmail(e.target.value),setEmailError(false)}}/>
@@ -96,9 +96,6 @@ const RecruiterLoginPage = () => {
           </div>
           <div className='error-message-container'>
             {data && <span className='error-message'>{errorMsg}</span>}
-          </div>
-          <div >
-            {data && <p className='error-message'>{errorMsg}</p>}
           </div>
           <div className='signup-link-container'>
             <p>I don't have an Account? <Link to="/recruiter/signup">singup</Link></p>

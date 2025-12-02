@@ -2,7 +2,7 @@ import { Link, useNavigate, Navigate} from 'react-router-dom';
 import { useState } from 'react';
 import Cookies from 'js-cookie'
 import { ThreeDots } from 'react-loader-spinner';
-
+import './index.css'
 
 const ApplicantSignupPage = () => {
   const [name, setName] = useState('');
@@ -16,13 +16,14 @@ const ApplicantSignupPage = () => {
   const [dataError, setDataError] = useState(false);
   const navigate = useNavigate()
 
-  const jwtToken = Cookies.get("recruiter_admin_jwtToken")
+  const jwtToken = Cookies.get("talentify_applicant_jwtToken")
   if(jwtToken){
     return <Navigate to="/applicant" />
   }
   
-  const onApplicantSignupSuccess = () => {
-    navigate('/applicant/login')
+  const onApplicantSignupSuccess = (jwtToken) => {
+    Cookies.set("talentify_applicant_jwtToken", jwtToken, {expires : 3})
+    navigate('/applicant')
     setIsLoading(false);
   }
 
@@ -51,7 +52,7 @@ const ApplicantSignupPage = () => {
       return;
     }
     const userDetails = {name, email, password};
-    const url = "https://recruiter-7jmo.onrender.com/api/applicants/register"
+    const url = "https://recruiter-1-gjf3.onrender.com/api/applicants/register"
     const option = {
       method : "POST",
       headers : {
@@ -64,7 +65,7 @@ const ApplicantSignupPage = () => {
     const data = await response.json();
     console.log(data);
     if(response.ok === true){
-      onApplicantSignupSuccess();
+      onApplicantSignupSuccess(jwtToken);
     }
     else{
       onApplicantSignupFailure(data.msg);
@@ -74,7 +75,7 @@ const ApplicantSignupPage = () => {
   return (
     <form className='admin-singup-page-container' onSubmit={onSubmitApplicantSignUp}>
       <div className='admin-mini-signup-page-container'>
-        <h1>Applicant Signup Page</h1>
+        <h1 className='admin-signup-heading'>Applicant Signup Page</h1>
         <div className='input-handler-container'>
           <label htmlFor='name' className='label'>Name</label>
           <input className='input-field' placeholder='Enter Your Name' id='name' type='text' onChange={(e) => {setName(e.target.value),setNameError(false)}}/>
@@ -91,7 +92,7 @@ const ApplicantSignupPage = () => {
           {passwordError && <span className='admin-error-msg'>*Required Field</span>}
         </div>
         <div className='admin-signup-page-button-container'>
-          {isLoading ? (<ThreeDots height={60} width={60} ariaLabel="tail-spin-loading" radius="1" visible={true}/>):(<button className='admin-signup-button' type='submit'>signup</button>)}
+          {isLoading ? (<ThreeDots height={60} width={60} ariaLabel="tail-spin-loading" radius="1" visible={true}/>):(<button className='admin-signup-button' type='submit'>Signup</button>)}
         </div>
         <div className='data-error-msg'>
           {dataError && <p className='error-msg'>{dataMsg}</p>}

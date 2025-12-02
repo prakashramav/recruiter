@@ -3,11 +3,12 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: #F0F2F5;
     height: 100vh;
 }
 
 .admin-mini-signup-page-container{
-    border: 2px solid #000;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
     padding: 55px;
     border-radius: 10px;
     height: auto;
@@ -50,4 +51,55 @@
 
 .data-error-msg{
     text-align: center;
+}
+
+
+.input-handler-container{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+.input-field{
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.label{
+    font-weight: 400;
+}
+
+
+.button-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.admin-sign-link-to-login{
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+}
+.admin-signup-page-button-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.data-error-msg{
+    text-align: center;
+}
+
+@media (max-width: 600px){
+    .admin-mini-signup-page-container{
+        width: 90%;
+        padding: 20px;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    }
+    .admin-signup-heading{
+        text-align: center;
+    }
 }

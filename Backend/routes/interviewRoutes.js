@@ -1,15 +1,21 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const { auth, requireRole } = require('../middlewares/auth');
-const { scheduleInterview, getMyInterviews, getInterviewsForJob } = require('../controllers/interviewController');
 
-// Recruiter schedules an interview
-router.post('/schedule', auth, requireRole('recruiter'), scheduleInterview);
+const {
+  scheduleInterview,
+  getMyInterviews,
+  getInterviewsForJob
+} = require("../controllers/interviewController");
 
-// Recruiter: view interviews for a job
-router.get('/job/:jobId', auth, requireRole('recruiter'), getInterviewsForJob);
+const { auth, requireRole } = require("../middlewares/auth");
 
-// Applicant: view their interviews
-router.get('/my', auth, requireRole('applicant'), getMyInterviews);
+// Recruiter schedules interview
+router.post("/schedule", auth, requireRole("recruiter"), scheduleInterview);
+
+// Applicant checks own interviews
+router.get("/my", auth, requireRole("applicant"), getMyInterviews);
+
+// Recruiter views interviews for a job
+router.get("/job/:jobId", auth, requireRole("recruiter"), getInterviewsForJob);
 
 module.exports = router;

@@ -23,13 +23,15 @@ const RecruiterSignupPage = () => {
 
   const navigate = useNavigate();
 
-  const jwtToken = Cookies.get("recruiter_jwt_token");
+  const jwtToken = Cookies.get("talintify_recruiter_jwt_token");
   if(jwtToken) {
     return <Navigate to='/recruiter' replace/>
   }
 
-  const onSuccessFullRegister = () => {
-    navigate('/recruiter/login',{replace:true});
+  const onSuccessFullRegister = (jwtToken) => {
+    // navigate('/recruiter/login',{replace:true});
+    Cookies.set("talintify_recruiter_jwt_token", jwtToken, {expires: 3})
+    navigate('/recruiter', {replace:true});
     setIsLoading(false)
   }
 
@@ -37,8 +39,6 @@ const RecruiterSignupPage = () => {
     setIsLoading(false);
     setDataMsgError(true);
     setDataError(data_message);
-
-
   }
 
   const onSubmitSignup = async (e) => {
@@ -71,7 +71,7 @@ const RecruiterSignupPage = () => {
     if(!name || !email || !password || !companyName || !companyWebsite || !designation){
       return;
     }
-    const url = "https://recruiter-7jmo.onrender.com/api/recruiters/register"
+    const url = "https://recruiter-1-gjf3.onrender.com/api/recruiters/register"
     const userDetails = {name, email,password, companyName,companyWebsite,designation};
     const option = {
       method:"POST",
@@ -81,11 +81,10 @@ const RecruiterSignupPage = () => {
       body : JSON.stringify(userDetails)
     }
     const response = await fetch(url, option);
-    console.log(response)
     const data = await response.json();
     console.log(data);
     if(response.ok === true){
-      onSuccessFullRegister();
+      onSuccessFullRegister(data.token);
     }else{
       onFailureRegister(data.message)
     }
@@ -95,7 +94,7 @@ const RecruiterSignupPage = () => {
   return (
     <form className='recruiter-singup-container' onSubmit={onSubmitSignup}>
       <div className='recruiter-signup-mini-container'>
-        <h1>Recruiter Signup Page</h1>
+        <h1 className='recruiter-login-heading'>Recruiter Signup Page</h1>
         <div className='input-handler-container'>
           <label htmlFor='name'>Name</label>
           <input type='text' placeholder='Enter Your Name' id='name' className='input-field' onChange={(e) => {setName(e.target.value),setNameError(false)}}/>

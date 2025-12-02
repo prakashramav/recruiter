@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const { type } = require("os");
 
 const JobSchema = new mongoose.Schema({
   title: {
@@ -22,9 +21,8 @@ const JobSchema = new mongoose.Schema({
     enum: ['Software Development', 'Data Science', 'Product Management', "Artificial Intelligence", "frontend Development", "backend Development", "DevOps", "Cybersecurity", "Cloud Computing", "Mobile Development", "UI/UX Design", "Quality Assurance", "Business Analysis", "fullstack Development" , "Machine Learning" , "Blockchain" , "Game Development" , "Data Engineering", "Network Engineering", "Java Development", "Python Development", "JavaScript Development"],
     required: true
   },
-  salaryRange: {
-    min: Number,
-    max: Number
+  stipend: {
+    type: String,
   },
 
   experienceRequired: {
