@@ -1,5 +1,5 @@
 const Admin = require("../models/Admin");
-const Applicant = require("../models/applicant");
+const Applicant = require("../models/Applicant");
 const Recruiter = require("../models/Recruiter");
 const Job = require("../models/Job");
 const Application = require("../models/Application");
