@@ -1,9 +1,9 @@
 const Recruiter = require("../models/Recruiter");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const Job = require("../models/jobsModel");
-const Application = require("../models/applicationModel");
-const Interview = require("../models/interviewModel");
+const Job = require("../models/Job");
+const Application = require("../models/Application");
+const Interview = require("../models/Interview");
 
 
 // Register Recruiter

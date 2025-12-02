@@ -17,7 +17,6 @@ const RecruiterUpdateProfile = () => {
 
   const [loading, setLoading] = useState(false);
 
-  // Fetch recruiter data
   useEffect(() => {
     const fetchProfile = async () => {
       try {
