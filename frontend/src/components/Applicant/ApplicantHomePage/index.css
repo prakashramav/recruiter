@@ -5,11 +5,22 @@
     margin-top: 80px;
 }
 
-
+.applicant-dashboard-page-loader-container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
 @media (max-width: 600px) {
     .applicant-dashboard-page-container{
         margin-left: 0px;
         width: 100%;
+    }
+    .applicant-dashboard-page-loader-container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
     }
 }
 
@@ -17,5 +28,11 @@
     .applicant-dashboard-page-container{
         margin-left: 200px;
         width: calc(100% - 200px);
+    }
+    .applicant-dashboard-page-loader-container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
     }
 }

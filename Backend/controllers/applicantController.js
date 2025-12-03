@@ -241,7 +241,6 @@ exports.completeApplicantProfile = async (req, res) => {
     const applicantId = req.user.id;
 
     const {
-      name,
       phone,
       githubUrl,
       linkedinUrl,
@@ -252,14 +251,13 @@ exports.completeApplicantProfile = async (req, res) => {
     } = req.body;
 
     // Validate required fields
-    if (!name || !phone || !skills || skills.length === 0) {
+    if (!phone || !skills || skills.length === 0) {
       return res.status(400).json({ message: "Required fields missing" });
     }
 
     const updatedProfile = await Applicant.findByIdAndUpdate(
       applicantId,
       {
-        name,
         phone,
         githubUrl,
         linkedinUrl,

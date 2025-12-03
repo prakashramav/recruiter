@@ -33,14 +33,7 @@ router.post("/login", applicantLogin);
 // Protected
 router.get("/me", auth, requireRole("applicant"), getApplicantProfile);
 router.post("/complete-profile", auth, requireRole("applicant"), completeApplicantProfile);
-router.put(
-  "/update-profile",
-  auth,
-  requireRole("applicant"),
-  uploadResume.single("resume"),
-  updateApplicantProfile
-);
-
+router.put("/update-profile",auth,requireRole("applicant"),uploadResume.single("resume"),updateApplicantProfile);
 router.get("/all-jobs", auth, requireRole("applicant"), viewAllJobs);
 router.get("/related-jobs", auth, requireRole("applicant"), viewRelatedJobs);
 router.get('/my-applications', auth, requireRole("applicant"), getMyApplications);
