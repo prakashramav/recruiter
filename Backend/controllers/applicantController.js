@@ -250,8 +250,11 @@ exports.completeApplicantProfile = async (req, res) => {
       experience = 0
     } = req.body;
 
-    // Validate required fields
-    if (!phone || !skills || skills.length === 0) {
+    const formattedSkills = Array.isArray(skills)
+  ? skills.filter(s => s.trim() !== "")
+  : [];
+
+    if (!phone || !skills || formattedSkills.length === 0) {
       return res.status(400).json({ message: "Required fields missing" });
     }
 
