@@ -2,13 +2,13 @@ const express = require("express");
 const router = express.Router();
 const { auth,requireRole } = require("../middlewares/auth");
 const uploadResume = require("../middlewares/uploadResume");
-const { uploadResumeAndScore,recalculateATS,deleteResume,getResumeStatus,validateResume } = require("../controllers/atsController");
+const { uploadResumeOnly,recalculateATS,deleteResume,getResumeStatus,validateResume } = require("../controllers/atsController");
 
 router.post(
   "/upload-resume",
   auth,
   uploadResume.single("resume"),   // form-data key: resume
-  uploadResumeAndScore
+  uploadResumeOnly
 );
 
 router.get("/recalculate", auth, requireRole("applicant"), recalculateATS);
