@@ -1,0 +1,74 @@
+/* Desktop & Laptop Sidebar */
+.applicant-sidebar {
+  width: 230px;
+  height: calc(100vh - 80px);
+  background: #bdc1b7;
+  position: fixed;
+  left: 0;
+  top: 60px;
+  padding-top: 20px;
+  border-right: 1px solid #ccc;
+}
+
+.applicant-sidebar-links {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 15px;
+}
+
+.applicant-sidebar-link {
+  padding: 10px 15px;
+  text-decoration: none;
+  color: #333;
+  font-size: 16px;
+  border-radius: 6px;
+}
+
+.applicant-sidebar-link.active {
+  background: #2563eb;
+  color: #fff !important;
+}
+
+
+/* ================= MOBILE — Convert to Bottom Navbar ================= */
+@media (max-width: 600px) {
+  .applicant-sidebar {
+    position: fixed;
+    width: 100%;
+    height: 60px;
+    bottom: 0;
+    top: auto;
+    left: 0;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-right: none;
+    border-top: 1px solid #ccc;
+    padding: 0;
+  }
+
+  .applicant-sidebar-links {
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    gap: 0;
+    padding: 0;
+  }
+
+  .applicant-sidebar-link {
+    flex: 1;
+    padding: 12px 0;
+    font-size: 14px;
+    text-align: center;
+    border-radius: 0;
+  }
+
+  .applicant-sidebar-link.active {
+    background: none;
+    color: #2563eb !important;
+    font-weight: 700;
+    border-top: 3px solid #2563eb;
+  }
+}

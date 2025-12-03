@@ -13,12 +13,22 @@ const ApplicantSchema = new mongoose.Schema(
       default: []
     },
 
-    skills: [String],
-
-    resumeUrl: String,
-    atsScore: Number,
-    atsSummary: String,
-
+    skills: {
+      type : [String],
+      default : []
+    },
+    resumeUrl: {
+      type: String,
+      default: null
+    },
+    atsScore: {
+      type: Number,
+      default: null
+    },
+    isResumeUploaded: {
+      type: Boolean,
+      default: false
+    },
     experience: { type: Number, default: 0 },
 
     phone: String,
