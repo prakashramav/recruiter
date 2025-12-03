@@ -242,7 +242,7 @@ exports.completeApplicantProfile = async (req, res) => {
 
     const {
       phone,
-      githubUrl,
+      githubUrl = "",
       linkedinUrl = "",
       portfolioUrl = "",
       skills,
@@ -250,11 +250,22 @@ exports.completeApplicantProfile = async (req, res) => {
       experience = 0
     } = req.body;
 
+    // Convert skills into array safely
     const formattedSkills = Array.isArray(skills)
-  ? skills.filter(s => s.trim() !== "")
-  : [];
+      ? skills.filter((s) => s.trim() !== "")
+      : typeof skills === "string"
+      ? skills.split(",").map((s) => s.trim()).filter((s) => s !== "")
+      : [];
 
-    if (!phone || !skills || formattedSkills.length === 0) {
+    // Convert interests into array safely
+    const formattedInterests = Array.isArray(interests)
+      ? interests.filter((i) => i.trim() !== "")
+      : typeof interests === "string"
+      ? interests.split(",").map((i) => i.trim()).filter((i) => i !== "")
+      : [];
+
+    // Validate required fields
+    if (!phone || formattedSkills.length === 0) {
       return res.status(400).json({ message: "Required fields missing" });
     }
 
@@ -265,8 +276,8 @@ exports.completeApplicantProfile = async (req, res) => {
         githubUrl,
         linkedinUrl,
         portfolioUrl,
-        skills,
-        interests,
+        skills: formattedSkills,
+        interests: formattedInterests,
         experience,
         isProfileComplete: true
       },
@@ -282,6 +293,7 @@ exports.completeApplicantProfile = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
 
 exports.deleteApplicantProfile = async (req, res) => {
   try {
