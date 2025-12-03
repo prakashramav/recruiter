@@ -38,13 +38,20 @@ const ApplicantCompleteProfile = () => {
       const payload = {
         phone: formData.phone,
         githubUrl: formData.githubUrl,
-        linkedinUrl: formData.linkedinUrl,
-        portfolioUrl: formData.portfolioUrl,
+        linkedinUrl: formData.linkedinUrl || "",
+        portfolioUrl: formData.portfolioUrl || "",
         experience: Number(formData.experience),
 
-        // backend expects array
-        skills: formData.skills.split(",").map((s) => s.trim()),
-        interests: formData.interests.split(",").map((i) => i.trim()),
+        skills: formData.skills
+            .split(",")
+            .map((s) => s.trim())
+            .filter((s) => s !== ""),
+
+        interests: formData.interests
+            ?.split(",")
+            .map((i) => i.trim())
+            .filter((i) => i !== ""),
+
       };
 
       await axios.post(
