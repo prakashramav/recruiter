@@ -1,15 +1,19 @@
 import { Navigate } from "react-router-dom";
 import Cookies from 'js-cookie'
-import ApplicantNavbarPage from '../ApplicantHeaderPage'
+import ApplicantHeaderPage from '../ApplicantHeaderPage'
+import ApplicantNavbarPage from "../ApplicantNavabrPage";
 import "./index.css";
 
 const ApplicantHomePage = () => {
 
     return (
         <>
-            <ApplicantNavbarPage />
-            <div className="applicant-home-container">
-                <h1>Welcome to Applicant Home Page</h1>
+            <ApplicantHeaderPage />
+            <div>
+                <ApplicantNavbarPage />
+                <div className="applicant-dashboard-page-container">
+                    <h1>Welcome to Applicant Dashboard</h1>
+                </div>
             </div>
         </>
     )

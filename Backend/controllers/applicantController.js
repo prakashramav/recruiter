@@ -3,7 +3,10 @@ const Job = require("../models/Job");
 const Application = require("../models/Application");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-
+const cloudinary = require("../config/cloudinary");
+const pdfParse = require("pdf-parse");
+const OpenAI = require("openai");
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 // -------------------------------------------------------------
 // Register Applicant
 // -------------------------------------------------------------
@@ -82,15 +85,114 @@ exports.getApplicantProfile = async (req, res) => {
 // -------------------------------------------------------------
 exports.updateApplicantProfile = async (req, res) => {
   try {
-    const updated = await Applicant.findByIdAndUpdate(
-      req.user.id,
-      req.body,
+    const applicantId = req.user.id;
+
+    const {
+      name,
+      email,
+      experience,
+      phone,
+      githubUrl,
+      linkedinUrl,
+      portfolioUrl,
+      interests,
+      skills,
+    } = req.body;
+
+    // Parse arrays (coming as JSON strings from frontend)
+    const parsedInterests = interests ? JSON.parse(interests) : [];
+    const parsedSkills = skills ? JSON.parse(skills) : [];
+
+    let updateData = {
+      name,
+      email,
+      experience,
+      phone,
+      githubUrl,
+      linkedinUrl,
+      portfolioUrl,
+      interests: parsedInterests,
+      skills: parsedSkills,
+    };
+
+    // If no resume uploaded, just update basic profile
+    if (!req.file) {
+      const updatedProfile = await Applicant.findByIdAndUpdate(
+        applicantId,
+        updateData,
+        { new: true }
+      );
+
+      return res.json({
+        success: true,
+        message: "Profile updated successfully",
+        profile: updatedProfile,
+      });
+    }
+
+    // ✅ If resume is uploaded → parse PDF + ATS + Cloudinary
+
+    // 1️⃣ Parse resume text from buffer
+    const pdfData = await pdfParse(req.file.buffer);
+    const resumeText = pdfData.text;
+
+    // 2️⃣ Get ATS score using OpenAI
+    const prompt = `
+      Analyze the following resume text and give:
+      - ATS Score (0–100)
+      - Strengths
+      - Weaknesses
+      Resume:
+      ${resumeText}
+    `;
+
+    const aiRes = await openai.chat.completions.create({
+      model: "gpt-4o-mini",
+      messages: [{ role: "user", content: prompt }],
+    });
+
+    const output = aiRes.choices[0].message.content || "";
+    const scoreMatch = output.match(/(\d{1,3})/);
+    const atsScore = scoreMatch ? Number(scoreMatch[1]) : 0;
+
+    // 3️⃣ Upload resume PDF buffer to Cloudinary (raw)
+    const uploadResult = await new Promise((resolve, reject) => {
+      const uploadStream = cloudinary.uploader.upload_stream(
+        { resource_type: "raw", folder: "resumes" },
+        (error, result) => {
+          if (error) return reject(error);
+          resolve(result);
+        }
+      );
+
+      streamifier.createReadStream(req.file.buffer).pipe(uploadStream);
+    });
+
+    updateData = {
+      ...updateData,
+      resumeUrl: uploadResult.secure_url,
+      resumePublicId: uploadResult.public_id,
+      atsScore,
+      atsSummary: output,
+      isResumeUploaded: true,
+      isProfileComplete: true,
+    };
+
+    const updatedProfile = await Applicant.findByIdAndUpdate(
+      applicantId,
+      updateData,
       { new: true }
     );
 
-    res.json({ msg: "Profile updated successfully", updated });
+    return res.json({
+      success: true,
+      message: "Profile & resume updated successfully",
+      profile: updatedProfile,
+    });
+
   } catch (err) {
-    res.status(500).json({ msg: err.message });
+    console.error(err);
+    res.status(500).json({ msg: "Server Error" });
   }
 };
 
@@ -129,6 +231,53 @@ exports.viewRelatedJobs = async (req, res) => {
     res.json(jobs);
   } catch (err) {
     res.status(500).json({ error: err.message });
+  }
+};
+
+
+exports.completeApplicantProfile = async (req, res) => {
+  try {
+    const applicantId = req.user.id;
+
+    const {
+      name,
+      phone,
+      githubUrl,
+      linkedinUrl,
+      portfolioUrl,
+      skills,
+      interests,
+      experience
+    } = req.body;
+
+    // Validate required fields
+    if (!name || !phone || !skills || skills.length === 0) {
+      return res.status(400).json({ message: "Required fields missing" });
+    }
+
+    const updatedProfile = await Applicant.findByIdAndUpdate(
+      applicantId,
+      {
+        name,
+        phone,
+        githubUrl,
+        linkedinUrl,
+        portfolioUrl,
+        skills,
+        interests,
+        experience,
+        isProfileComplete: true
+      },
+      { new: true }
+    );
+
+    res.json({
+      message: "Profile completed successfully",
+      profile: updatedProfile
+    });
+
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 };
 

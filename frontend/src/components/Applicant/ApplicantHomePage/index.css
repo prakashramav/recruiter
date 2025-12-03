@@ -1,25 +1,21 @@
-.applicant-home-container{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+.applicant-dashboard-page-container{
+    margin-left: 260px;
+    padding: 40px;
+    width: calc(100% - 260px);
+    margin-top: 80px;
 }
 
-.applicant-role-btn{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+@media (max-width: 600px) {
+    .applicant-dashboard-page-container{
+        margin-left: 0px;
+        width: 100%;
+    }
 }
 
-.app-role-btn{         
-    height: 45px;
-    width: 82px;
-    border-radius: 5px;
-    background-color: lightgreen;
-    border-width: 0px;
-    font-size: 14px;
-    font-weight: 600;
-    margin: 10px;
-    cursor: pointer;
+@media (min-width: 768px) and (max-width: 1024px) {
+    .applicant-dashboard-page-container{
+        margin-left: 200px;
+        width: calc(100% - 200px);
+    }
 }
