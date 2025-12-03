@@ -1,45 +1,44 @@
 const fs = require("fs");
-const pdfParse = require("pdf-parse");
+const pdfParseModule = require("pdf-parse");
+const pdfParse = typeof pdfParseModule === "function" ? pdfParseModule : pdfParseModule.default;
+const cloudinary = require("../config/cloudinary");
 const Applicant = require("../models/applicant");
 const OpenAI = require("openai");
-const cloudinary = require("../config/cloudinary");
-
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 exports.uploadResumeAndScore = async (req, res) => {
   try {
     const userId = req.user.id;
 
-    // 1) Check file exists
     if (!req.file) {
       return res.status(400).json({ message: "No resume uploaded" });
     }
 
-    // 2) Extract PDF text from buffer (memoryStorage)
+    // 1) PDF → text from memory buffer
     const pdfData = await pdfParse(req.file.buffer);
     const resumeText = pdfData.text;
 
-    // 3) Upload to Cloudinary using upload_stream
+    // 2) Upload to Cloudinary (memoryStorage → upload_stream)
     const uploadToCloudinary = () => {
       return new Promise((resolve, reject) => {
         const stream = cloudinary.uploader.upload_stream(
           {
             resource_type: "raw",
             folder: "resumes",
-            public_id: `resume_${userId}_${Date.now()}`
+            public_id: `resume_${userId}_${Date.now()}`,
           },
           (error, result) => {
             if (error) reject(error);
             else resolve(result);
           }
         );
-        stream.end(req.file.buffer); // send buffer data
+        stream.end(req.file.buffer);
       });
     };
 
     const cloudinaryRes = await uploadToCloudinary();
 
-    // 4) OpenAI ATS scoring
+    // 3) OpenAI ATS scoring
     const prompt = `
       Analyze this resume and provide:
       - ATS Score (0–100)
@@ -56,13 +55,11 @@ exports.uploadResumeAndScore = async (req, res) => {
     });
 
     const output = aiRes.choices[0].message.content || "";
-
-    // extract ATS score
     let atsScore = 0;
     const match = output.match(/(\d{1,3})/);
     if (match) atsScore = Number(match[1]);
 
-    // 5) Save to DB
+    // 4) Save to DB
     const updatedApplicant = await Applicant.findByIdAndUpdate(
       userId,
       {
@@ -70,7 +67,7 @@ exports.uploadResumeAndScore = async (req, res) => {
         resumePublicId: cloudinaryRes.public_id,
         atsScore,
         atsSummary: output,
-        isResumeUploaded: true
+        isResumeUploaded: true,
       },
       { new: true }
     );
@@ -82,15 +79,14 @@ exports.uploadResumeAndScore = async (req, res) => {
         resumeUrl: cloudinaryRes.secure_url,
         atsScore,
         atsSummary: output,
-        applicant: updatedApplicant
-      }
+        applicant: updatedApplicant,
+      },
     });
-
   } catch (error) {
     console.error("ATS ERROR:", error);
     res.status(500).json({
       success: false,
-      message: "ATS Error: " + error.message
+      message: "ATS Error: " + (error.message || "Unknown error"),
     });
   }
 };
