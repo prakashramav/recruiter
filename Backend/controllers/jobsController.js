@@ -137,3 +137,33 @@ exports.deleteJob = async (req, res) => {
   }
 };
 
+// =============================
+// RECRUITER JOBS COUNT
+// =============================
+
+// GET /api/recruiters/jobs-count
+exports.getRecruiterJobsCount = async (req, res) => {
+  try {
+    const recruiterId = req.user.id;
+
+    const totalJobs = await Job.countDocuments({ createdBy: recruiterId });
+    const activeJobs = await Job.countDocuments({
+      createdBy: recruiterId,
+      isActive: true,
+    });
+    const inactiveJobs = await Job.countDocuments({
+      createdBy: recruiterId,
+      isActive: false,
+    });
+
+    res.json({
+      success: true,
+      totalJobs,
+      activeJobs,
+      inactiveJobs,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+};

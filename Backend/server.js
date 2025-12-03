@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
+const adminAnalyticsRoutes = require("./routes/adminAnalyticsRoutes");
 
 dotenv.config();
 
@@ -29,6 +30,7 @@ app.use("/api/applicants", applicantRoutes);
 app.use("/api/recruiters", recruiterRoutes);
 app.use("/api/ats", atsRoutes);
 app.use("/api/interviews", interviewRoutes);
+app.use("/api/admin-analytics", adminAnalyticsRoutes);
 
 // Start server
 const PORT = process.env.PORT || 8000;

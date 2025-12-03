@@ -6,7 +6,9 @@ const {
   recruiterLogin,
   getMyProfile,
   updateRecruiterProfile,
-  deleteRecruiterProfile
+  deleteRecruiterProfile,
+  getAllInterviewsByRecruiter,
+  getRecruiterAnalytics,
 } = require("../controllers/recruiterController");
 
 const {
@@ -14,7 +16,8 @@ const {
   listMyJobs,
   getJobById,
   updateJob,
-  deleteJob
+  deleteJob,
+  getRecruiterJobsCount
 } = require("../controllers/jobsController");
 
 const {
@@ -39,6 +42,9 @@ router.put("/update-profile",auth,requireRole("recruiter"),updateRecruiterProfil
 router.delete("/delete-profile",auth,requireRole("recruiter"),deleteRecruiterProfile);
 router.get("/jobs/:jobId/applicants", auth, requireRole("recruiter"), getApplicantsForJob);
 router.get("/jobs/:jobId", auth, requireRole("recruiter"), getJobById);
+router.get('recruiter/all', auth, requireRole('recruiter'), getAllInterviewsByRecruiter);
 router.put("/applications/:applicationId/status", auth, requireRole("recruiter"), updateApplicationStatus);
+router.get('/jobs-count', auth, requireRole('recruiter'), getRecruiterJobsCount);
+router.get('analytics', auth, requireRole('recruiter'), getRecruiterAnalytics);
 
 module.exports = router;
