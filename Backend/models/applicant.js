@@ -31,7 +31,7 @@ const ApplicantSchema = new mongoose.Schema(
     },
     experience: { type: Number, default: 0 },
 
-    phone: String,
+    phone: Number,
     githubUrl: String,
     linkedinUrl: String,
     portfolioUrl: String,
