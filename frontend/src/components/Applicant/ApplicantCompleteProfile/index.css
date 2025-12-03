@@ -1,21 +1,129 @@
-.applicant-complete-profile-page-container{
-    margin-left: 260px;
+/* MAIN CONTAINER */
+.applicant-complete-profile-page-container {
+    margin-left: 260px; /* Sidebar width */
     padding: 40px;
     width: calc(100% - 260px);
-    margin-top: 80px;
+    margin-top: 80px; /* Header height */
+    display: flex;
+    flex-direction: column;
+    max-width: 700px;
+    margin-right: auto;
+    justify-content: center;
+    align-items: center;
+}
+.complete-profile-loading-container{
+    display: flex;
+    justify-content: center;
+}
+/* HEADING */
+.applicant-complete-profile-page-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 28px;
+    font-weight: bold;
 }
 
+/* FORM */
+.complete-profile-form {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
 
+.complete-profile-form input,
+.complete-profile-form textarea {
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    width: 100%;
+    outline: none;
+    transition: 0.2s ease;
+}
+
+.complete-profile-form input:focus,
+.complete-profile-form textarea:focus {
+    border-color: #007bff;
+}
+
+.submit-btn {
+    background-color: #007bff;
+    color: #fff;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.submit-btn:hover {
+    background-color: #005bb5;
+}
+
+/*---------------------- MOBILE (<=600px) ----------------------*/
 @media (max-width: 600px) {
-    .applicant-complete-profile-page-container{
-        margin-left: 0px;
+
+    .applicant-complete-profile-page-container {
+        margin-left: 0;
         width: 100%;
+        padding: 20px;
+        margin-top: 120px; /* header spacing */
+        align-items: center;
+    }
+
+    .applicant-complete-profile-page-container h2 {
+        font-size: 22px;
+    }
+
+    .complete-profile-form {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 50px;
+    }
+    .complete-profile-loading-container{
+        display: flex;
+        justify-content: center;
     }
 }
 
-@media (min-width: 768px) and (max-width: 1024px) {
-    .applicant-complete-profile-page-container{
+/*---------------------- TABLET (600px–1024px) ----------------------*/
+@media (min-width: 600px) and (max-width: 1024px) {
+
+    .applicant-complete-profile-page-container {
         margin-left: 200px;
         width: calc(100% - 200px);
+        align-items: center;
+        margin-top: 10%;
+    }
+
+    .complete-profile-form {
+        width: 90%;
+    }
+    .complete-profile-loading-container{
+        display: flex;
+        justify-content: center;
+    }
+}
+
+/*---------------------- LAPTOP (1024px–1440px) ----------------------*/
+@media (min-width: 1024px) and (max-width: 1440px) {
+
+    .applicant-complete-profile-page-container {
+        margin-left: 240px;
+        width: calc(100% - 240px);
+        max-width: 700px;
+    }
+}
+
+/*---------------------- LARGE DESKTOP (>1440px) ----------------------*/
+@media (min-width: 1440px) {
+
+    .applicant-complete-profile-page-container {
+        margin-left: 280px;
+        width: calc(100% - 280px);
+        max-width: 750px;
     }
 }

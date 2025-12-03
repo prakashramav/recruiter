@@ -243,11 +243,11 @@ exports.completeApplicantProfile = async (req, res) => {
     const {
       phone,
       githubUrl,
-      linkedinUrl,
-      portfolioUrl,
+      linkedinUrl = "",
+      portfolioUrl = "",
       skills,
       interests,
-      experience
+      experience = 0
     } = req.body;
 
     // Validate required fields
