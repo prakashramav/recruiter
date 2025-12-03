@@ -1,4 +1,3 @@
-// middlewares/uploadResume.js
 const multer = require("multer");
 
 const storage = multer.memoryStorage();

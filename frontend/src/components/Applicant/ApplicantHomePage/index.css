@@ -10,7 +10,41 @@
         justify-content: center;
         align-items: center;
         height: 100vh;
-    }
+}
+.resume-card {
+  margin-top: 30px;
+  padding: 20px;
+  border: 2px solid #dfe3eb;
+  border-radius: 10px;
+  background: #f8faff;
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.upload-btn {
+  padding: 10px;
+  background-color: #0057d8;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.upload-btn:hover {
+  background-color: #003c9b;
+}
+
+.resume-link {
+  text-decoration: none;
+  color: #0057d8;
+  font-weight: bold;
+}
+.upload-resume-container{
+    display: flex;
+    justify-content: center;
+}
 @media (max-width: 600px) {
     .applicant-dashboard-page-container{
         margin-left: 0px;
