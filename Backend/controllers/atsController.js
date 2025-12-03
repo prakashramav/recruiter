@@ -1,93 +1,56 @@
-const fs = require("fs");
-const pdfParseModule = require("pdf-parse");
-const pdfParse = typeof pdfParseModule === "function" ? pdfParseModule : pdfParseModule.default;
 const cloudinary = require("../config/cloudinary");
 const Applicant = require("../models/applicant");
-const OpenAI = require("openai");
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
-exports.uploadResumeAndScore = async (req, res) => {
+
+exports.uploadResumeOnly = async (req, res) => {
   try {
-    const userId = req.user.id;
+    const applicantId = req.user.id;
 
     if (!req.file) {
-      return res.status(400).json({ message: "No resume uploaded" });
+      return res.status(400).json({ message: "Please upload a PDF file" });
     }
 
-    // 1) PDF → text from memory buffer
-    const pdfData = await pdfParse(req.file.buffer);
-    const resumeText = pdfData.text;
-
-    // 2) Upload to Cloudinary (memoryStorage → upload_stream)
+    // Upload resume buffer to Cloudinary (raw file)
     const uploadToCloudinary = () => {
       return new Promise((resolve, reject) => {
         const stream = cloudinary.uploader.upload_stream(
           {
             resource_type: "raw",
             folder: "resumes",
-            public_id: `resume_${userId}_${Date.now()}`,
+            public_id: `resume_${applicantId}_${Date.now()}`
           },
           (error, result) => {
             if (error) reject(error);
             else resolve(result);
           }
         );
-        stream.end(req.file.buffer);
+        stream.end(req.file.buffer); // send buffer
       });
     };
 
-    const cloudinaryRes = await uploadToCloudinary();
+    const uploadResult = await uploadToCloudinary();
 
-    // 3) OpenAI ATS scoring
-    const prompt = `
-      Analyze this resume and provide:
-      - ATS Score (0–100)
-      - Strengths
-      - Weaknesses
-      
-      Resume:
-      ${resumeText}
-    `;
-
-    const aiRes = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
-      messages: [{ role: "user", content: prompt }],
-    });
-
-    const output = aiRes.choices[0].message.content || "";
-    let atsScore = 0;
-    const match = output.match(/(\d{1,3})/);
-    if (match) atsScore = Number(match[1]);
-
-    // 4) Save to DB
+    // Save to DB
     const updatedApplicant = await Applicant.findByIdAndUpdate(
-      userId,
+      applicantId,
       {
-        resumeUrl: cloudinaryRes.secure_url,
-        resumePublicId: cloudinaryRes.public_id,
-        atsScore,
-        atsSummary: output,
-        isResumeUploaded: true,
+        resumeUrl: uploadResult.secure_url,
+        resumePublicId: uploadResult.public_id,
+        isResumeUploaded: true
       },
       { new: true }
     );
 
     res.json({
       success: true,
-      message: "Resume uploaded & ATS Score generated",
-      data: {
-        resumeUrl: cloudinaryRes.secure_url,
-        atsScore,
-        atsSummary: output,
-        applicant: updatedApplicant,
-      },
+      message: "Resume uploaded successfully",
+      resumeUrl: uploadResult.secure_url,
+      applicant: updatedApplicant
     });
+
   } catch (error) {
-    console.error("ATS ERROR:", error);
-    res.status(500).json({
-      success: false,
-      message: "ATS Error: " + (error.message || "Unknown error"),
-    });
+    console.error("Resume Upload Error:", error);
+    res.status(500).json({ success: false, message: "Resume upload failed" });
   }
 };
 
