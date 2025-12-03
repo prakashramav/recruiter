@@ -2,18 +2,18 @@ import ApplicantHeaderPage from '../ApplicantHeaderPage'
 import ApplicantNavbarPage from '../ApplicantNavabrPage'
 import './index.css'
 
-const ApplicantAppliedJobs = () => {
+const ApplicantInterviewPage = () => {
     return (
         <div>
             <ApplicantHeaderPage />
             <div>
                 <ApplicantNavbarPage />
-                <div className='applicant-applied-jobs-container'>
-                    <h1>Applied Jobs</h1>
+                <div className='applicant-interview-page-container'>
+                    <h1>Interview</h1>
                 </div>
             </div>
         </div>
     )
 }
 
-export default ApplicantAppliedJobs
+export default ApplicantInterviewPage
