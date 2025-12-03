@@ -37,11 +37,16 @@ const RecruiterUpdateJob = lazy(() => import('./components/Recruiter/RecruiterUp
 const RecruiterInterviewSchedule = lazy(() => import('./components/Recruiter/RecruiterInterviewSchedule'))
 const RecruiterUpdateProfile = lazy(() => import('./components/Recruiter/RecruiterUpdateProfile'))
 
+
 {/* Applicant Pages*/}
+
 const ApplicantAppliedJobs = lazy(() => import('./components/Applicant/ApplicantAppliedJobs'));
 const ApplicantInterviewPage = lazy(() => import('./components/Applicant/ApplicantInterviewPage'));
 const ApplicantCompleteProfile = lazy(() => import('./components/Applicant/ApplicantCompleteProfile'));
+const ApplicantUpdateProfile = lazy(() => import('./components/Applicant/ApplicantUpdateProfile'));
 {/* Applicant Pages*/}
+
+
 // const ApplicantInterview = lazy(() => import('./components/Applicant/ApplicantInterview'));
 import { ThreeDots } from 'react-loader-spinner';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -78,6 +83,7 @@ const App = () => {
             <Route path='/applicant/applied-jobs' element={ <ApplicantProtectedRoute> <ApplicantAppliedJobs/> </ApplicantProtectedRoute>} />
             <Route path='/applicant/interview' element={ <ApplicantProtectedRoute> <ApplicantInterviewPage/> </ApplicantProtectedRoute>} />
             <Route path='/applicant/complete-profile' element={ <ApplicantProtectedRoute> <ApplicantCompleteProfile/> </ApplicantProtectedRoute>} />
+            <Route path='/applicant/update-profile' element={ <ApplicantProtectedRoute> <ApplicantUpdateProfile/> </ApplicantProtectedRoute>} />
 
           {/*Admin Routes*/}
             <Route path='/admin/login' element={<AdminLoginPage/>} />
