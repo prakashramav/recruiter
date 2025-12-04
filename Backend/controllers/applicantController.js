@@ -1,13 +1,12 @@
 const Applicant = require("../models/applicant");
 const Job = require("../models/Job");
 const Application = require("../models/Application");
+const Interview = require("../models/Interview");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const cloudinary = require("../config/cloudinary");
-const pdfParse = require("pdf-parse");
-const OpenAI = require("openai");
-const axios = require("axios");
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const streamifier = require("streamifier");
+
 // -------------------------------------------------------------
 // Register Applicant
 // -------------------------------------------------------------
@@ -97,10 +96,9 @@ exports.updateApplicantProfile = async (req, res) => {
       linkedinUrl,
       portfolioUrl,
       interests,
-      skills,
+      skills
     } = req.body;
 
-    // Parse arrays (coming as JSON strings from frontend)
     const parsedInterests = interests ? JSON.parse(interests) : [];
     const parsedSkills = skills ? JSON.parse(skills) : [];
 
@@ -113,12 +111,14 @@ exports.updateApplicantProfile = async (req, res) => {
       linkedinUrl,
       portfolioUrl,
       interests: parsedInterests,
-      skills: parsedSkills,
+      skills: parsedSkills
     };
 
-    // If no resume uploaded, just update basic profile
+    // -------------------------------
+    // CASE 1 → No resume uploaded
+    // -------------------------------
     if (!req.file) {
-      const updatedProfile = await Applicant.findByIdAndUpdate(
+      const updated = await Applicant.findByIdAndUpdate(
         applicantId,
         updateData,
         { new: true }
@@ -127,59 +127,44 @@ exports.updateApplicantProfile = async (req, res) => {
       return res.json({
         success: true,
         message: "Profile updated successfully",
-        profile: updatedProfile,
+        profile: updated
       });
     }
 
-    // ✅ If resume is uploaded → parse PDF + ATS + Cloudinary
+    // --------------------------------------------------------
+    // CASE 2 → New resume uploaded: delete previous + upload new
+    // --------------------------------------------------------
+    const applicant = await Applicant.findById(applicantId);
 
-    // 1️⃣ Parse resume text from buffer
-    const pdfData = await pdfParse(req.file.buffer);
-    const resumeText = pdfData.text;
+    // 2A: Delete previous resume from Cloudinary IF exists
+    if (applicant.resumePublicId) {
+      await cloudinary.uploader.destroy(applicant.resumePublicId, {
+        resource_type: "raw"
+      });
+    }
 
-    // 2️⃣ Get ATS score using OpenAI
-    const prompt = `
-      Analyze the following resume text and give:
-      - ATS Score (0–100)
-      - Strengths
-      - Weaknesses
-      Resume:
-      ${resumeText}
-    `;
-
-    const aiRes = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
-      messages: [{ role: "user", content: prompt }],
-    });
-
-    const output = aiRes.choices[0].message.content || "";
-    const scoreMatch = output.match(/(\d{1,3})/);
-    const atsScore = scoreMatch ? Number(scoreMatch[1]) : 0;
-
-    // 3️⃣ Upload resume PDF buffer to Cloudinary (raw)
+    // 2B: Upload new resume
     const uploadResult = await new Promise((resolve, reject) => {
       const uploadStream = cloudinary.uploader.upload_stream(
-        { resource_type: "raw", folder: "resumes" },
+        {
+          resource_type: "raw",
+          folder: "resumes",
+          public_id: `resume_${applicantId}_${Date.now()}`
+        },
         (error, result) => {
-          if (error) return reject(error);
-          resolve(result);
+          if (error) reject(error);
+          else resolve(result);
         }
       );
 
       streamifier.createReadStream(req.file.buffer).pipe(uploadStream);
     });
 
-    updateData = {
-      ...updateData,
-      resumeUrl: uploadResult.secure_url,
-      resumePublicId: uploadResult.public_id,
-      atsScore,
-      atsSummary: output,
-      isResumeUploaded: true,
-      isProfileComplete: true,
-    };
+    updateData.resumeUrl = uploadResult.secure_url;
+    updateData.resumePublicId = uploadResult.public_id;
+    updateData.isResumeUploaded = true;
 
-    const updatedProfile = await Applicant.findByIdAndUpdate(
+    const updated = await Applicant.findByIdAndUpdate(
       applicantId,
       updateData,
       { new: true }
@@ -188,12 +173,12 @@ exports.updateApplicantProfile = async (req, res) => {
     return res.json({
       success: true,
       message: "Profile & resume updated successfully",
-      profile: updatedProfile,
+      profile: updated
     });
 
   } catch (err) {
     console.error(err);
-    res.status(500).json({ msg: "Server Error" });
+    res.status(500).json({ message: "Server Error" });
   }
 };
 
@@ -382,95 +367,6 @@ exports.filterJobs = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
-
-exports.deleteResume = async (req, res) => {
-  try {
-    const userId = req.user.id;
-    const user = await Applicant.findById(userId);
-
-    if (!user.resumeUrl)
-      return res.status(400).json({ message: "No resume found" });
-
-    await cloudinary.uploader.destroy(user.resumePublicId, {
-      resource_type: "raw"
-    });
-
-    user.resumeUrl = null;
-    user.resumePublicId = null;
-    user.atsScore = null;
-    user.atsSummary = null;
-    user.isResumeUploaded = false;
-
-    await user.save();
-
-    res.json({ message: "Resume deleted successfully" });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-};
-
-exports.reScoreResume = async (req, res) => {
-  try {
-    const applicantId = req.user.id;
-
-    const user = await Applicant.findById(applicantId);
-    if (!user) {
-      return res.status(404).json({ message: "Applicant not found" });
-    }
-
-    if (!user.resumeUrl) {
-      return res.status(400).json({
-        message: "Please upload your resume before re-scoring"
-      });
-    }
-
-    // 1️⃣ Download PDF from Cloudinary
-    const pdfResponse = await axios.get(user.resumeUrl, {
-      responseType: "arraybuffer",
-    });
-
-    // 2️⃣ Extract text from PDF
-    const pdfData = await pdfParse(pdfResponse.data);
-    const resumeText = pdfData.text;
-
-    // 3️⃣ Ask OpenAI for ATS Score
-    const prompt = `
-      Analyze this resume:
-      - Give ATS Score (0–100)
-      - Strengths
-      - Weaknesses
-
-      Resume:
-      ${resumeText}
-    `;
-
-    const aiRes = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
-      messages: [{ role: "user", content: prompt }],
-    });
-
-    const output = aiRes.choices[0].message.content || "";
-    const scoreMatch = output.match(/(\d{1,3})/);
-    const atsScore = scoreMatch ? Number(scoreMatch[1]) : 0;
-
-    // 4️⃣ Save results
-    user.atsScore = atsScore;
-    user.atsSummary = output;
-    await user.save();
-
-    res.json({
-      success: true,
-      message: "ATS Score recalculated successfully",
-      atsScore,
-      summary: output,
-    });
-
-  } catch (err) {
-    console.error("Error in reScoreResume:", err);
-    res.status(500).json({ message: "Server error", error: err.message });
-  }
-};
-
 // -------------------------------------------------------------
 // Track My Applications
 // -------------------------------------------------------------

@@ -1,10 +1,10 @@
+// controllers/recruiterController.js
 const Recruiter = require("../models/Recruiter");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const Job = require("../models/Job");
 const Application = require("../models/Application");
 const Interview = require("../models/Interview");
-
 
 // Register Recruiter
 exports.recruiterRegister = async (req, res) => {
@@ -32,16 +32,24 @@ exports.recruiterRegister = async (req, res) => {
 
     await recruiter.save();
 
-    const result = recruiter.toObject();
-    delete result.password;
-
     const token = jwt.sign(
-      { id: recruiter._id, role: "recruiter" }, // payload
-      process.env.JWT_SECRET,           // secret
-      { expiresIn: "1d" }              // token expiry
+      { id: recruiter._id, role: "recruiter" },
+      process.env.JWT_SECRET,
+      { expiresIn: "1d" }
     );
 
-    res.status(201).json({ message: "Recruiter registered", result : recruiter, token: token});
+    res.status(201).json({
+      message: "Recruiter registered",
+      result: {
+        _id: recruiter._id,
+        name: recruiter.name,
+        email: recruiter.email,
+        companyName: recruiter.companyName,
+        companyWebsite: recruiter.companyWebsite,
+        designation: recruiter.designation
+      },
+      token
+    });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -97,7 +105,7 @@ exports.updateRecruiterProfile = async (req, res) => {
         designation: req.body.designation
       },
       { new: true }
-    );
+    ).select("-password");
 
     res.json({ message: "Profile updated successfully", updated });
   } catch (err) {
@@ -105,12 +113,10 @@ exports.updateRecruiterProfile = async (req, res) => {
   }
 };
 
-
 exports.deleteRecruiterProfile = async (req, res) => {
   try {
     const recruiterId = req.user.id;
 
-    // Step 1: Delete all jobs created by recruiter
     const jobs = await Job.find({ createdBy: recruiterId });
 
     for (let job of jobs) {
@@ -119,11 +125,7 @@ exports.deleteRecruiterProfile = async (req, res) => {
     }
 
     await Job.deleteMany({ createdBy: recruiterId });
-
-    // Step 2: Delete interviews created directly
     await Interview.deleteMany({ recruiterId });
-
-    // Step 3: Delete recruiter account
     await Recruiter.findByIdAndDelete(recruiterId);
 
     res.json({ message: "Recruiter account deleted successfully" });
@@ -139,7 +141,7 @@ exports.getAllInterviewsByRecruiter = async (req, res) => {
 
     const interviews = await Interview.find({ recruiterId })
       .populate("jobId", "title company")
-      .populate("applicantId", "name email atsScore");
+      .populate("applicantId", "name email");
 
     res.json({ success: true, interviews });
   } catch (err) {
@@ -159,17 +161,16 @@ exports.getRecruiterAnalytics = async (req, res) => {
 
     const interviews = await Interview.find({ recruiterId });
 
-    // calculate metrics
     const totalJobs = jobs.length;
     const totalApplications = applications.length;
     const totalInterviews = interviews.length;
 
     const accepted = applications.filter(a => a.status === "accepted").length;
 
-    // find most applied job
     let jobCounts = {};
     applications.forEach(app => {
-      jobCounts[app.jobId] = (jobCounts[app.jobId] || 0) + 1;
+      const key = app.jobId.toString();
+      jobCounts[key] = (jobCounts[key] || 0) + 1;
     });
 
     let mostAppliedJobId =

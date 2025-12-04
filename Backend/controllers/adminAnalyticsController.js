@@ -26,6 +26,7 @@ exports.getAdminStats = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
 exports.getGrowthStats = async (req, res) => {
   try {
     const months = await Application.aggregate([
@@ -58,6 +59,7 @@ exports.getGrowthStats = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
 exports.getRecruiterPerformance = async (req, res) => {
   try {
     const recruiters = await Recruiter.find();
@@ -86,6 +88,7 @@ exports.getRecruiterPerformance = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
 exports.getApplicantPerformance = async (req, res) => {
   try {
     const applicants = await Applicant.find();
@@ -100,7 +103,6 @@ exports.getApplicantPerformance = async (req, res) => {
           email: a.email,
           applications: apps,
           interviews,
-          atsScore: a.atsScore || 0,
         };
       })
     );
@@ -111,6 +113,7 @@ exports.getApplicantPerformance = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
 exports.getTopCategories = async (req, res) => {
   try {
     const categories = await Job.aggregate([
@@ -130,25 +133,7 @@ exports.getTopCategories = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
-exports.getATSDistribution = async (req, res) => {
-  try {
-    const distribution = await Applicant.aggregate([
-      {
-        $bucket: {
-          groupBy: "$atsScore",
-          boundaries: [0,20,40,60,80,100],
-          default: "Unknown",
-          output: { count: { $sum: 1 } }
-        }
-      }
-    ]);
 
-    res.json({ success: true, distribution });
-
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-};
 exports.getRecentActivity = async (req, res) => {
   try {
     const jobs = await Job.find().sort({ createdAt: -1 }).limit(10);

@@ -1,3 +1,4 @@
+// routes/recruiterRoutes.js
 const express = require("express");
 const router = express.Router();
 
@@ -38,13 +39,16 @@ router.post("/jobs", auth, requireRole("recruiter"), createJob);
 router.get("/jobs", auth, requireRole("recruiter"), listMyJobs);
 router.put("/jobs/:jobId", auth, requireRole("recruiter"), updateJob);
 router.delete("/jobs/:jobId", auth, requireRole("recruiter"), deleteJob);
-router.put("/update-profile",auth,requireRole("recruiter"),updateRecruiterProfile);
-router.delete("/delete-profile",auth,requireRole("recruiter"),deleteRecruiterProfile);
+
+router.put("/update-profile", auth, requireRole("recruiter"), updateRecruiterProfile);
+router.delete("/delete-profile", auth, requireRole("recruiter"), deleteRecruiterProfile);
+
 router.get("/jobs/:jobId/applicants", auth, requireRole("recruiter"), getApplicantsForJob);
 router.get("/jobs/:jobId", auth, requireRole("recruiter"), getJobById);
-router.get('recruiter/all', auth, requireRole('recruiter'), getAllInterviewsByRecruiter);
+
+router.get("/all", auth, requireRole("recruiter"), getAllInterviewsByRecruiter);
 router.put("/applications/:applicationId/status", auth, requireRole("recruiter"), updateApplicationStatus);
-router.get('/jobs-count', auth, requireRole('recruiter'), getRecruiterJobsCount);
-router.get('analytics', auth, requireRole('recruiter'), getRecruiterAnalytics);
+router.get("/jobs-count", auth, requireRole("recruiter"), getRecruiterJobsCount);
+router.get("/analytics", auth, requireRole("recruiter"), getRecruiterAnalytics);
 
 module.exports = router;

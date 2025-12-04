@@ -1,25 +1,35 @@
 const express = require("express");
 const router = express.Router();
-const { auth,requireRole } = require("../middlewares/auth");
+
 const uploadResume = require("../middlewares/uploadResume");
-const { uploadResumeOnly,recalculateATS,deleteResume,getResumeStatus,validateResume } = require("../controllers/atsController");
+const { auth, requireRole } = require("../middlewares/auth");
+
+const {
+  uploadResumeOnly,
+  deleteResume,
+  getResumeStatus
+} = require("../controllers/atsController");
 
 router.post(
-  "/upload-resume",
+  "/upload",
   auth,
-  uploadResume.single("resume"),   // form-data key: resume
+  requireRole("applicant"),
+  uploadResume.single("resume"),
   uploadResumeOnly
 );
 
-router.get("/recalculate", auth, requireRole("applicant"), recalculateATS);
+router.delete(
+  "/delete",
+  auth,
+  requireRole("applicant"),
+  deleteResume
+);
 
-// Delete Resume
-router.delete("/delete-resume", auth, requireRole("applicant"), deleteResume);
-
-// Resume Status
-router.get("/resume-status", auth, requireRole("applicant"), getResumeStatus);
-
-// Validate Resume
-router.post("/validate", auth, requireRole("applicant"), uploadResume.single("resume"), validateResume);
+router.get(
+  "/status",
+  auth,
+  requireRole("applicant"),
+  getResumeStatus
+);
 
 module.exports = router;
