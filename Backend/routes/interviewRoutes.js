@@ -14,7 +14,8 @@ const { auth, requireRole } = require("../middlewares/auth");
 router.post("/schedule", auth, requireRole("recruiter"), scheduleInterview);
 
 // Applicant checks own interviews
-router.get("/my", auth, requireRole("applicant"), getMyInterviews);
+router.get("/my-interviews", auth, requireRole("applicant"), getMyInterviews);
+
 router.get("/upcoming-interviews", auth, requireRole("recruiter"), getUpcomingInterviews);
 
 

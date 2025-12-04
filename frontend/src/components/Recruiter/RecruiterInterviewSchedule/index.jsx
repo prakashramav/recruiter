@@ -13,21 +13,25 @@ const RecruiterInterviewSchedule = () => {
 
     useEffect(() => {
         const fetchUpcoming = async () => {
-        try {
+            try {
             const res = await axios.get(
-            "https://recruiter-1-gjf3.onrender.com/api/recruiters/upcoming-interviews",
-            { headers: { Authorization: `Bearer ${token}` } }
+                "https://recruiter-1-gjf3.onrender.com/api/interviews/upcoming-interviews",
+                {
+                headers: { Authorization: `Bearer ${token}` },
+                }
             );
             setInterviews(res.data.interviews);
-        } catch (err) {
+            } catch (err) {
             console.error("Error fetching upcoming interviews:", err);
-        } finally {
+            } finally {
             setLoading(false);
-        }
+            }
         };
 
         fetchUpcoming();
-    }, []);
+        }, [token]);
+
+    console.log(interviews);
 
     return (
         <>

@@ -42,13 +42,25 @@ exports.scheduleInterview = async (req, res) => {
 // Applicant - View My Interviews
 exports.getMyInterviews = async (req, res) => {
   try {
-    const interviews = await Interview.find({ applicantId: req.user.id })
-      .populate("jobId", "title company")
-      .populate("recruiterId", "name email");
+    const applicantId = req.user.id;
 
-    res.json(interviews);
+    const interviews = await Interview.find({
+      applicantId,
+      interviewDate: { $gte: new Date() }   // ONLY upcoming
+    })
+      .populate("jobId", "title company location")
+      .populate("recruiterId", "name email")
+      .sort({ interviewDate: 1 });
+
+    res.json({
+      success: true,
+      count: interviews.length,
+      interviews
+    });
+
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    console.error("Error fetching upcoming applicant interviews:", err);
+    res.status(500).json({ message: "Server Error" });
   }
 };
 

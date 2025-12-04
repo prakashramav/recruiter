@@ -1,0 +1,85 @@
+.applicant-interview-page-container{
+    margin-left: 260px;
+    padding: 40px;
+    width: calc(100% - 260px);
+    margin-top: 80px;
+}
+
+
+@media (max-width: 600px) {
+    .applicant-interview-page-container{
+        margin-left: 0px;
+        width: 100%;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .applicant-interview-page-container{
+        margin-left: 200px;
+        width: calc(100% - 200px);
+    }
+}
+
+.interview-container {
+  margin-left: 20%;
+  margin-top: 10%;
+  padding: 20px;
+}
+
+.interview-heading {
+  font-size: 26px;
+  margin-bottom: 20px;
+}
+
+.loader-box {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.no-interviews {
+  font-size: 18px;
+  color: #777;
+}
+
+.interview-list {
+  list-style: none;
+  padding: 0;
+}
+
+.interview-card {
+  background: white;
+  padding: 20px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  border-left: 5px solid #2563eb;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.join-meet {
+  display: inline-block;
+  margin-top: 10px;
+  background: #2563eb;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+.join-meet:hover {
+  background: #1d4ed8;
+}
+
+.message {
+  margin-top: 8px;
+  color: #444;
+  font-style: italic;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .interview-container {
+    margin-left: 0;
+    margin-top: 20%;
+  }
+}
