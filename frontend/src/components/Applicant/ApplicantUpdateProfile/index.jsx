@@ -4,8 +4,10 @@ import './index.css'
 import { useState, useEffect } from "react"
 import { ThreeDots } from "react-loader-spinner"
 import Cookies from "js-cookie"
+import { useNavigate } from "react-router-dom"
 import axios from "axios"
 const ApplicantUpdateProfile = () => {
+    const navigate = useNavigate();
     const token = Cookies.get("talentify_applicant_jwtToken");
 
   const [loading, setLoading] = useState(true);
@@ -54,7 +56,7 @@ const ApplicantUpdateProfile = () => {
     };
 
     fetchProfile();
-  }, []);
+  }, [token]);
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -63,8 +65,29 @@ const ApplicantUpdateProfile = () => {
         setSaving(true);
 
         try {
-        const fd = new FormData();
-        Object.keys(formData).forEach((key) => fd.append(key, formData[key]));
+            const fd = new FormData();
+        // Append normal fields
+        fd.append("name", formData.name);
+        fd.append("email", formData.email);
+        fd.append("phone", formData.phone);
+        fd.append("experience", formData.experience);
+        fd.append("githubUrl", formData.githubUrl);
+        fd.append("linkedinUrl", formData.linkedinUrl);
+        fd.append("portfolioUrl", formData.portfolioUrl);
+
+        // FIX: Convert to JSON array for backend
+        const skillsArray = formData.skills
+            .split(",")
+            .map((s) => s.trim())
+            .filter((s) => s !== "");
+
+        const interestsArray = formData.interests
+            .split(",")
+            .map((i) => i.trim())
+            .filter((i) => i !== "");
+
+        fd.append("skills", JSON.stringify(skillsArray));
+        fd.append("interests", JSON.stringify(interestsArray));
         if (resumeFile) fd.append("resume", resumeFile);
 
         await axios.put(
@@ -79,6 +102,7 @@ const ApplicantUpdateProfile = () => {
         );
 
         alert("Profile updated successfully!");
+        navigate('/applicant/profile')
         } catch (err) {
         alert(err.response?.data?.message || "Update failed");
         } finally {

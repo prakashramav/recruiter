@@ -279,6 +279,20 @@ exports.completeApplicantProfile = async (req, res) => {
   }
 };
 
+exports.getJobById = async (req, res) => {
+  try {
+    const job = await Job.findById(req.params.jobId);
+
+    if (!job) {
+      return res.status(404).json({ message: "Job not found" });
+    }
+
+    res.json(job);
+  } catch (err) {
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
 
 exports.deleteApplicantProfile = async (req, res) => {
   try {

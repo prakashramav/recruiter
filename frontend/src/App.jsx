@@ -44,6 +44,7 @@ const ApplicantAppliedJobs = lazy(() => import('./components/Applicant/Applicant
 const ApplicantInterviewPage = lazy(() => import('./components/Applicant/ApplicantInterviewPage'));
 const ApplicantCompleteProfile = lazy(() => import('./components/Applicant/ApplicantCompleteProfile'));
 const ApplicantUpdateProfile = lazy(() => import('./components/Applicant/ApplicantUpdateProfile'));
+const ApplicantJobDetails = lazy(() => import('./components/Applicant/ApplicantJobDetails'));
 {/* Applicant Pages*/}
 
 
@@ -84,6 +85,7 @@ const App = () => {
             <Route path='/applicant/interview' element={ <ApplicantProtectedRoute> <ApplicantInterviewPage/> </ApplicantProtectedRoute>} />
             <Route path='/applicant/complete-profile' element={ <ApplicantProtectedRoute> <ApplicantCompleteProfile/> </ApplicantProtectedRoute>} />
             <Route path='/applicant/update-profile' element={ <ApplicantProtectedRoute> <ApplicantUpdateProfile/> </ApplicantProtectedRoute>} />
+            <Route path='/applicant/jobs/:jobId' element={ <ApplicantProtectedRoute> <ApplicantJobDetails/> </ApplicantProtectedRoute>} />
 
           {/*Admin Routes*/}
             <Route path='/admin/login' element={<AdminLoginPage/>} />
