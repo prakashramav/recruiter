@@ -38,7 +38,7 @@ router.get("/related-jobs", auth, requireRole("applicant"), viewRelatedJobs);
 router.get('/my-applications', auth, requireRole("applicant"), getMyApplications);
 router.get('/search', auth, requireRole("applicant"), searchJobs);
 router.get("/filter", auth, requireRole("applicant"), filterJobs);
-router.get('job/:jobId', auth, requireRole("applicant"), getJobById);
+router.get('/job/:jobId', auth, requireRole("applicant"), getJobById);
 router.post("/apply-job/:jobId", auth, requireRole("applicant"), checkProfile, applyForJob);
 router.get("/track-applications", auth, requireRole("applicant"), trackApplicationStatus);
 router.delete('/delete-profile', auth, requireRole("applicant"), deleteApplicantProfile);
