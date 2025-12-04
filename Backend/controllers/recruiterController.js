@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const Job = require("../models/Job");
 const Application = require("../models/Application");
 const Interview = require("../models/Interview");
+const Applicant = require("../models/applicant");
 
 // Register Recruiter
 exports.recruiterRegister = async (req, res) => {

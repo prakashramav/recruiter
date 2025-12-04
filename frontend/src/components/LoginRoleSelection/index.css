@@ -3,67 +3,107 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* background-color: #F0F2F5; */
-  background-color: #F7F7F7;
-  height: 100vh;
+  background-color: var(--background-color);
+  min-height: 100vh;
+  padding: var(--spacing-md);
 }
 
 .indise-login-type-container {
   display: flex;
-  flex-wrap: wrap;      
+  flex-wrap: wrap;
   justify-content: center;
-  gap: 20px;            
+  gap: var(--spacing-xl);
   width: 100%;
-  max-width: 900px;     
+  max-width: 1200px;
 }
 
 .role-title {
-  font-size: 28px;
-  font-weight: bold;
-  margin-bottom: 20px;
+  font-size: var(--font-size-4xl);
+  font-weight: 800;
+  margin-bottom: var(--spacing-3xl);
+  color: var(--text-primary);
+  text-align: center;
+  letter-spacing: -0.025em;
+  background: linear-gradient(to right, var(--primary-600), var(--primary-400));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .role-btn {
-  width: 250px;         
-  height: 150px;        
-  padding: 12px 20px;
-  font-size: 18px;
-  font-weight: 600;
-  border-radius: 12px;
-  border: none;
+  width: 280px;
+  height: 200px;
+  padding: var(--spacing-xl);
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   cursor: pointer;
-  background-color: #0697f1;
-  color: white;
-  transition: 0.3s;
+  background: var(--surface-color);
+  color: var(--text-primary);
+  transition: var(--transition-base);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.role-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--primary-500), var(--primary-700));
+  opacity: 0;
+  transition: var(--transition-base);
+  z-index: 0;
+}
+
+.role-btn span {
+  position: relative;
+  z-index: 1;
+  transition: var(--transition-base);
 }
 
 .role-btn:hover {
-  background-color: #0fd7f6;
-  transform: scale(1.03);
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-xl);
+  color: white;
+  border-color: transparent;
+}
+
+.role-btn:hover::before {
+  opacity: 1;
 }
 
 .role-btn:active {
-  transform: scale(0.98);
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
 }
 
 /* Mobile Responsive */
-@media (max-width: 600px) {
-  .login-type-container {
-    display: flex;
-    flex-direction: column;
-  }
-  .indise-login-type-container{
-    display: flex;
+@media (max-width: 768px) {
+  .indise-login-type-container {
     flex-direction: column;
     align-items: center;
-    gap: 20px;
-    width: 100%;
-    max-width: 400px;
-    margin-top: 0px;
+    gap: var(--spacing-md);
   }
+
   .role-btn {
-    width: 200px;        
-    height: 130px;
-    flex-shrink: 0;
+    width: 100%;
+    max-width: 340px;
+    height: 120px;
+    font-size: var(--font-size-lg);
+    flex-direction: row;
+  }
+
+  .role-title {
+    font-size: var(--font-size-3xl);
+    margin-bottom: var(--spacing-xl);
   }
 }

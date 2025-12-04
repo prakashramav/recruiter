@@ -2,18 +2,24 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useParams } from "react-router-dom";
-import RecruiterHeaderPage from "../RecruiterHeaderPage";
-import RecruiterNavbarPage from "../RecruiterNavbarPage";
 import { ThreeDots } from "react-loader-spinner";
 import "./applicants.css";
 
 const RecruiterJobApplicantsPage = () => {
   const { jobId } = useParams();
-  console.log(jobId);
   const token = Cookies.get("talintify_recruiter_jwt_token");
 
   const [applicants, setApplicants] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  // INTERVIEW MODAL STATE
+  const [selectedApplicant, setSelectedApplicant] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [interviewData, setInterviewData] = useState({
+    interviewDate: "",
+    meetLink: "",
+    message: "",
+  });
 
   // Fetch applicants for this job
   useEffect(() => {
@@ -36,14 +42,57 @@ const RecruiterJobApplicantsPage = () => {
     };
 
     fetchApplicants();
-  }, [jobId]);
+  }, [jobId,token]);
 
-  // Update application status (Accept/Reject)
+  // Update application status
   const updateStatus = async (applicationId, newStatus) => {
+  try {
+    // Add animation class to button
+    const btn = document.getElementById(`btn-${applicationId}-${newStatus}`);
+    if (btn) {
+      btn.classList.add(
+        newStatus === "accepted"
+          ? "flash-success"
+          : newStatus === "rejected"
+          ? "flash-reject"
+          : "flash-review"
+      );
+
+      setTimeout(() => {
+        btn.classList.remove("flash-success", "flash-reject", "flash-review");
+      }, 500);
+    }
+
+    await axios.put(
+      `https://recruiter-1-gjf3.onrender.com/api/recruiters/applications/${applicationId}/status`,
+      { status: newStatus },
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+
+    setApplicants((prev) =>
+      prev.map((app) =>
+        app._id === applicationId ? { ...app, status: newStatus } : app
+      )
+    );
+  } catch (err) {
+    console.error("Status update error:", err);
+    alert("Something went wrong");
+  }
+};
+
+
+  // Schedule Interview
+  const scheduleInterview = async () => {
     try {
-      await axios.put(
-        `https://recruiter-1-gjf3.onrender.com/api/recruiters/applications/${applicationId}/status`,
-        { status: newStatus },
+      await axios.post(
+        "https://recruiter-1-gjf3.onrender.com/api/interviews/schedule",
+        {
+          applicantId: selectedApplicant.applicantId._id,
+          jobId: jobId,
+          interviewDate: interviewData.interviewDate,
+          meetLink: interviewData.meetLink,
+          message: interviewData.message,
+        },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -51,17 +100,14 @@ const RecruiterJobApplicantsPage = () => {
         }
       );
 
-      // Update UI instantly
-      setApplicants((prev) =>
-        prev.map((app) =>
-          app._id === applicationId ? { ...app, status: newStatus } : app
-        )
-      );
+      // Update status to accepted
+      updateStatus(selectedApplicant._id, "accepted");
 
-      alert(`Application ${newStatus} successfully`);
+      alert("Interview Scheduled Successfully!");
+      setShowModal(false);
     } catch (err) {
-      console.error("Status update error:", err);
-      alert("Something went wrong");
+      console.error(err);
+      alert("Failed to schedule interview");
     }
   };
 
@@ -110,21 +156,41 @@ const RecruiterJobApplicantsPage = () => {
                 <div className="actions">
                   <button
                     className="accept-btn"
-                    onClick={() => updateStatus(app._id, "accepted")}
+                    disabled={app.status === "accepted"}
+                    onClick={() => {
+                      if (app.status !== "accepted") {
+                        setSelectedApplicant(app);
+                        setShowModal(true);
+                      }
+                    }}
+                    style={{
+                      opacity: app.status === "accepted" ? 0.5 : 1,
+                      cursor: app.status === "accepted" ? "not-allowed" : "pointer"
+                    }}
                   >
-                    Accept
+                    Accept & Schedule Interview
                   </button>
                   <button
                     className="reject-btn"
+                    disabled={app.status === "accepted"}
                     onClick={() => updateStatus(app._id, "rejected")}
+                    style={{
+                      opacity: app.status === "accepted" ? 0.5 : 1,
+                      cursor: app.status === "accepted" ? "not-allowed" : "pointer"
+                    }}
                   >
                     Reject
                   </button>
                   <button
                     className="review-btn"
+                    disabled={app.status === "accepted"}
                     onClick={() => updateStatus(app._id, "reviewed")}
+                    style={{
+                      opacity: app.status === "accepted" ? 0.5 : 1,
+                      cursor: app.status === "accepted" ? "not-allowed" : "pointer"
+                    }}
                   >
-                    Review
+                    Mark Reviewed
                   </button>
                 </div>
               </li>
@@ -132,6 +198,61 @@ const RecruiterJobApplicantsPage = () => {
           </ul>
         )}
       </div>
+
+      {/* INTERVIEW SCHEDULING MODAL */}
+      {showModal && (
+        <div className="modal-overlay">
+          <div className="modal-box">
+            <h2>Schedule Interview</h2>
+
+            <label>Date & Time:</label>
+            <input
+              type="datetime-local"
+              value={interviewData.interviewDate}
+              onChange={(e) =>
+                setInterviewData({
+                  ...interviewData,
+                  interviewDate: e.target.value,
+                })
+              }
+            />
+
+            <label>Google Meet Link:</label>
+            <input
+              type="text"
+              placeholder="https://meet.google.com/xyz"
+              value={interviewData.meetLink}
+              onChange={(e) =>
+                setInterviewData({
+                  ...interviewData,
+                  meetLink: e.target.value,
+                })
+              }
+            />
+
+            <label>Message to Applicant:</label>
+            <textarea
+              placeholder="Add a message (optional)"
+              value={interviewData.message}
+              onChange={(e) =>
+                setInterviewData({
+                  ...interviewData,
+                  message: e.target.value,
+                })
+              }
+            ></textarea>
+
+            <div className="modal-actions">
+              <button className="schedule-btn" onClick={scheduleInterview}>
+                Send Interview Details
+              </button>
+              <button className="cancel-btn" onClick={() => setShowModal(false)}>
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };

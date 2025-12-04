@@ -4,7 +4,6 @@ import "./navbar.css";
 const navItems = [
   { label: "Dashboard", path: "/recruiter" },
   { label: "Post Job", path: "/recruiter/create-jobs" },
-  { label: "Applicants", path: "/recruiter/applicants" },
   { label: "Interviews", path: "/recruiter/interview" },
 ];
 

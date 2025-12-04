@@ -1,94 +1,129 @@
-.admin-login-page-container{
+.admin-login-page-container {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background-color: #F0F2F5;
-    
+    min-height: 100vh;
+    background-color: var(--background-color);
+    padding: var(--spacing-md);
 }
 
-.input-handler-container{
+.admin-mini-signup-page-container {
+    background-color: var(--surface-color);
+    padding: var(--spacing-2xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    width: 100%;
+    max-width: 450px;
     display: flex;
     flex-direction: column;
-    margin-bottom: 10px;
+    gap: var(--spacing-lg);
 }
-.admin-mini-signup-page-container{
-    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
-    padding: 55px;
-    border-radius: 10px;
-    height: auto;
-    background-color: #ffffff;
+
+.admin-login-heading {
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    color: var(--text-primary);
+    text-align: center;
+    margin-bottom: var(--spacing-sm);
+}
+
+.input-handler-container {
     display: flex;
     flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.input-handler-container label {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.input-field {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-base);
+    transition: var(--transition-base);
+    background-color: #F9FAFB;
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: #000;
+    /* Admin specific or neutral */
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+    background-color: var(--surface-color);
+}
+
+.error-message {
+    color: var(--error-color);
+    font-size: var(--font-size-sm);
+    margin-top: 2px;
+}
+
+.admin-signup-page-button-container {
+    margin-top: var(--spacing-sm);
+    display: flex;
     justify-content: center;
 }
 
-.admin-signup-button{
-    margin-top: 10px;
-    padding: 4px;
-    background-color: #00ffc8;
+.admin-signup-button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #111827;
+    /* Dark for Admin */
     color: white;
     border: none;
-    border-radius: 4px;
-    font-weight: bold;
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-base);
+    font-weight: 600;
     cursor: pointer;
-    height: 40px;
-    height: 40px;
-    width: 100%;
+    transition: var(--transition-base);
 }
 
-button:hover{
-    background-color: #00ffcc;
-
+.admin-signup-button:hover {
+    background-color: #000;
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
 }
 
-.input-field{
-    padding: 8px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-.label{
-    font-weight: 400;
-}
-.error-message{
-    color: red;
-    font-size: 12px;
-    margin-top: 5px;
+.admin-signup-button:active {
+    transform: translateY(0);
 }
 
-.button-container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.admin-sign-link-to-login{
+.data-error-msg {
     text-align: center;
-    margin-top: 15px;
-    font-size: 14px;
-}
-.admin-signup-page-button-container{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    min-height: 24px;
 }
 
-.data-error-msg{
+.admin-sign-link-to-login {
     text-align: center;
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
 }
 
+.admin-sign-link-to-login a {
+    color: #111827;
+    font-weight: 600;
+    margin-left: 4px;
+}
 
-@media (max-width: 600px){
-    .admin-mini-signup-page-container{
-        width: 90%;
-        padding: 20px;
-        box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+.admin-sign-link-to-login a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .admin-mini-signup-page-container {
+        padding: var(--spacing-lg);
+        box-shadow: none;
+        background-color: transparent;
     }
-    .admin-login-heading{
-        text-align: center;
+
+    .admin-login-page-container {
+        background-color: var(--surface-color);
+        align-items: flex-start;
+        padding-top: var(--spacing-2xl);
     }
 }

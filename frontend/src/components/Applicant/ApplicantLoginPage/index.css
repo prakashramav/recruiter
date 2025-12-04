@@ -1,95 +1,129 @@
-.applicant-login-page-container{
+.applicant-login-page-container {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    justify-content: center;
-    height: 100vh;
-    /* background-color: #f5f5f5; */
-    background-color: #F0F2F5;
-    
+    min-height: 100vh;
+    background-color: var(--background-color);
+    padding: var(--spacing-md);
 }
 
-.input-handler-container{
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 10px;
-}
-.applicant-mini-login-page-container{
-    /* border: 2px solid #000; */
-    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
-    padding: 55px;
-    border-radius: 10px;
-    height: auto;
-    background-color: #ffffff;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.applicant-login-button{
-    margin-top: 10px;
-    padding: 4px;
-    background-color: rgb(9, 248, 164);
-    color: #000;
-    border: none;
-    border-radius: 6px;
-    font-weight: bold;
-    cursor: pointer;
-    height: 40px;
-    height: 40px;
+.applicant-mini-login-page-container {
+    background-color: var(--surface-color);
+    padding: var(--spacing-2xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
     width: 100%;
-}
-
-button:hover{
-    background-color: aquamarine;
-
-}
-
-.input-field{
-    padding: 8px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-.label{
-    font-weight: 400;
-}
-.error-message{
-    color: red;
-    font-size: 12px;
-    margin-top: 5px;
-}
-
-.button-container{
+    max-width: 450px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
+    gap: var(--spacing-lg);
 }
 
-.applicant-login-link-to-login{
+.applicant-login-heading {
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    color: var(--text-primary);
     text-align: center;
-    margin-top: 15px;
-    font-size: 14px;
+    margin-bottom: var(--spacing-sm);
 }
-.applicant-login-page-button-container{
+
+.input-handler-container {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.input-handler-container label {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.input-field {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-base);
+    transition: var(--transition-base);
+    background-color: #F9FAFB;
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    /* Using secondary color for applicant to differentiate */
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+    background-color: var(--surface-color);
+}
+
+.error-message {
+    color: var(--error-color);
+    font-size: var(--font-size-sm);
+    margin-top: 2px;
+}
+
+.applicant-login-page-button-container {
+    margin-top: var(--spacing-sm);
+    display: flex;
     justify-content: center;
 }
 
-.data-error-msg{
-    text-align: center;
+.applicant-login-button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-base);
 }
 
-@media (max-width: 600px){
-    .applicant-mini-login-page-container{
-        width: 90%;
-        padding: 20px;
-        box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+.applicant-login-button:hover {
+    background-color: #059669;
+    /* Emerald 600 */
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+}
+
+.applicant-login-button:active {
+    transform: translateY(0);
+}
+
+.data-error-msg {
+    text-align: center;
+    min-height: 24px;
+}
+
+.applicant-login-link-to-login {
+    text-align: center;
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+}
+
+.applicant-login-link-to-login a {
+    color: var(--secondary-color);
+    font-weight: 600;
+    margin-left: 4px;
+}
+
+.applicant-login-link-to-login a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .applicant-mini-login-page-container {
+        padding: var(--spacing-lg);
+        box-shadow: none;
+        background-color: transparent;
     }
-    .applicant-login-heading{
-        text-align: center;
+
+    .applicant-login-page-container {
+        background-color: var(--surface-color);
+        align-items: flex-start;
+        padding-top: var(--spacing-2xl);
     }
 }

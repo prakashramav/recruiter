@@ -21,6 +21,7 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
+  margin-bottom: 35px;
 }
 
 .createjob-form input,
@@ -79,6 +80,11 @@
 }
 
 .job-submit-btn{
-    width: 100%;
-    
+    width: 100%; 
+}
+
+@media (min-width: 600px) and (max-width: 1024px) {
+  .createjob-content {
+    margin-left: 0px;
+  }
 }
