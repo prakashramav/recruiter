@@ -66,7 +66,7 @@ const [isDelete, setIsDelete] = useState(false)
 
   return (
     <>
-      <RecruiterHeaderPage />
+      <RecruiterHeaderPage jobId={jobId}/>
 
       {/* Close menu when clicking outside */}
       <div className="jobid-layout-container">
@@ -115,8 +115,8 @@ const [isDelete, setIsDelete] = useState(false)
               <ThreeDots color="blue" height={40} width={40} />
             </div>
           )}
+          <RecruiterJobApplicantsPage />
         </div>
-        <RecruiterJobApplicantsPage jobId={jobId} />
       </div>
     </>
   );

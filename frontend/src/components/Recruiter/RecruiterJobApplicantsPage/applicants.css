@@ -1,83 +1,173 @@
+/* =====================================================
+   MAIN LAYOUT — LAPTOP & DESKTOP (Default)
+   ===================================================== */
 .applicants-container {
   margin-left: 260px;
-  padding: 30px;
-  width: calc(100% - 260px);
   margin-top: 80px;
+  padding: 40px;
+  width: calc(100% - 260px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.applicants-container h1 {
+  font-size: 28px;
+  margin-bottom: 20px;
 }
 
 .applicants-list {
+  width: 100%;
+  max-width: 900px; /* Centers content on laptop */
   list-style: none;
   padding: 0;
 }
 
 .applicant-card {
-  background: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  margin-bottom: 15px;
-  box-shadow: 0 0 10px #ddd;
+  background: #ffffff;
+  padding: 28px;
+  border-radius: 12px;
+  margin-bottom: 18px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  border-left: 5px solid #2563eb;
+  transition: 0.3s ease;
 }
 
+.applicant-card:hover {
+  transform: translateY(-3px);
+}
+
+/* Badge */
 .status-badge {
-  padding: 5px 10px;
-  border-radius: 5px;
-  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  color: #fff;
 }
 
 .status-badge.accepted {
-  background: green;
+  background: #16a34a;
 }
 
 .status-badge.rejected {
-  background: red;
+  background: #dc2626;
 }
 
 .status-badge.reviewed {
-  background: orange;
+  background: #f59e0b;
 }
 
+/* Resume link */
 .resume-btn {
   display: inline-block;
-  margin-top: 10px;
-  color: blue;
-  text-decoration: underline;
+  margin-top: 8px;
   font-weight: bold;
+  color: #2563eb;
+  text-decoration: none;
 }
 
+.resume-btn:hover {
+  text-decoration: underline;
+}
+
+/* Action buttons */
 .actions {
+  margin-top: 18px;
   display: flex;
-  gap: 10px;
-  margin-top: 15px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.actions button {
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.2s ease;
 }
 
 .accept-btn {
-  background: green;
-  color: white;
-  padding: 8px 12px;
-  border: none;
-  border-radius: 5px;
+  background: #16a34a;
 }
 
 .reject-btn {
-  background: red;
-  color: white;
-  padding: 8px 12px;
-  border: none;
-  border-radius: 5px;
+  background: #dc2626;
 }
 
 .review-btn {
-  background: orange;
-  color: white;
-  padding: 8px 12px;
-  border: none;
-  border-radius: 5px;
+  background: #f59e0b;
 }
 
-/* RESPONSIVE */
+.actions button:hover {
+  opacity: 0.9;
+}
+
+/* Loader */
+.loader {
+  margin-top: 40px;
+}
+
+/* No applicants text */
+.no-applicants {
+  margin-top: 30px;
+  font-size: 18px;
+  color: #6b7280;
+}
+
+
+/* =====================================================
+   TABLET RESPONSIVE — (600px to 1024px)
+   ===================================================== */
+@media (min-width: 600px) and (max-width: 1024px) {
+  .applicants-container {
+    margin-left: 200px;       /* Reduce sidebar width */
+    width: calc(100% - 200px);
+    padding: 30px;
+  }
+
+  .applicants-container h1 {
+    font-size: 24px;
+  }
+
+  .applicant-card {
+    padding: 24px;
+  }
+
+  .actions button {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+}
+
+/* =====================================================
+   MOBILE RESPONSIVE — (Max 600px)
+   ===================================================== */
 @media (max-width: 600px) {
   .applicants-container {
     margin-left: 0;
+    margin-top: 90px;
     width: 100%;
+    padding: 20px;
+  }
+
+  .applicants-container h1 {
+    font-size: 22px;
+    text-align: center;
+  }
+
+  .applicant-card {
+    padding: 18px;
+  }
+
+  .actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .actions button {
+    width: 100%;
+    padding: 10px;
   }
 }
