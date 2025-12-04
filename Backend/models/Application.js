@@ -1,3 +1,4 @@
+// models/Application.js
 const mongoose = require("mongoose");
 
 const ApplicationSchema = new mongoose.Schema({
@@ -13,12 +14,9 @@ const ApplicationSchema = new mongoose.Schema({
     required: true
   },
 
-  resumeUrl: String,
-  atsScore: Number,
-
   status: {
     type: String,
-    enum: ["applied", "reviewed", "accepted", "rejected"],
+    enum: ["applied", "reviewed", "interview-scheduled", "accepted", "rejected"],
     default: "applied"
   },
 

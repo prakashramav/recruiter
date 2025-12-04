@@ -15,7 +15,7 @@ exports.getApplicantsForJob = async (req, res) => {
       return res.status(403).json({ message: "Forbidden" });
 
     const apps = await Application.find({ jobId })
-      .populate("applicantId", "name email skills atsScore");
+      .populate("applicantId", "name email skills");
 
     res.json({ success: true, applicants: apps });
   } catch (err) {

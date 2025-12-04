@@ -60,7 +60,7 @@ exports.getInterviewsForJob = async (req, res) => {
 
     const interviews = await Interview.find({ recruiterId, jobId }).populate(
       "applicantId",
-      "name email atsScore"
+      "name email"
     );
 
     res.json(interviews);
