@@ -3,13 +3,30 @@
     padding: 40px;
     width: calc(100% - 260px);
     margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
+.profile-card-container{
+    padding: 10%;
+    width: 100%;
+    background-color: #eeebeb;
+    margin-bottom: 20%;
+    border-radius: 10px;
+}
 
 @media (max-width: 600px) {
     .applicant-profile-page-container{
         margin-left: 0px;
         width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
     }
 }
 
@@ -17,5 +34,79 @@
     .applicant-profile-page-container{
         margin-left: 200px;
         width: calc(100% - 200px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
     }
 }
+
+.profile-container {
+  padding: 30px;
+  margin-left: 230px;
+  margin-top: 80px;
+}
+
+.profile-heading {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.profile-card {
+  background: #f7f7f7;
+  padding: 25px;
+  border-radius: 10px;
+  width: 60%;
+  border: 1px solid #ddd;
+}
+
+.profile-card p {
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+
+.resume-section {
+  margin-top: 20px;
+}
+
+.view-resume-btn {
+  display: inline-block;
+  background: #2563eb;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.button-row {
+  margin-top: 25px;
+  display: flex;
+  gap: 15px;
+}
+
+.update-btn {
+  background: green;
+  color: white;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.delete-btn {
+  background: red;
+  color: white;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.profile-loader {
+  margin-top: 150px;
+  display: flex;
+  justify-content: center;
+}
+

@@ -13,7 +13,7 @@ const ApplicantHomePage = () => {
   const [resumeFile, setResumeFile] = useState(null);
   const [uploading, setUploading] = useState(false);
 
-  // Fetch logged-in user profile
+  // Fetch logged-in applicant profile
   useEffect(() => {
     const token = Cookies.get("talentify_applicant_jwtToken");
 
@@ -50,7 +50,7 @@ const ApplicantHomePage = () => {
       setUploading(true);
 
       const res = await axios.post(
-        "https://recruiter-1-gjf3.onrender.com/api/ats/upload-resume",
+        "https://recruiter-1-gjf3.onrender.com/api/ats/upload",
         formData,
         {
           headers: {
@@ -62,12 +62,11 @@ const ApplicantHomePage = () => {
 
       alert("Resume Uploaded Successfully!");
 
-      // Update profile with new ATS score
+      // Update UI with new resume data
       setProfile((prev) => ({
         ...prev,
         isResumeUploaded: true,
-        resumeUrl: res.data.data.resumeUrl,
-        atsScore: res.data.data.atsScore,
+        resumeUrl: res.data.resumeUrl,
       }));
     } catch (err) {
       console.log(err);
@@ -77,7 +76,7 @@ const ApplicantHomePage = () => {
     }
   };
 
-  // Show loader until profile loads
+  // Loader before profile
   if (loading) {
     return (
       <div className="applicant-dashboard-page-loader-container">
@@ -86,7 +85,7 @@ const ApplicantHomePage = () => {
     );
   }
 
-  // Redirect to complete profile
+  // If profile incomplete → redirect
   if (!profile || !profile.isProfileComplete) {
     return <Navigate to="/applicant/complete-profile" replace />;
   }
@@ -108,7 +107,6 @@ const ApplicantHomePage = () => {
             {profile.isResumeUploaded ? (
               <>
                 <p><strong>Resume Uploaded ✓</strong></p>
-                <p><strong>ATS Score:</strong> {profile.atsScore}</p>
 
                 <a
                   href={profile.resumeUrl}
@@ -130,9 +128,9 @@ const ApplicantHomePage = () => {
                 />
 
                 {uploading ? (
-                    <div className="upload-resume-container">
-                        <ThreeDots height={40} width={40} color="blue" />
-                    </div>
+                  <div className="upload-resume-container">
+                    <ThreeDots height={40} width={40} color="blue" />
+                  </div>
                 ) : (
                   <button className="upload-btn" onClick={handleResumeUpload}>
                     Upload Resume
