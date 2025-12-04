@@ -1,6 +1,107 @@
-.jobdetals-container-page{
-    margin-top: 200px;
-    margin-left: 260px;
+.jobdetails-container-page{
+    margin-left: 300px;
     padding: 40px;
-    width: calc(100% - 260px);
+    width: calc(100% - 300px);
+    margin-top: 80px;
+}
+
+
+/* Mobile */
+@media (max-width: 600px) {
+  .job-details-container {
+    width: 100%;
+    border: 2px solid #dfe3eb;
+    border-radius: 10px;
+    background: #f8faff;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px
+
+  }
+  .jobdetails-container-page{
+        margin-left: 0px;
+        margin-top: 60px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap
+    }
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+    .jobdetails-container-page{
+        margin-left: 200px;
+        padding: 40px;
+        width: calc(100% - 200px);
+        margin-top: 80px;
+    }
+}
+.job-details-container{
+    width: 100%;
+    border: 2px solid #dfe3eb;
+    border-radius: 10px;
+    background: #f8faff;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 35px;
+}
+.loader-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.apply-job-btn{
+    background-color: blue;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 160px;
+}
+.applied-button{
+    background-color: green;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 160px;
+}
+.apply-job-btn {
+  margin-top: 20px;
+  background-color: #2563eb;
+  color: white;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.apply-job-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.applied-btn {
+  margin-top: 20px;
+  background: gray;
+  color: white;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: not-allowed;
+}
+
+.loader-container {
+  margin-top: 150px;
+  display: flex;
+  justify-content: center;
 }

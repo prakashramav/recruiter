@@ -336,14 +336,35 @@ exports.applyForJob = async (req, res) => {
 
 exports.getMyApplications = async (req, res) => {
   try {
-    const apps = await Application.find({ applicantId: req.user.id })
+    let apps = await Application.find({ applicantId: req.user.id })
       .populate("jobId", "title company location jobType stipend");
 
-    res.json({ success: true, applications: apps });
+    // Fix jobId=null issue
+    const safeApps = apps.map(app => {
+      if (!app.jobId) {
+        // Create a fake job object so frontend never breaks
+        return {
+          ...app._doc,
+          jobId: {
+            _id: null,
+            title: "Job Deleted",
+            company: "N/A",
+            location: "N/A",
+            jobType: "N/A",
+            stipend: "N/A",
+            isDeleted: true
+          }
+        };
+      }
+      return app;
+    });
+
+    res.json({ success: true, applications: safeApps });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
+
 
 exports.searchJobs = async (req, res) => {
   try {

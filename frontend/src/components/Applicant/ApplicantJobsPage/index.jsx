@@ -7,7 +7,6 @@ import ApplicantNavbarPage from "../ApplicantNavabrPage";
 import "./jobs.css";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
-
 const ApplicantJobsPage = () => {
     const navigate = useNavigate();
   const token = Cookies.get("talentify_applicant_jwtToken");
@@ -63,8 +62,8 @@ const ApplicantJobsPage = () => {
     <>
       <div className="jobs-container">
         <h1 className="jobs-heading">Available Jobs</h1>
-
         <ul className="jobs-list">
+
 
           {loading ? (
             <div className="jobs-loader">
@@ -90,7 +89,7 @@ const ApplicantJobsPage = () => {
                         <p><strong>Skills:</strong> {job.skillsRequired.join(", ")}</p>
                         <div className="bottom-container-of-job">
                             {
-                                isApplied ? (<span>isApplied</span>) : "Not Applied" 
+                                isApplied ? (<span className="span-applied">Already Applied</span>) : "Not Applied" 
                             }
                             <span className="posted-time">
                             Posted: {convertDate(job.createdAt)}
