@@ -6,7 +6,7 @@ const Job = require("../models/Job");
 exports.scheduleInterview = async (req, res) => {
   try {
     const recruiterId = req.user.id;
-    const { applicantId, jobId, interviewDate, mode, location, message } =
+    const { applicantId, jobId, interviewDate, mode, meetLink, message } =
       req.body;
 
     const job = await Job.findById(jobId);
@@ -29,7 +29,7 @@ exports.scheduleInterview = async (req, res) => {
       recruiterId,
       interviewDate,
       mode,
-      location,
+      meetLink,  // Add this
       message,
     });
 
