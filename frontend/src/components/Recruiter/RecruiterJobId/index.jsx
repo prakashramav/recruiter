@@ -8,6 +8,7 @@ import "./index.css";
 import { useEffect, useState } from "react";
 import { ThreeDots } from "react-loader-spinner";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import RecruiterJobApplicantsPage from "../RecruiterJobApplicantsPage";
 
 const RecruiterJobId = () => {
   const { jobId } = useParams();
@@ -115,6 +116,7 @@ const [isDelete, setIsDelete] = useState(false)
             </div>
           )}
         </div>
+        <RecruiterJobApplicantsPage jobId={jobId} />
       </div>
     </>
   );

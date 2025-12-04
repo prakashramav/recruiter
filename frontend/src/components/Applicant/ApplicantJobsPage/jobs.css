@@ -32,3 +32,7 @@
     justify-content: space-between;
     align-items: center;
 }
+.span-applied{
+    color: green;
+    font-weight: bold;
+}
