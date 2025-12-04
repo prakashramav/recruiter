@@ -1,36 +1,21 @@
-.applicant-interview-page-container{
-    margin-left: 260px;
-    padding: 40px;
-    width: calc(100% - 260px);
-    margin-top: 80px;
-}
-
-
-@media (max-width: 600px) {
-    .applicant-interview-page-container{
-        margin-left: 0px;
-        width: 100%;
-    }
-}
-
-@media (min-width: 768px) and (max-width: 1024px) {
-    .applicant-interview-page-container{
-        margin-left: 200px;
-        width: calc(100% - 200px);
-    }
-}
-
+/* ============================================================
+   MAIN PAGE LAYOUT
+============================================================= */
 .interview-container {
-  margin-left: 20%;
-  margin-top: 10%;
-  padding: 20px;
+  margin-left: 260px; /* space for sidebar */
+  margin-top: 90px;   /* space for header */
+  padding: 30px;
+  width: calc(100% - 260px);
 }
 
+/* Heading */
 .interview-heading {
   font-size: 26px;
   margin-bottom: 20px;
+  font-weight: 600;
 }
 
+/* Loader */
 .loader-box {
   display: flex;
   justify-content: center;
@@ -40,8 +25,12 @@
 .no-interviews {
   font-size: 18px;
   color: #777;
+  margin-top: 20px;
 }
 
+/* ============================================================
+   INTERVIEW LIST + CARD
+============================================================= */
 .interview-list {
   list-style: none;
   padding: 0;
@@ -56,30 +45,77 @@
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
+/* Join Meet Button */
 .join-meet {
   display: inline-block;
   margin-top: 10px;
   background: #2563eb;
   color: #fff;
-  padding: 8px 14px;
+  padding: 10px 14px;
   border-radius: 6px;
   text-decoration: none;
+  font-weight: 600;
 }
 
 .join-meet:hover {
   background: #1d4ed8;
 }
 
+/* Message */
 .message {
   margin-top: 8px;
   color: #444;
   font-style: italic;
 }
 
-/* Mobile */
+/* ============================================================
+   MOBILE RESPONSIVE
+============================================================= */
 @media (max-width: 600px) {
   .interview-container {
-    margin-left: 0;
-    margin-top: 20%;
+    margin-left: 0px;       /* remove sidebar gap */
+    width: 100%;
+    padding: 20px;
+    margin-top: 100px;      /* space for fixed header/navbar */
+  }
+
+  .interview-card {
+    width: 100%;
+    padding: 18px;
+  }
+
+  .join-meet {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* ============================================================
+   TABLET RESPONSIVE (600px - 1024px)
+============================================================= */
+@media (min-width: 600px) and (max-width: 1024px) {
+  .interview-container {
+    margin-left: 220px; /* Tablet sidebar width */
+    width: calc(100% - 200px);
+    padding: 25px;
+    margin-top: 80px;
+  }
+
+  .interview-card {
+    width: 100%;
+  }
+
+  .join-meet {
+    width: auto;
+  }
+}
+
+/* ============================================================
+   LAPTOP (default)
+============================================================= */
+@media (min-width: 1025px) {
+  .interview-container {
+    margin-left: 260px; 
+    width: calc(100% - 260px);
   }
 }
