@@ -17,39 +17,43 @@ const ApplcantJobDetails = () => {
   const [buttonLoading, setButtonLoading] = useState(false);
 
   useEffect(() => {
-    const fetchJob = async () => {
+    setJob(null);
+    setLoading(true);
+
+    const fetchJobDetails = async () => {
       try {
-        const res = await axios.get(
+        const jobRes = await axios.get(
           `https://recruiter-1-gjf3.onrender.com/api/applicants/job/${jobId}`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
-        setJob(res.data);
+        setJob(jobRes.data);
       } catch (err) {
         console.error("Error fetching job:", err);
-      } 
+      }
     };
-      const checkIfApplied = async () => {
-        try {
-            const res = await axios.get(
-            "https://recruiter-1-gjf3.onrender.com/api/applicants/my-applications",
-            { headers: { Authorization: `Bearer ${token}` } }
-            );
 
-            const hasApplied = res.data.applications.some(
-            (app) => app.jobId._id === jobId
-            );
+    const checkIfApplied = async () => {
+      try {
+        const res = await axios.get(
+          "https://recruiter-1-gjf3.onrender.com/api/applicants/my-applications",
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
 
-            setApplied(hasApplied);
-        } catch (err) {
-            console.error("Error checking if applied:", err);
-        }finally {
-            setLoading(false);
-        }
+        const hasApplied = res.data.applications.some(
+          (app) => app.jobId?._id === jobId
+        );
+        setApplied(hasApplied);
+      } catch (err) {
+        console.error("Error checking application:", err);
+      }
     };
-    fetchJob();
-    checkIfApplied();
+
+    // RUN BOTH THEN STOP LOADING
+    Promise.all([fetchJobDetails(), checkIfApplied()])
+      .then(() => setLoading(false));
+
   }, [jobId, token]);
-  console.log(job);
+
   const handleApplyJob = async () => {
     try {
       setButtonLoading(true);
@@ -60,12 +64,11 @@ const ApplcantJobDetails = () => {
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
-      alert("🎉 Job Applied Successfully!");
-
-      setApplied(true); // instantly update UI
+      alert("🎉 Job Applied!");
+      setApplied(true);
     } catch (err) {
       console.error("Apply job error:", err);
-      alert(err.response?.data?.msg || "Failed to apply job");
+      alert(err.response?.data?.msg || "Failed to apply");
     } finally {
       setButtonLoading(false);
     }
@@ -74,35 +77,39 @@ const ApplcantJobDetails = () => {
   return (
     <div>
       <ApplicantHeaderPage />
-      <div>
-        <ApplicantNavbarPage />
-        <div className="jobdetails-container-page">
-            <h1>Job Details</h1>
-            {
-                loading ? (
-                    <div className="loader-container"> 
-                        <ThreeDots color="blue" height={50} width={50} />
-                    </div>
-                ) : (
-                    <>
-                        <div className="job-details-container">
-                            <h2 className="job-title">{job.title}</h2>
-                            <p>Company: {job.company}</p>
-                            <p>Job Type: {job.jobType}</p>
-                            <p>Category: {job.category}</p>
-                            <p>Experience Required: {job.experienceRequired} Years</p>
-                            <p className="job-salary">Stipend : {job.stipend}</p>
-                            <p className="job-location">Location: {job.location}</p>
-                            <p>{job.skills}</p>
-                            <p className="job-description">Description: {job.description}</p>
-                            {applied ? (<button className="applied-button">✔ Applied</button>):(<button className="apply-job-btn" onClick={handleApplyJob} disabled={buttonLoading}>
-                                {buttonLoading ? "Applying..." : "Apply Now"}
-                            </button>)}
-                        </div>
-                    </>
-                )
-            }
-        </div>
+      <ApplicantNavbarPage />
+
+      <div className="jobdetails-container-page">
+        <h1>Job Details</h1>
+
+        {loading || !job ? (
+          <div className="loader-container">
+            <ThreeDots color="blue" height={50} width={50} />
+          </div>
+        ) : (
+          <div className="job-details-container">
+            <h2 className="job-title">{job.title}</h2>
+            <p>Company: {job.company}</p>
+            <p>Job Type: {job.jobType}</p>
+            <p>Category: {job.category}</p>
+            <p>Experience Required: {job.experienceRequired} Years</p>
+            <p className="job-salary">Stipend : {job.stipend}</p>
+            <p className="job-location">Location: {job.location}</p>
+            <p className="job-description">Description: {job.description}</p>
+
+            {applied ? (
+              <button className="applied-button">✔ Applied</button>
+            ) : (
+              <button
+                className="apply-job-btn"
+                onClick={handleApplyJob}
+                disabled={buttonLoading}
+              >
+                {buttonLoading ? "Applying..." : "Apply Now"}
+              </button>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

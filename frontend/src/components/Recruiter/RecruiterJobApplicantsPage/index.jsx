@@ -9,7 +9,8 @@ import "./applicants.css";
 
 const RecruiterJobApplicantsPage = () => {
   const { jobId } = useParams();
-  const token = Cookies.get("talentify_recruiter_jwtToken");
+  console.log(jobId);
+  const token = Cookies.get("talintify_recruiter_jwt_token");
 
   const [applicants, setApplicants] = useState([]);
   const [loading, setLoading] = useState(true);
