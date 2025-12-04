@@ -26,22 +26,30 @@ exports.getApplicantsForJob = async (req, res) => {
 // Update Application Status
 exports.updateApplicationStatus = async (req, res) => {
   try {
-    const recruiterId = req.user.id;
     const { applicationId } = req.params;
     const { status } = req.body;
 
-    const app = await Application.findById(applicationId).populate("jobId");
+    const application = await Application.findById(applicationId);
 
-    if (!app) return res.status(404).json({ message: "Not found" });
+    if (!application) {
+      return res.status(404).json({ message: "Application not found" });
+    }
 
-    if (app.jobId.createdBy.toString() !== recruiterId)
-      return res.status(403).json({ message: "Forbidden" });
+    //  If interview already scheduled, block rejecting
+    if (application.status === "accepted" && (status === "reviewed" || status === "rejected")) {
+      return res.status(400).json({
+        message: "Cannot modify status after acceptance"
+      });
+    }
 
-    app.status = status;
-    await app.save();
 
-    res.json({ message: "Status updated", app });
+    // Update status normally
+    application.status = status;
+    await application.save();
+
+    res.json({ success: true, updatedStatus: status });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
+

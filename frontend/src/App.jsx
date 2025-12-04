@@ -27,7 +27,6 @@ const ApplicantProfilePage = lazy(() => import ('./components/Applicant/Applican
 const RecruiterProfilePage = lazy(() => import ('./components/Recruiter/RecruiterProfilePage'));
 
 
-const RecruiterApplicantPage = lazy(() => import('./components/Recruiter/RecruiterApplicantPage'))
 const RecruiterCreateJobPage = lazy(() => import('./components/Recruiter/RecruiterCreateJobPage'));
 
 
@@ -69,7 +68,6 @@ const App = () => {
             <Route path="/recruiter" element={<RecruiterProtectedRoute><RecruiterHomePage/> </RecruiterProtectedRoute> } />
             <Route path="/recruiter/profile" element={ <RecruiterProtectedRoute> <RecruiterProfilePage/> </RecruiterProtectedRoute>} />
             <Route path='/recruiter/create-jobs' element={ <RecruiterProtectedRoute> <RecruiterCreateJobPage/> </RecruiterProtectedRoute>} />
-            <Route path='/recruiter/applicants' element={ <RecruiterProtectedRoute> <RecruiterApplicantPage/> </RecruiterProtectedRoute>} />
             <Route path='/recruiter/jobs/:jobId' element={ <RecruiterProtectedRoute> <RecruiterJobId/> </RecruiterProtectedRoute>} />
             <Route path='/recruiter/updateJob/:jobId' element={ <RecruiterProtectedRoute> <RecruiterUpdateJob/> </RecruiterProtectedRoute>} />
             <Route path='/recruiter/interview' element={<RecruiterProtectedRoute><RecruiterInterviewSchedule /></RecruiterProtectedRoute>} />

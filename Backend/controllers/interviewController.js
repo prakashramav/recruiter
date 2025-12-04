@@ -68,3 +68,33 @@ exports.getInterviewsForJob = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
+exports.getUpcomingInterviews = async (req, res) => {
+  try {
+    const recruiterId = req.user.id;
+
+    // Get all jobs created by recruiter
+    const jobs = await Job.find({ createdBy: recruiterId }).select("_id title company");
+
+    const jobIds = jobs.map(j => j._id);
+
+    // Fetch interviews only with future date
+    const upcoming = await Interview.find({
+      jobId: { $in: jobIds },
+      interviewDate: { $gte: new Date() }       // Only future dates
+    })
+    .populate("applicantId", "name email phone skills resumeUrl")
+    .populate("jobId", "title company")
+    .sort({ interviewDate: 1 });                // Soonest first
+
+    res.json({
+      success: true,
+      count: upcoming.length,
+      interviews: upcoming
+    });
+
+  } catch (err) {
+    console.error("Error fetching upcoming interviews:", err);
+    res.status(500).json({ message: "Server Error" });
+  }
+};
