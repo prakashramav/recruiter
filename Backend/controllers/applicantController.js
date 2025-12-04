@@ -105,13 +105,13 @@ exports.updateApplicantProfile = async (req, res) => {
     let updateData = {
       name,
       email,
-      experience,
-      phone,
+      experience: experience ? Number(experience) : 0,
+      phone: phone || null,
       githubUrl,
       linkedinUrl,
       portfolioUrl,
       interests: parsedInterests,
-      skills: parsedSkills
+      skills: parsedSkills,
     };
 
     // -------------------------------

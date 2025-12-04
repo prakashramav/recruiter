@@ -1,0 +1,88 @@
+.applicant-update-profile-page-container{
+    margin-left: 260px;
+    padding: 40px;
+    width: calc(100% - 260px);
+    margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap
+}
+
+@media(max-width : 600px){
+    .applicant-update-profile-page-container{
+        margin-left: 0px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap
+    }
+    .update-form {
+        width: 90%;
+        margin-bottom: 20%;
+  }
+
+  .applicant-update-profile-page-container {
+    margin-left: 0 !important;
+    width: 100% !important;
+    padding: 20px;
+  }
+}
+@media(min-width : 600px) and (max-width : 1024px){
+    .applicant-update-profile-page-container{
+        margin-left: 200px;
+        width: calc(100% - 200px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap
+    }
+}
+
+.update-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 600px;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.update-form input,
+.update-form textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #aaa;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+.resume-upload-label {
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+.save-btn {
+  padding: 12px;
+  background-color: #2563eb;
+  color: white;
+  font-size: 18px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.save-btn:disabled {
+  background-color: #7da5f3;
+  cursor: not-allowed;
+}
+
+.applicant-update-loader {
+  margin-top: 150px;
+  display: flex;
+  justify-content: center;
+}
