@@ -6,6 +6,8 @@ import ApplicantNavbarPage from "../ApplicantNavabrPage";
 import "./index.css";
 import { useEffect, useState } from "react";
 import { ThreeDots } from "react-loader-spinner";
+import ApplcantFetchingJobs from "../ApplicantJobsPage";
+import ApplicantJobsPage from "../ApplicantJobsPage";
 
 const ApplicantHomePage = () => {
   const [profile, setProfile] = useState(null);
@@ -98,47 +100,52 @@ const ApplicantHomePage = () => {
         <ApplicantNavbarPage />
 
         <div className="applicant-dashboard-page-container">
-          <h1>Welcome to Applicant Dashboard</h1>
+            <div className="applicant-heading-resume-container">
+                <h1>Welcome to  Dashboard {profile.name}</h1>
 
-          {/* Resume Upload Section */}
-          <div className="resume-card">
-            <h3>Resume Status</h3>
+                {/* Resume Upload Section */}
+                <div className="resume-card">
+                    <h3>Resume Status</h3>
 
-            {profile.isResumeUploaded ? (
-              <>
-                <p><strong>Resume Uploaded ✓</strong></p>
+                    {profile.isResumeUploaded ? (
+                    <>
+                        <p><strong>Resume Uploaded ✓</strong></p>
 
-                <a
-                  href={profile.resumeUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="resume-link"
-                >
-                  View Resume
-                </a>
-              </>
-            ) : (
-              <>
-                <p>No Resume Uploaded</p>
+                        <a
+                        href={profile.resumeUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="resume-link"
+                        >
+                        View Resume
+                        </a>
+                    </>
+                    ) : (
+                    <>
+                        <p>No Resume Uploaded</p>
 
-                <input
-                  type="file"
-                  accept="application/pdf"
-                  onChange={(e) => setResumeFile(e.target.files[0])}
-                />
+                        <input
+                        type="file"
+                        accept="application/pdf"
+                        onChange={(e) => setResumeFile(e.target.files[0])}
+                        />
 
-                {uploading ? (
-                  <div className="upload-resume-container">
-                    <ThreeDots height={40} width={40} color="blue" />
-                  </div>
-                ) : (
-                  <button className="upload-btn" onClick={handleResumeUpload}>
-                    Upload Resume
-                  </button>
-                )}
-              </>
-            )}
-          </div>
+                        {uploading ? (
+                        <div className="upload-resume-container">
+                            <ThreeDots height={40} width={40} color="blue" />
+                        </div>
+                        ) : (
+                        <button className="upload-btn" onClick={handleResumeUpload}>
+                            Upload Resume
+                        </button>
+                        )}
+                    </>
+                    )}
+                </div>
+            </div>
+            <div className="jobs-container">
+                <ApplicantJobsPage />
+            </div>
         </div>
       </div>
     </>

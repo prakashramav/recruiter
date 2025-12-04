@@ -2,7 +2,12 @@
     margin-left: 260px;
     padding: 40px;
     width: calc(100% - 260px);
-    margin-top: 80px;
+    margin-top: 0px;
+}
+.applicant-heading-resume-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .applicant-dashboard-page-loader-container{
@@ -56,9 +61,16 @@
         align-items: center;
         height: 100vh;
     }
+    .applicant-heading-resume-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10%;
+    }
 }
 
-@media (min-width: 768px) and (max-width: 1024px) {
+@media (min-width: 601px) and (max-width: 1024px) {
     .applicant-dashboard-page-container{
         margin-left: 200px;
         width: calc(100% - 200px);
@@ -68,5 +80,17 @@
         justify-content: center;
         align-items: center;
         height: 100vh;
+        
     }
+    .applicant-heading-resume-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10%;
+    }
+}
+
+.jobs-container{
+    margin-top: 20px;
 }

@@ -1,0 +1,34 @@
+.jobs-list{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+}
+
+.job-card{
+    padding: 20px;
+    border: 2px solid #dfe3eb;
+    border-radius: 10px;
+    background: #f8faff;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+.job-card-three{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.bottom-container-of-job{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
