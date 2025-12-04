@@ -7,7 +7,7 @@ const InterviewSchema = new mongoose.Schema({
 
   interviewDate: { type: Date, required: true },
   mode: { type: String, enum: ['Online', 'Offline'], default: 'Online' },
-  location: String, // for offline
+  meetLink: { type: String, required: true },
   message: String, // optional notes from recruiter
 
   status: { type: String, enum: ['Scheduled','Completed','Cancelled'], default: 'Scheduled' },
