@@ -10,18 +10,18 @@ const ApplicantHeaderPage = () => {
         navigate('/applicant/login');
     }
     return (
-        <header className="applicant-header-page-container">
+        <header className="recruiter-header">
             <div className="applicant-navbar-heading-container" onClick={() => navigate('/applicant')}>
-                <h1 className="applicant-header-heading">
+                <h1 className="header-title">
                     Talentify
                 </h1>
             </div>
-            <div className="applicant-profile-logout-container">
+            <div className="profile-icon-container">
                 <div className="applicant-progile-icon-container" onClick={() => navigate('/applicant/profile')}>
                     <CgProfile size={40} />
                 </div>
                 <div className="applicant-logout-btn-container">
-                    <button className="applicant-logout-btn" onClick={applicantLogoutButton}>Logout</button>
+                    <button className="logout-btn" onClick={applicantLogoutButton}>Logout</button>
                 </div>
             </div>
         </header>

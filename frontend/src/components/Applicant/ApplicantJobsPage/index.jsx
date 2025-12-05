@@ -77,16 +77,15 @@ const ApplicantJobsPage = () => {
                 return (
                     <li key={job._id} className="job-card" onClick={() => navigate(`/applicant/jobs/${job._id}`)}>
                         <div className="job-card-three">
-                            <h3>{job.title}</h3>
+                            <h6>{job.title}</h6>
                             <BsThreeDotsVertical />
                         </div>
-                        <p><strong>Company:</strong> {job.company}</p>
-                        <p><strong>Location:</strong> {job.location}</p>
-                        <p><strong>Category:</strong> {job.category}</p>
-                        <p><strong>Stipend:</strong> {job.stipend}</p>
-                        <p><strong>Experience Required:</strong> {job.experienceRequired} years</p>
+                        <span><strong>Company:</strong> {job.company}</span>
+                        <span><strong>Category:</strong> {job.category}</span>
+                        <span><strong>Stipend:</strong> {job.stipend}</span>
+                        <span><strong>Experience Required:</strong> {job.experienceRequired} years</span>
 
-                        <p><strong>Skills:</strong> {job.skillsRequired.join(", ")}</p>
+                        <span><strong>Skills:</strong> {job.skillsRequired.join(", ")}</span>
                         <div className="bottom-container-of-job">
                             {
                                 isApplied ? (<span className="span-applied">Already Applied</span>) : "Not Applied" 

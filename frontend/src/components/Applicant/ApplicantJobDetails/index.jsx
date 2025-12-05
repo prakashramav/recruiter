@@ -88,14 +88,15 @@ const ApplcantJobDetails = () => {
           </div>
         ) : (
           <div className="job-details-container">
-            <h2 className="job-title">{job.title}</h2>
-            <p>Company: {job.company}</p>
-            <p>Job Type: {job.jobType}</p>
-            <p>Category: {job.category}</p>
-            <p>Experience Required: {job.experienceRequired} Years</p>
-            <p className="job-salary">Stipend : {job.stipend}</p>
-            <p className="job-location">Location: {job.location}</p>
-            <p className="job-description">Description: {job.description}</p>
+            <h5 className="job-title">{job.title}</h5>
+            <span><strong>Company:</strong> {job.company}</span>
+            <span><strong>Job Type:</strong> {job.jobType}</span>
+            <span><strong>Category: </strong>{job.category}</span>
+            <span><strong>Experience Required:</strong> {job.experienceRequired} Years</span>
+            <span className="job-salary"><strong>Stipend : </strong> {job.stipend}</span>
+            <span className=""><strong>Skills:</strong> {job.skillsRequired.join(", ")}</span>
+            <span className="job-location"><strong>Location:</strong> {job.location}</span>
+            <span className="job-description"><strong>Description:</strong> {job.description}</span>
 
             {applied ? (
               <button className="applied-button">✔ Applied</button>

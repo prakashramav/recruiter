@@ -27,7 +27,7 @@
 
 @media (min-width: 768px) and (max-width: 1024px) {
     .applicant-applied-jobs-container{
-        margin-left: 200px;
+        margin-left: 0px;
         width: calc(100% - 200px);
     }
     .my-applicant-job-heading{
