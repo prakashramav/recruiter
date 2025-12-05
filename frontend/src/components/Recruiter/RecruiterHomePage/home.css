@@ -187,3 +187,8 @@
     font-size: var(--font-size-xl);
   }
 }
+.job-list-loader-container{
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}

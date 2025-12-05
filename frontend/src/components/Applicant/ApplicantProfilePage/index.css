@@ -30,9 +30,9 @@
     }
 }
 
-@media (min-width: 768px) and (max-width: 1024px) {
+@media (min-width: 601px) and (max-width: 1024px) {
     .applicant-profile-page-container{
-        margin-left: 200px;
+        margin-left: 0px;
         width: calc(100% - 200px);
         display: flex;
         flex-direction: column;

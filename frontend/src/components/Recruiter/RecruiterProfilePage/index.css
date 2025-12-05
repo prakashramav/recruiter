@@ -63,9 +63,9 @@
 }
 
 /* ---------------- TABLET (768px – 1024px) ---------------- */
-@media (min-width: 768px) and (max-width: 1024px) {
+@media (min-width: 601px) and (max-width: 1024px) {
   .recruiter-profile-content-container {
-    margin-left: 200px;
+    margin-left: 0px;
     margin-top: 70px;
     padding: 25px;
     justify-content: center;
@@ -77,7 +77,7 @@
 }
 
 /* ---------------- MOBILE (max-width: 767px) ---------------- */
-@media (max-width: 767px) {
+@media (max-width: 600px) {
   .recruiter-profile-page-container {
     flex-direction: column;
   }

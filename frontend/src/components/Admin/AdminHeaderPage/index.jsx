@@ -11,18 +11,18 @@ const AdminHeaderPage = () => {
     }
 
     return(
-        <header className="admin-navbar-page-container">
+        <header className="recruiter-header">
             <div onClick={() => navigate('/admin')} className="admin-navbar-heading-container">
-                <h1 className="admin-navbar-page-heading">
+                <h1 className="header-title">
                     Talentify 
                 </h1>
             </div>
-            <div className="profile-logout-container">
-                <div onClick={() => navigate('/admin/profile')} className="admin-profile-icon-container">
+            <div className="header-actions">
+                <div onClick={() => navigate('/admin/profile')} className="profile-icon-container">
                     <CgProfile size={40} />
                 </div>
                 <div>
-                    <button className="admin-logout-btn" onClick={adminLogoutButton}>Logout</button>
+                    <button className="logout-btn" onClick={adminLogoutButton}>Logout</button>
                 </div>
             </div>
         </header>
