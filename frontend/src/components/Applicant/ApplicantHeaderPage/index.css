@@ -1,42 +1,79 @@
-.applicant-header-page-container{
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 20px;
-    border-radius: 8px;
-    background-color: #b6b6b6;
-    color: white;
-    width: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-}
-.applicant-navbar-heading-container{
-    cursor: pointer;
-}
-
-.applicant-header-heading{
-    font-size: 28px;
-    font-weight: bold;
-    color: tomato;
-}
-.applicant-profile-logout-container{
-    display: flex;
-    align-items: center;
-}
-.applicant-progile-icon-container{
-    cursor: pointer;
-}
-.applicant-logout-btn-container{
-    margin-left: 10px;
+.recruiter-header {
+  height: 80px;
+  background: var(--surface-color);
+  border-bottom: 1px solid var(--border-color);
+  padding: 0 var(--spacing-xl);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  /* Above sidebar content, below modals */
+  box-shadow: var(--shadow-sm);
 }
 
-.applicant-logout-btn{
-    padding: 6px;
-    background-color: #ff4d4d;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-weight: 400;
-    cursor: pointer;
+.header-title {
+  font-size: var(--font-size-2xl);
+  font-weight: 800;
+  color: var(--primary-color);
+  cursor: pointer;
+  letter-spacing: -0.025em;
+  transition: var(--transition-base);
+}
+
+.header-title:hover {
+  color: var(--primary-hover);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+}
+
+.profile-icon-container {
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: var(--transition-base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-xs);
+  border-radius: var(--radius-full);
+}
+
+.profile-icon-container:hover {
+  color: var(--primary-color);
+  background-color: var(--gray-100);
+}
+
+.logout-btn {
+  padding: 0.5rem 1rem;
+  background: var(--surface-color);
+  color: var(--error-color);
+  border: 1px solid var(--error-color);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: var(--font-size-sm);
+  transition: var(--transition-base);
+}
+
+.logout-btn:hover {
+  background-color: var(--error-color);
+  color: white;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .recruiter-header {
+    padding: 0 var(--spacing-md);
+  }
+
+  .header-title {
+    font-size: var(--font-size-xl);
+  }
 }

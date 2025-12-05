@@ -95,10 +95,11 @@
 ============================================================= */
 @media (min-width: 600px) and (max-width: 1024px) {
   .interview-container {
-    margin-left: 220px; /* Tablet sidebar width */
+    margin-left: 0px; /* Tablet sidebar width */
     width: calc(100% - 200px);
     padding: 25px;
     margin-top: 80px;
+    margin-bottom: 20px;
   }
 
   .interview-card {

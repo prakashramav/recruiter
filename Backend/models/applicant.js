@@ -18,11 +18,6 @@ const ApplicantSchema = new mongoose.Schema(
     githubUrl: String,
     linkedinUrl: String,
     portfolioUrl: String,
-
-    appliedJobs: [
-      { type: mongoose.Schema.Types.ObjectId, ref: "Job" }
-    ],
-
     isProfileComplete: { type: Boolean, default: false }
   },
   { timestamps: true }

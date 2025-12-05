@@ -34,9 +34,14 @@
 
 @media (min-width: 601px) and (max-width: 1024px) {
     .jobdetails-container-page{
-        margin-left: 200px;
+        margin-left: 0px;
         padding: 40px;
         width: calc(100% - 200px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
         margin-top: 80px;
     }
 }

@@ -72,7 +72,7 @@
 
 @media (min-width: 601px) and (max-width: 1024px) {
     .applicant-dashboard-page-container{
-        margin-left: 200px;
+        margin-left: 00px;
         width: calc(100% - 200px);
     }
     .applicant-dashboard-page-loader-container{
@@ -84,8 +84,7 @@
     }
     .applicant-heading-resume-container{
         display: flex;
-        flex-direction: column;
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
         margin-top: 10%;
     }
