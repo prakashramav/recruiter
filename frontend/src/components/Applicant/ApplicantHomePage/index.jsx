@@ -101,7 +101,7 @@ const ApplicantHomePage = () => {
 
         <div className="applicant-dashboard-page-container">
             <div className="applicant-heading-resume-container">
-                <h1>Welcome to  Dashboard {profile.name}</h1>
+                <h3>Welcome to  Dashboard {profile.name}</h3>
 
                 {/* Resume Upload Section */}
                 <div className="resume-card">

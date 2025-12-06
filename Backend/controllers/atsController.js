@@ -14,7 +14,7 @@ exports.uploadResumeOnly = async (req, res) => {
     const uploadResult = await new Promise((resolve, reject) => {
       const stream = cloudinary.uploader.upload_stream(
         {
-          resource_type: "raw",
+          resource_type: "auto", // FIXED
           folder: "resumes",
           public_id: `resume_${userId}_${Date.now()}`
         },
@@ -46,7 +46,6 @@ exports.uploadResumeOnly = async (req, res) => {
     res.status(500).json({ message: "Upload failed", error: err.message });
   }
 };
-
 // Delete Resume
 exports.deleteResume = async (req, res) => {
   try {

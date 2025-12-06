@@ -12,7 +12,7 @@
 }
 
 /* 📱 Mobile (0–767px) */
-@media (max-width: 767px) {
+@media (max-width: 600px) {
     .recruiter-update-profile-container {
         margin-left: 0;
         margin-top: 120px;
@@ -27,9 +27,9 @@
 }
 
 /* 📱📲 Tablet (768–1024px) */
-@media (min-width: 768px) and (max-width: 1024px) {
+@media (min-width: 601px) and (max-width: 1024px) {
     .recruiter-update-profile-container {
-        margin-left: 200px;
+        margin-left: 0px;
         margin-top: 85px;
         padding: 20px;
     }
