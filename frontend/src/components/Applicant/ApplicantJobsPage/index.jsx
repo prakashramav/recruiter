@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { ThreeDots } from "react-loader-spinner";
-import ApplicantHeaderPage from "../ApplicantHeaderPage";
-import ApplicantNavbarPage from "../ApplicantNavabrPage";
 import "./jobs.css";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
+import { FaRupeeSign } from "react-icons/fa";
+import { FaBriefcase } from "react-icons/fa";
+import { FaMapMarkerAlt } from "react-icons/fa";
+import { FaBuilding } from "react-icons/fa";
 const ApplicantJobsPage = () => {
     const navigate = useNavigate();
   const token = Cookies.get("talentify_applicant_jwtToken");
@@ -61,10 +63,8 @@ const ApplicantJobsPage = () => {
   return (
     <>
       <div className="jobs-container">
-        <h1 className="jobs-heading">Available Jobs</h1>
-        <ul className="jobs-list">
-
-
+        <h4 className="jobs-heading">Available Jobs</h4>
+        <ul className="applicant-jobs-list">
           {loading ? (
             <div className="jobs-loader">
               <ThreeDots color="blue" height={50} width={50} />
@@ -75,17 +75,21 @@ const ApplicantJobsPage = () => {
             jobs.map((job) => {
                 const isApplied = appliedJobs.includes(job._id);
                 return (
-                    <li key={job._id} className="job-card" onClick={() => navigate(`/applicant/jobs/${job._id}`)}>
+                    <li key={job._id} className="applicant-job-item" onClick={() => navigate(`/applicant/jobs/${job._id}`)}>
                         <div className="job-card-three">
                             <h6>{job.title}</h6>
                             <BsThreeDotsVertical />
                         </div>
-                        <span><strong>Company:</strong> {job.company}</span>
-                        <span><strong>Category:</strong> {job.category}</span>
-                        <span><strong>Stipend:</strong> {job.stipend}</span>
-                        <span><strong>Experience Required:</strong> {job.experienceRequired} years</span>
+                        <div className="comapny-type-container">
+                          <p><FaBuilding /> {job.company}</p>
+                          <p><FaRupeeSign /> {job.stipend}</p>
+                        </div>
+                        <div className="comapny-type-container">
+                          <p><FaMapMarkerAlt /> {job.location}</p>
+                          <p><FaBriefcase /> {job.jobType}</p>
+                        </div>
+                        <p>Experience Required: {job.experienceRequired} years</p>
 
-                        <span><strong>Skills:</strong> {job.skillsRequired.join(", ")}</span>
                         <div className="bottom-container-of-job">
                             {
                                 isApplied ? (<span className="span-applied">Already Applied</span>) : "Not Applied" 
