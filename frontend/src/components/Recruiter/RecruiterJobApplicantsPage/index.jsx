@@ -126,14 +126,11 @@ const RecruiterJobApplicantsPage = () => {
           <ul className="applicants-list">
             {applicants.map((app) => (
               <li key={app._id} className="applicant-card">
-                <h3>{app.applicantId.name}</h3>
+                <h3>{app.applicantId?.name || "Unknown Applicant"}</h3>
                 <p>
-                  <strong>Email:</strong> {app.applicantId.email}
+                  <p><strong>Email:</strong> {app.applicantId?.email || "N/A"}</p>
                 </p>
-                <p>
-                  <strong>Skills:</strong>{" "}
-                  {app.applicantId.skills?.join(", ") || "Not mentioned"}
-                </p>
+                  <p><strong>Skills:</strong> {app.applicantId?.skills?.join(", ") || "Not mentioned"}</p>
 
                 <p>
                   <strong>Status:</strong>{" "}
@@ -142,34 +139,36 @@ const RecruiterJobApplicantsPage = () => {
                   </span>
                 </p>
 
-                {app.applicantId.resumeUrl && (
-                  <a
-                    href={app.applicantId.resumeUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="resume-btn"
-                  >
-                    View Resume
-                  </a>
-                )}
-
+                {app.applicantId?.resumeUrl ? (
+                    <a
+                      href={app.applicantId.resumeUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="resume-btn"
+                    >
+                      View Resume
+                    </a>
+                  ) : (
+                    <p className="no-resume">No Resume Uploaded</p>
+                  )}
                 <div className="actions">
                   <button
-                    className="accept-btn"
-                    disabled={app.status === "accepted"}
-                    onClick={() => {
-                      if (app.status !== "accepted") {
-                        setSelectedApplicant(app);
-                        setShowModal(true);
-                      }
-                    }}
-                    style={{
-                      opacity: app.status === "accepted" ? 0.5 : 1,
-                      cursor: app.status === "accepted" ? "not-allowed" : "pointer"
-                    }}
-                  >
-                    Accept & Schedule Interview
-                  </button>
+                      className="accept-btn"
+                      disabled={app.status === "accepted"}
+                      onClick={() => {
+                        if (app.status !== "accepted") {
+                          setSelectedApplicant(app);
+                          setShowModal(true);
+                        }
+                      }}
+                      style={{
+                        opacity: app.status === "accepted" ? 0.5 : 1,
+                        cursor: app.status === "accepted" ? "not-allowed" : "pointer"
+                      }}
+                    >
+                      Accept & Schedule Interview
+                    </button>
+
                   <button
                     className="reject-btn"
                     disabled={app.status === "accepted"}

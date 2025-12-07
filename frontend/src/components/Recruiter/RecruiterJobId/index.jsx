@@ -16,12 +16,12 @@ const RecruiterJobId = () => {
   const navigate = useNavigate();
 //   const [isUpdate, setIsUpdate] = useState(false);
 const [isDelete, setIsDelete] = useState(false)
+const jwtToken = Cookies.get("talintify_recruiter_jwt_token");
 
 
   useEffect(() => {
     const fetchJobDetails = async () => {
       try {
-        const jwtToken = Cookies.get("talintify_recruiter_jwt_token");
         const response = await axios.get(
           `https://recruiter-1-gjf3.onrender.com/api/recruiters/jobs/${jobId}`,
           {
@@ -37,19 +37,18 @@ const [isDelete, setIsDelete] = useState(false)
     };
 
     fetchJobDetails();
-  }, [jobId]);
+  }, [jobId, jwtToken]);
 
 
   const deleteJob = async () => {
     
     try{
         setIsDelete(true);
-        const token = Cookies.get("talintify_recruiter_jwt_token")
         await axios.delete(
            `https://recruiter-1-gjf3.onrender.com/api/recruiters/jobs/${jobId}`,
             {
                 headers: {
-                Authorization: `Bearer ${token}`,
+                Authorization: `Bearer ${jwtToken}`,
                 },
             } 
         )
@@ -63,6 +62,31 @@ const [isDelete, setIsDelete] = useState(false)
         alert(err.response?.data?.message || "Failed to delete job")
     }
   }
+  const toggleJob = async (jobId) => {
+      try {
+        const res = await axios.put(
+          `https://recruiter-1-gjf3.onrender.com/api/recruiters/jobs/${jobId}/toggle`,
+          {},
+          {
+            headers: { Authorization: `Bearer ${jwtToken}` }
+          }
+        );
+
+        // Update UI instantly
+        setJob((prev) =>
+          prev.map((job) =>
+            job._id === jobId ? { ...job, isActive: !job.isActive } : job
+          )
+        );
+
+        alert(res.data.message);
+        navigate("/recruiter", { replace: true });
+
+      } catch (err) {
+        console.error(err);
+        alert("Failed to update job status");
+      }
+    };
 
   return (
     <>
@@ -102,6 +126,16 @@ const [isDelete, setIsDelete] = useState(false)
               <p><strong>Category:</strong> {job.category}</p>
               <p><strong>Description:</strong> {job.description}</p>
               <div className="update-delete-buttons">
+                <button
+                  className={`toggle-btn ${job.isActive ? "deactivate" : "activate"}`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleJob(job._id);
+                  }}
+                >
+                  {job.isActive ? "Deactivate" : "Activate"}
+                </button>
+
                 <button className="button-update" onClick={() => navigate(`/recruiter/updateJob/${jobId}`)}>Update</button>
                 <div>
                     {

@@ -204,3 +204,27 @@
     background-color: #f44336;
     color: #fff;
 }
+
+
+.toggle-btn {
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  margin-top: 6px;
+}
+
+.toggle-btn.activate {
+  background-color: #16a34a; /* green */
+  color: white;
+}
+
+.toggle-btn.deactivate {
+  background-color: #dc2626; /* red */
+  color: white;
+}
+
+.toggle-btn:hover {
+  opacity: 0.85;
+}
