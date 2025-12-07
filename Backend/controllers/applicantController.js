@@ -402,6 +402,7 @@ exports.filterJobs = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
 // -------------------------------------------------------------
 // Track My Applications
 // -------------------------------------------------------------

@@ -105,25 +105,27 @@ const ApplicantHomePage = () => {
                 {/* <img src={profile.resumeUrl} alt="resumeUrl" /> */}
 
                 {/* Resume Upload Section */}
-                <div className="resume-card">
-                    <h3>Resume Status</h3>
+                <>
+                    {/* <h3>Resume Status</h3> */}
 
                     {profile.isResumeUploaded ? (
-                    <>
-                        <p><strong>Resume Uploaded ✓</strong></p>
+                    // <>
+                    //     <p><strong>Resume Uploaded ✓</strong></p>
 
-                        {/* <a
-                        href={profile.resumeUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="resume-link"
-                        >
-                        View Resume
-                        </a> */}
-                        <a href={profile.resumeUrl} download>Download Resume</a>
-                    </>
+                    //     {/* <a
+                    //     href={profile.resumeUrl}
+                    //     target="_blank"
+                    //     rel="noreferrer"
+                    //     className="resume-link"
+                    //     >
+                    //     View Resume
+                    //     </a> */}
+                    //     <a href={profile.resumeUrl} className="resume-link" download>Download Resume</a>
+                    // </>
+                    ""
                     ) : (
-                    <>
+                    <div className="resume-card">
+                      
                         <p>No Resume Uploaded</p>
 
                         <input
@@ -140,10 +142,11 @@ const ApplicantHomePage = () => {
                         <button className="upload-btn" onClick={handleResumeUpload}>
                             Upload Resume
                         </button>
+                      
                         )}
-                    </>
+                    </div>
                     )}
-                </div>
+                </>
             </div>
             <div className="jobs-container">
                 <ApplicantJobsPage />
