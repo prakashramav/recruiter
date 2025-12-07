@@ -18,7 +18,8 @@ const {
   getJobById,
   updateJob,
   deleteJob,
-  getRecruiterJobsCount
+  getRecruiterJobsCount,
+  toggleJobStatus
 } = require("../controllers/jobsController");
 
 const {
@@ -45,6 +46,8 @@ router.delete("/delete-profile", auth, requireRole("recruiter"), deleteRecruiter
 
 router.get("/jobs/:jobId/applicants", auth, requireRole("recruiter"), getApplicantsForJob);
 router.get("/jobs/:jobId", auth, requireRole("recruiter"), getJobById);
+router.put("/jobs/:id/toggle", auth, requireRole("recruiter"), toggleJobStatus);
+
 
 router.get("/all", auth, requireRole("recruiter"), getAllInterviewsByRecruiter);
 router.put("/applications/:applicationId/status", auth, requireRole("recruiter"), updateApplicationStatus);
