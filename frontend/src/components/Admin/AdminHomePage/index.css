@@ -1,9 +1,5 @@
 .admin-home-page-container{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    margin-bottom: 20%;
 }
 .admin-role-btn{
     display: flex;

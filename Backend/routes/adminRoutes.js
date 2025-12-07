@@ -20,16 +20,6 @@ router.post("/register", registerAdmin);
 router.post("/login", loginAdmin);
 
 // Protected (Admin only)
-router.use(auth, requireRole("admin"));
 
-router.get("/applicants", getAllApplicants);
-router.delete("/applicants/:applicantId", deleteApplicant);
-
-router.get("/recruiters", getAllRecruiters);
-router.delete("/recruiters/:recruiterId", deleteRecruiter);
-
-router.get("/jobs", getAllJobs);
-router.get("/applications", getAllApplications);
-router.get("/interviews", getAllInterviews);
 
 module.exports = router;

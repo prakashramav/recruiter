@@ -29,9 +29,27 @@ const RecruiterInterviewSchedule = () => {
         };
 
         fetchUpcoming();
-        }, [token]);
+    }, [token]);
 
-    console.log(interviews);
+    const getTimeLeft = (date) => {
+        const interviewTime = new Date(date);
+        const now = new Date();
+
+        const diff = interviewTime - now; // milliseconds
+
+        if (diff <= 0) return "Interview time passed";
+
+        const seconds = Math.floor(diff / 1000);
+        const minutes = Math.floor(seconds / 60);
+        const hours = Math.floor(minutes / 60);
+        const days = Math.floor(hours / 24);
+
+        if (days > 0) return `${days} day${days > 1 ? "s" : ""} left`;
+        if (hours > 0) return `${hours} hour${hours > 1 ? "s" : ""} left`;
+        if (minutes > 0) return `${minutes} minute${minutes > 1 ? "s" : ""} left`;
+
+        return "Few seconds left";
+    };
 
     return (
         <>
@@ -77,6 +95,9 @@ const RecruiterInterviewSchedule = () => {
                     {iv.message && (
                         <p className="note"><strong>Message:</strong> {iv.message}</p>
                     )}
+                    <p className="time-left">
+                    <strong>⏳Time left:</strong> {getTimeLeft(iv.interviewDate)}
+                    </p>
                     </li>
                 ))}
                 </ul>
