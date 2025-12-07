@@ -91,7 +91,7 @@ const ApplicantHomePage = () => {
   if (!profile || !profile.isProfileComplete) {
     return <Navigate to="/applicant/complete-profile" replace />;
   }
-
+  console.log(profile.resumeUrl);
   return (
     <>
       <ApplicantHeaderPage />
@@ -102,6 +102,7 @@ const ApplicantHomePage = () => {
         <div className="applicant-dashboard-page-container">
             <div className="applicant-heading-resume-container">
                 <h3>Welcome to  Dashboard {profile.name}</h3>
+                {/* <img src={profile.resumeUrl} alt="resumeUrl" /> */}
 
                 {/* Resume Upload Section */}
                 <div className="resume-card">
@@ -111,14 +112,15 @@ const ApplicantHomePage = () => {
                     <>
                         <p><strong>Resume Uploaded ✓</strong></p>
 
-                        <a
+                        {/* <a
                         href={profile.resumeUrl}
                         target="_blank"
                         rel="noreferrer"
                         className="resume-link"
                         >
                         View Resume
-                        </a>
+                        </a> */}
+                        <a href={profile.resumeUrl} download>Download Resume</a>
                     </>
                     ) : (
                     <>

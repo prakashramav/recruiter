@@ -70,3 +70,8 @@
   /* Grid layout for cards */
   gap: var(--spacing-lg);
 }
+.jobs-loader{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
