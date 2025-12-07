@@ -118,7 +118,7 @@ npm run dev
 | PUT    | /jobs/:id    | Update job                               |
 | DELETE | /jobs/:id    | Delete job                               |
 
-### 📝 Applications API
+###  Applications API
 
 | Method | Endpoint             | Description                          |
 |--------|-----------------------|--------------------------------------|
