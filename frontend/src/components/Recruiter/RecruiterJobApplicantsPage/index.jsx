@@ -127,11 +127,8 @@ const RecruiterJobApplicantsPage = () => {
             {applicants.map((app) => (
               <li key={app._id} className="applicant-card">
                 <h3>{app.applicantId?.name || "Unknown Applicant"}</h3>
-                <p>
                   <p><strong>Email:</strong> {app.applicantId?.email || "N/A"}</p>
-                </p>
                   <p><strong>Skills:</strong> {app.applicantId?.skills?.join(", ") || "Not mentioned"}</p>
-
                 <p>
                   <strong>Status:</strong>{" "}
                   <span className={`status-badge ${app.status}`}>
