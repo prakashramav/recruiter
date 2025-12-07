@@ -3,9 +3,9 @@ A full-stack Applicant Tracking System built with **React**, **Node.js**, and **
 
 ---
 
-## 🚀 Features
+##  Features
 
-### ⭐ Core Features
+###  Core Features
 - Job CRUD (Create, Read, Update, Delete)
 - Application CRUD (Applicants can apply, recruiters can manage)
 - Resume Upload (PDF → Base64 → Stored on backend)
@@ -16,7 +16,7 @@ A full-stack Applicant Tracking System built with **React**, **Node.js**, and **
 - Fully functional REST API (Node.js + Express)
 - Error handling & server-side validation
 
-### 🎯 Advanced Features (Future Scope)
+###  Advanced Features (Future Scope)
 - Resume parsing with NLP
 - Dashboard with charts for recruiter insights
 - Role-based access (Admin, Recruiter, Applicant)
@@ -25,7 +25,7 @@ A full-stack Applicant Tracking System built with **React**, **Node.js**, and **
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 ### **Frontend**
 - React JS
@@ -50,7 +50,7 @@ A full-stack Applicant Tracking System built with **React**, **Node.js**, and **
 
 ---
 
-## 📂 Folder Structure
+##  Folder Structure
 
 ```
 recruiter/
@@ -77,7 +77,7 @@ recruiter/
 
 ---
 
-## 🔄 System Flow (High-Level)
+##  System Flow (High-Level)
 
 1. User submits job/application form
 2. Form validated using **React Hook Form + Zod**
@@ -90,7 +90,7 @@ recruiter/
 
 ## 🛠️ Installation & Setup
 
-### **1️⃣ Clone the Repository**
+### **1️ Clone the Repository**
 ```bash
 git clone https://github.com/prakashramav/recruiter.git
 cd recruiter
