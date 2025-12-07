@@ -192,3 +192,35 @@
   justify-content: center;
   margin-top: 40px;
 }
+/* STATS SECTION */
+.recruiter-stats-section {
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.stats-title {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.recruiter-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+}
+
+.stat-card {
+  padding: 16px;
+  border-radius: 10px;
+  color: white;
+  text-align: center;
+}
+
+.stat-card.total { background: #3b82f6; }
+.stat-card.active { background: #10b981; }
+.stat-card.inactive { background: #ef4444; }
+
+.stat-card p {
+  font-size: 26px;
+  margin-top: 6px;
+}
