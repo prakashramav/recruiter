@@ -14,9 +14,10 @@ exports.uploadResumeOnly = async (req, res) => {
     const uploadResult = await new Promise((resolve, reject) => {
       const stream = cloudinary.uploader.upload_stream(
         {
-          resource_type: "auto", // FIXED
+          resource_type: "raw",  
           folder: "resumes",
-          public_id: `resume_${userId}_${Date.now()}`
+          public_id: `resume_${userId}_${Date.now()}`,
+          format: "pdf" 
         },
         (err, result) => {
           if (err) reject(err);

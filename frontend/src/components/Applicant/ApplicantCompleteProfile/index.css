@@ -93,7 +93,11 @@
 @media (min-width: 600px) and (max-width: 1024px) {
 
     .applicant-complete-profile-page-container {
-        margin-left: 200px;
+        margin-left: 15%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         width: calc(100% - 200px);
         align-items: center;
         margin-top: 10%;
