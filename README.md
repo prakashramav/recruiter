@@ -1,172 +1,126 @@
-# 🧑‍💼 Talentify – Recruitment Portal (ATS)
-A full-stack Applicant Tracking System built with **React**, **Node.js**, and **Express**, designed to simplify job posting, applicant tracking, and resume management for recruiters and applicants.
+# Talentify 2.0 - Applicant Tracking System
 
----
+![Talentify Mockup](https://via.placeholder.com/1200x600.png?text=Talentify+Dashboard+Mockup)
 
-##  Features
+Talentify is a modern, production-ready Recruitment Portal and Applicant Tracking System (ATS). It connects job seekers with recruiters through a highly polished, responsive, and intuitive interface.
 
-###  Core Features
-- Job CRUD (Create, Read, Update, Delete)
-- Application CRUD (Applicants can apply, recruiters can manage)
-- Resume Upload (PDF → Base64 → Stored on backend)
-- Resume Preview using react-pdf
-- Job & Application Filters
-- Search Functionality
-- Pagination for long lists
-- Fully functional REST API (Node.js + Express)
-- Error handling & server-side validation
+## 🚀 Features
 
-###  Advanced Features (Future Scope)
-- Resume parsing with NLP
-- Dashboard with charts for recruiter insights
-- Role-based access (Admin, Recruiter, Applicant)
-- Cloud resume storage (AWS S3 / Firebase)
-- Application status workflow (New → Reviewed → Shortlisted)
+- **For Applicants:**
+  - Browse and search thousands of jobs with advanced filtering.
+  - Apply instantly by uploading a PDF resume.
+  - Built-in ATS Score checking to instantly match your resume against the job description.
+  - Live preview of your resume before submitting (powered by `react-pdf`).
+  - Track application statuses in real-time and join scheduled interviews.
 
----
+- **For Recruiters:**
+  - Create, manage, and edit job postings (Publish/Close).
+  - Interactive dashboard with real-time aggregated metrics (Total Applications, Shortlisted, Rejected).
+  - Review candidate applications and securely download PDF resumes.
+  - View AI-driven ATS Match Scores for every applicant.
+  - Schedule and manage interview times, and track attendance with 'No Show' tracking.
+  - Move candidates through pipeline stages (New → Reviewed → Shortlisted → Rejected → No Show).
 
-##  Tech Stack
+- **Architecture & Security:**
+  - Role-based Access Control (RBAC) separating `applicant` and `recruiter`.
+  - Secure JWT authentication with strict Zod payload validation on both Client and Server.
+  - Disk-based file uploads using Multer (No heavy Base64 strings in the DB).
+  - Centralized Error Handling in Express.
 
-### **Frontend**
-- React JS
-- React Router
-- React Query
-- React Hook Form + Zod
-- Axios
-- react-pdf-viewer
-- TailwindCSS / Custom CSS
+## 🛠 Tech Stack
 
-### **Backend**
-- Node.js
+**Frontend:**
+- React 18 (Vite)
+- React Router v6
+- TanStack React Query (Server State)
+- Tailwind CSS & Framer Motion (Styling & Animations)
+- React Hook Form + Zod (Form Validation)
+- Axios (API Layer)
+- React-PDF (Resume Preview)
+
+**Backend:**
+- Node.js (ES Modules)
 - Express.js
-- Multer (optional)
-- JSON Web Token (optional)
-- CORS
-- Nodemon
+- MongoDB & Mongoose
+- Multer (File Uploads)
+- JWT (JSON Web Tokens)
+- Bcryptjs (Password Hashing)
+- Helmet, CORS, Express Rate Limit (Security)
 
-### **Testing**
-- Jest + React Testing Library
-- Supertest for API testing
-
----
-
-##  Folder Structure
+## 📂 Folder Structure
 
 ```
-recruiter/
-│
+.
 ├── backend/
-│ ├── controllers/
-│ ├── routes/
-│ ├── middlewares/
-│ ├── uploads/
-│ ├── server.js
-│ └── package.json
+│   ├── src/
+│   │   ├── config/          # DB config
+│   │   ├── controllers/     # Route handlers
+│   │   ├── middlewares/     # Auth, Errors, Multer, Validation
+│   │   ├── models/          # Mongoose Schemas
+│   │   ├── routes/          # Express Routers
+│   │   ├── services/        # Business Logic & DB queries
+│   │   ├── utils/           # AppError, Helpers
+│   │   └── validators/      # Zod Schemas for backend
+│   └── uploads/             # Statically served PDF resumes
 │
 └── frontend/
-├── src/
-│ ├── components/
-│ ├── pages/
-│ ├── hooks/
-│ ├── api/
-│ ├── context/
-│ ├── utils/
-│ └── App.jsx
-└── package.json
+    ├── src/
+    │   ├── api/             # Axios instance & interceptors
+    │   ├── components/      # Reusable UI components (Tailwind base)
+    │   ├── context/         # React Context (Auth)
+    │   ├── features/        # Feature-based slices (Auth, Jobs, Applications)
+    │   ├── hooks/           # Custom React Query Hooks
+    │   ├── pages/           # Route-level components
+    │   └── utils/           # Tailwind class merger (cn)
 ```
+
+## 💻 Setup & Installation
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/yourusername/talentify.git
+   cd talentify
+   ```
+
+2. **Backend Setup:**
+   ```bash
+   cd backend
+   npm install
+   cp .env.example .env
+   # Ensure MongoDB is running and update MONGO_URI in .env
+   npm run dev
+   ```
+
+3. **Frontend Setup:**
+   ```bash
+   cd frontend
+   npm install
+   # Default Vite dev server runs on port 5173
+   npm run dev
+   ```
+
+## 📖 API Documentation
+
+| Method | Endpoint | Description | Access |
+|--------|----------|-------------|--------|
+| POST | `/api/v1/auth/register` | Register a new user | Public |
+| POST | `/api/v1/auth/login` | Login user | Public |
+| GET | `/api/v1/jobs` | Get all jobs (with filters) | Public |
+| GET | `/api/v1/jobs/:id` | Get job by ID | Public |
+| POST | `/api/v1/jobs` | Create a new job | Recruiter |
+| POST | `/api/v1/jobs/:jobId/applications/check-ats` | Check ATS match score | Applicant |
+| POST | `/api/v1/jobs/:jobId/applications` | Apply for a job | Applicant |
+| GET | `/api/v1/applications/me` | Get my applications | Applicant |
+| GET | `/api/v1/jobs/:jobId/applications` | Get applicants for a job | Recruiter |
+| PATCH| `/api/v1/applications/:id/status`| Update app status | Recruiter |
+| GET | `/api/v1/applications/stats` | Recruiter Dashboard stats | Recruiter |
+
+## 🧪 Running Tests
+
+Both frontend and backend are set up with Jest testing environments.
+
+- **Backend:** `cd backend && npm test`
+- **Frontend:** `cd frontend && npm test`
 
 ---
-
-##  System Flow (High-Level)
-
-1. User submits job/application form
-2. Form validated using **React Hook Form + Zod**
-3. React Query sends API request
-4. Express backend validates & processes data
-5. PDF resumes converted to Base64 and stored
-6. Response returned → UI updates automatically
-
----
-
-## 🛠️ Installation & Setup
-
-### **1️ Clone the Repository**
-```bash
-git clone https://github.com/prakashramav/recruiter.git
-cd recruiter
-```
-
-### Backend Setup
-```
-cd backend
-npm install
-npm start
-```
-### Frontend Setup
-```
-cd frontend
-npm install
-npm run dev
-```
-### API Endpoints (Sample)
-###  Jobs API
-
-| Method | Endpoint     | Description                              |
-|--------|--------------|------------------------------------------|
-| GET    | /jobs        | Get all jobs (with filters + pagination) |
-| POST   | /jobs        | Create job                               |
-| PUT    | /jobs/:id    | Update job                               |
-| DELETE | /jobs/:id    | Delete job                               |
-
-###  Applications API
-
-| Method | Endpoint             | Description                          |
-|--------|-----------------------|--------------------------------------|
-| POST   | /applications        | Submit application + resume          |
-| GET    | /applications        | List applications                    |
-| PUT    | /applications/:id    | Update application                   |
-| DELETE | /applications/:id    | Delete application                   |
-
-
-
-### Challenges & Solutions
-### Resume Upload & Preview
-
-PDFs converted to Base64 using FileReader
-
-Stored on backend for previewing
-
-Rendered using react-pdf-viewer
-
-### Pagination + Filters
-
-Custom backend pagination logic
-
-React Query for server-state caching
-
-
-##  Project Timeline
-
-| Week   | Deliverables                                      |
-|--------|---------------------------------------------------|
-| Week 1 | Setup, API design, Job list + pagination          |
-| Week 2 | Job & Application CRUD (Frontend + Backend)       |
-| Week 3 | Filters, Resume Upload & Preview                  |
-| Week 4 | Testing, UI cleanup, README, final demo           |
-
-
-### Developer
-Prakash Ramavath (Arjun)
-Full-stack Developer | React • Node.js • Express
-GitHub: https://github.com/prakashramav
-
-### Contribution Guide
-Fork the repository
-Create your feature branch
-Commit your changes
-Open a pull request
-
-### License
-This project is licensed under the MIT License.
-
-
+*Built with clean architecture principles for scale.*

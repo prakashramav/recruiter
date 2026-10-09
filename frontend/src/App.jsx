@@ -1,105 +1,39 @@
-import {Route, Routes, Navigate } from 'react-router-dom';
-import React, {Suspense, lazy} from 'react';
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { RootLayout } from './components/layout/RootLayout';
+import { ProtectedRoute, RoleRoute } from './components/layout/ProtectedRoute';
+import { 
+  Home, Login, Register, Jobs, MyApplications, 
+  Dashboard, RecruiterJobs, ManageJob, JobDetails
+} from './pages';
 
-// import LoginRoleSelection from './components/LoginRoleSelection';
-const LoginRoleSelection = lazy(() => import('./components/LoginRoleSelection'));
-
-const AdminLoginPage = lazy(() => import ('./components/Admin/AdminLoginPage'));
-const AdminSignupPage = lazy(() => import ('./components/Admin/AdminSignupPage'));
-
-const ApplicantLoginPage = lazy(() => import ('./components/Applicant/ApplicantLoginPage'));
-const ApplicantSignupPage = lazy(() => import ('./components/Applicant/ApplicantSignupPage'));
-
-const RecruiterLoginPage = lazy(() => import('./components/Recruiter/RecruiterLoginPage'));
-const RecruiterSignupPage = lazy(() => import('./components/Recruiter/RecruiterSignupPage'));
-
-const AdminHomePage = lazy(() => import ('./components/Admin/AdminHomePage'));
-const ApplicantHomePage = lazy(() => import ('./components/Applicant/ApplicantHomePage'));
-const RecruiterHomePage = lazy(() => import ('./components/Recruiter/RecruiterHomePage'));
-const NotFound = lazy(() => import ('./components/NotFound/Index'));
-
-const AdminProtectedRoute = lazy(() => import ('./components/Admin/AdminProtectedRoute'));
-const ApplicantProtectedRoute = lazy(() => import ('./components/Applicant/ApplicantProtectedRoute'));
-const RecruiterProtectedRoute = lazy(() => import ('./components/Recruiter/RecruiterProtectedRoute'));
-
-const AdminProfilePage = lazy(() => import ('./components/Admin/AdminProfilePage'));
-const ApplicantProfilePage = lazy(() => import ('./components/Applicant/ApplicantProfilePage'));
-const RecruiterProfilePage = lazy(() => import ('./components/Recruiter/RecruiterProfilePage'));
-
-
-const RecruiterCreateJobPage = lazy(() => import('./components/Recruiter/RecruiterCreateJobPage'));
-
-
-const RecruiterJobId = lazy(() => import('./components/Recruiter/RecruiterJobId'));
-
-const RecruiterUpdateJob = lazy(() => import('./components/Recruiter/RecruiterUpdateJob'));
-const RecruiterInterviewSchedule = lazy(() => import('./components/Recruiter/RecruiterInterviewSchedule'))
-const RecruiterUpdateProfile = lazy(() => import('./components/Recruiter/RecruiterUpdateProfile'))
-
-
-{/* Applicant Pages*/}
-
-const ApplicantAppliedJobs = lazy(() => import('./components/Applicant/ApplicantAppliedJobs'));
-const ApplicantInterviewPage = lazy(() => import('./components/Applicant/ApplicantInterviewPage'));
-const ApplicantCompleteProfile = lazy(() => import('./components/Applicant/ApplicantCompleteProfile'));
-const ApplicantUpdateProfile = lazy(() => import('./components/Applicant/ApplicantUpdateProfile'));
-const ApplicantJobDetails = lazy(() => import('./components/Applicant/ApplicantJobDetails'));
-{/* Applicant Pages*/}
-
-
-// const ApplicantInterview = lazy(() => import('./components/Applicant/ApplicantInterview'));
-import { ThreeDots } from 'react-loader-spinner';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js'; 
-
-import './App.css'
-
-const App = () => {
+function App() {
   return (
-    <>
-      <Suspense fallback={<div className='lazy-loading-page'><ThreeDots color='blue'/></div>}>
-        <Routes>
-          <Route path="/" element={<LoginRoleSelection />} />
+    <BrowserRouter>
+      <Routes>
+        <Route element={<RootLayout />}>
+          {/* Public Routes */}
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/jobs" element={<Jobs />} />
+          <Route path="/jobs/:id" element={<JobDetails />} />
 
+          {/* Applicant Protected Routes */}
+          <Route element={<RoleRoute allowedRoles={['applicant']} />}>
+            <Route path="/my-applications" element={<MyApplications />} />
+          </Route>
 
-          {/*Recruiter Routes*/}
-            <Route path='/recruiter/login' element={<RecruiterLoginPage/>} />
-            <Route path='/recruiter/signup' element={<RecruiterSignupPage/>} />
-            <Route path="/recruiter" element={<RecruiterProtectedRoute><RecruiterHomePage/> </RecruiterProtectedRoute> } />
-            <Route path="/recruiter/profile" element={ <RecruiterProtectedRoute> <RecruiterProfilePage/> </RecruiterProtectedRoute>} />
-            <Route path='/recruiter/create-jobs' element={ <RecruiterProtectedRoute> <RecruiterCreateJobPage/> </RecruiterProtectedRoute>} />
-            <Route path='/recruiter/jobs/:jobId' element={ <RecruiterProtectedRoute> <RecruiterJobId/> </RecruiterProtectedRoute>} />
-            <Route path='/recruiter/updateJob/:jobId' element={ <RecruiterProtectedRoute> <RecruiterUpdateJob/> </RecruiterProtectedRoute>} />
-            <Route path='/recruiter/interview' element={<RecruiterProtectedRoute><RecruiterInterviewSchedule /></RecruiterProtectedRoute>} />
-            <Route path='/recruiter/update-profile' element={<RecruiterProtectedRoute><RecruiterUpdateProfile/></RecruiterProtectedRoute>} />
-
-          {/*Applicant Routes*/}
-            
-            <Route path='/applicant/login' element={<ApplicantLoginPage/>} />
-            <Route path='/applicant/signup' element={<ApplicantSignupPage/>} />
-            <Route path="/applicant" element={ <ApplicantProtectedRoute> <ApplicantHomePage/> </ApplicantProtectedRoute>} />
-            <Route path="/applicant/profile" element={ <ApplicantProtectedRoute> <ApplicantProfilePage/> </ApplicantProtectedRoute>} />
-            <Route path='/applicant/applied-jobs' element={ <ApplicantProtectedRoute> <ApplicantAppliedJobs/> </ApplicantProtectedRoute>} />
-            <Route path='/applicant/interview' element={ <ApplicantProtectedRoute> <ApplicantInterviewPage/> </ApplicantProtectedRoute>} />
-            <Route path='/applicant/complete-profile' element={ <ApplicantProtectedRoute> <ApplicantCompleteProfile/> </ApplicantProtectedRoute>} />
-            <Route path='/applicant/update-profile' element={ <ApplicantProtectedRoute> <ApplicantUpdateProfile/> </ApplicantProtectedRoute>} />
-            <Route path='/applicant/jobs/:jobId' element={ <ApplicantProtectedRoute> <ApplicantJobDetails/> </ApplicantProtectedRoute>} />
-
-          {/*Admin Routes*/}
-            <Route path='/admin/login' element={<AdminLoginPage/>} />
-            <Route path='/admin/signup' element={<AdminSignupPage/>} />
-            <Route path="/admin" element={ <AdminProtectedRoute> <AdminHomePage/> </AdminProtectedRoute>} />
-            <Route path="/admin/profile" element={ <AdminProtectedRoute> <AdminProfilePage/> </AdminProtectedRoute>} />
-
-            <Route path="/notfound" element={<NotFound /> } />
-
-            <Route path="*" element={<Navigate to="/notfound" replace />} />
-
-        </Routes>
-      </Suspense>
-    </>
-  )
+          {/* Recruiter Protected Routes */}
+          <Route element={<RoleRoute allowedRoles={['recruiter']} />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/recruiter/jobs" element={<RecruiterJobs />} />
+            <Route path="/recruiter/jobs/:id" element={<ManageJob />} />
+          </Route>
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;
-
