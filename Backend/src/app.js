@@ -21,7 +21,11 @@ app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:5173',
+  origin: [
+    process.env.CLIENT_URL,
+    'https://recruiter-ashen.vercel.app',
+    'http://localhost:5173'
+  ].filter(Boolean),
   credentials: true,
 }));
 
